@@ -1,7 +1,12 @@
 package app.local.user;
 
 
+import app.local.error.ErrorResponse;
+import app.local.exception.NotFoundException;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -21,59 +26,53 @@ public class UserRestController {
             @PageableDefault(value = 20) Pageable pageable
     ) {
         Page<User> users = userService.findAll(pageable);
-        if (users.getTotalElements() > 0) {
-            return ResponseEntity.ok(users);
-        }
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(users);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<User>> getUser(
             @PathVariable Long id
-    ) {
+    ) throws NotFoundException {
         Optional<User> user = userService.findById(id);
-        if (user.isPresent()) {
-            return ResponseEntity.ok(user);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(user);
     }
 
-//    TODO:
-//    @GetMapping{"/{id}/playlists"}
-//    public ResponseEntity<Page<PlayList>> getUserPlaylist(@PathVariable Long id) {
-//        return null;
-//    }
-
-    //    TODO:
-//    @GetMapping{"/{id}/liked-songs"}
-//    public ResponseEntity<Page<Song>> getUserLikedSongs(@PathVariable Long id) {
-//        return null;
-//    }
-
-
-    //    TODO:
-//    @GetMapping{"/{id}/liked-playlists"}
-//    public ResponseEntity<Page<Playlist>> getUserLikedPlaylists(@PathVariable Long id) {
-//        return null;
-//    }
-//
     @PostMapping
     public ResponseEntity<?> createUser(
-            @RequestBody UserRequest request
-    ) {
+            @RequestBody @Valid UserRequest request
+    ) throws DataIntegrityViolationException {
         userService.save(request);
-        return null;
+        return ResponseEntity.accepted().build();
     }
 
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody @Valid UserRequest request) throws NotFoundException {
+        Optional<User> user = userService.findById(id);
+        userService.save(id, request);
+        return ResponseEntity.ok(user);
+    }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<User> updateUser (@PathVariable Long id, @RequestBody User user) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable Long id) throws NotFoundException {
+        userService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+//    @GetMapping{"/{id}/playlists"}
+//    public ResponseEntity<Page<PlayList>> getUserPlaylist(@PathVariable Long id) {
+//        // TODO:
 //        return null;
 //    }
-//
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<User> deleteUser(@PathVariable Long id) {
+
+//    @GetMapping{"/{id}/liked-songs"}
+//    public ResponseEntity<Page<Song>> getUserLikedSongs(@PathVariable Long id) {
+//        // TODO:
+//        return null;
+//    }
+
+//    @GetMapping{"/{id}/liked-playlists"}
+//    public ResponseEntity<Page<Playlist>> getUserLikedPlaylists(@PathVariable Long id) {
+//        // TODO:
 //        return null;
 //    }
 }
