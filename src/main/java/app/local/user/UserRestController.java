@@ -17,21 +17,24 @@ public class UserRestController {
     private final UserService userService;
 
     @GetMapping
-    public ResponseEntity<Page<User>> getUsers( @PageableDefault(value = 20) Pageable pageable) {
+    public ResponseEntity<Page<User>> getUsers(
+            @PageableDefault(value = 20) Pageable pageable
+    ) {
         Page<User> users = userService.findAll(pageable);
         if (users.getTotalElements() > 0) {
             return ResponseEntity.ok(users);
-        } else {
-            return ResponseEntity.noContent().build();
         }
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<User>> getUser(@PathVariable Long id) {
+    public ResponseEntity<Optional<User>> getUser(
+            @PathVariable Long id
+    ) {
         Optional<User> user = userService.findById(id);
         if (user.isPresent()) {
             return ResponseEntity.ok(user);
-        } else  {
+        } else {
             return ResponseEntity.notFound().build();
         }
     }
@@ -55,12 +58,15 @@ public class UserRestController {
 //        return null;
 //    }
 //
-//    @PostMapping
-//    public ResponseEntity<User> createUser(@RequestBody User user) {
-//        //TODO:
-//        return null;
-//    }
-//
+    @PostMapping
+    public ResponseEntity<?> createUser(
+            @RequestBody UserRequest request
+    ) {
+        userService.save(request);
+        return null;
+    }
+
+
 //    @PutMapping("/{id}")
 //    public ResponseEntity<User> updateUser (@PathVariable Long id, @RequestBody User user) {
 //        return null;

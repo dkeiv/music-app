@@ -19,4 +19,17 @@ public class UserService {
     public Optional<User> findById(Long id) {
         return userRepository.findById(id);
     }
+
+    public void save(UserRequest request) {
+        var user = User.builder()
+                .id(request.getId())
+                .name(request.getName())
+                .email(request.getEmail())
+                .password(request.getPassword())
+                .profilePicture(request.getProfilePicture())
+                .bio(request.getBio())
+                .role(request.getRole())
+                .build();
+        userRepository.save(user);
+    }
 }
