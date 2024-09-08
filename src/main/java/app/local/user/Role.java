@@ -1,0 +1,5 @@
+package app.local.user;
+
+public enum Role {
+    ROLE_USER, ROLE_ADMIN;
+}
