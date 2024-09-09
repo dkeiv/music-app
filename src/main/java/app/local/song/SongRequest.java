@@ -1,9 +1,8 @@
 package app.local.song;
 
-import jakarta.persistence.Column;
 import org.springframework.web.multipart.MultipartFile;
 
-public class SongForm {
+public class SongRequest {
     private Long id;
 
     private String title;
@@ -12,10 +11,10 @@ public class SongForm {
 
     private MultipartFile mediaUrl;
 
-    public SongForm() {
+    public SongRequest() {
     }
 
-    public SongForm(Long id, String title, String description, MultipartFile mediaUrl) {
+    public SongRequest(Long id, String title, String description, MultipartFile mediaUrl) {
         this.id = id;
         this.title = title;
         this.description = description;
