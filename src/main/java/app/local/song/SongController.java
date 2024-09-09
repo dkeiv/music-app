@@ -21,9 +21,13 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class SongController {
 
-    private final SongService service;
+    @GetMapping
+    public String list() {
+        return "song/list";
+    }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}/view")
+
     public String viewSong() {
         return "song/detail";
     }
@@ -31,26 +35,32 @@ public class SongController {
 
     @GetMapping("/create")
     public String createForm() {
-        return "song/create";
+       return "song/create";
     }
 
     @PostMapping("/create")
     public String save() {
-        return "song/create";
+        return "";
     }
 
-    @GetMapping("/{id}/update")
-    public String updateForm() {
+    @GetMapping("/{id}/edit")
+    public String editForm() {
         return "song/update";
     }
 
-    @PostMapping("/{id}/update")
+    @PostMapping("/edit")
     public String update() {
-       return "song/update";
+        return "";
+    }
+
+    @GetMapping("/{id}/delete")
+    public String deleteForm() {
+        return "song/delete";
+
     }
 
     @PostMapping("/delete")
     public String delete() {
-        return "/";
+       return "/";
     }
 }
