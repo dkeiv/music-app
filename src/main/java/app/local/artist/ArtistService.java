@@ -1,9 +1,10 @@
 package app.local.artist;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,15 +23,15 @@ public class ArtistService {
         artistRepository.save(artist);
     }
 
-    public List<Artist> findAll() {
-        return artistRepository.findAll();
+    public Page<Artist> findAll(Pageable pageable) {
+        return artistRepository.findAll(pageable);
     }
 
-    public Optional<Artist> findById(Integer id) {
+    public Optional<Artist> findById(Long id) {
         return artistRepository.findById(id);
     }
 
-    public boolean update(Integer id, ArtistRequest request) {
+    public boolean update(Long id, ArtistRequest request) {
         return artistRepository.findById(id)
                 .map(artist -> {
                     artist.setName(request.getName());
@@ -42,7 +43,7 @@ public class ArtistService {
                 }).orElse(false);
     }
 
-    public boolean delete(Integer id) {
+    public boolean delete(Long id) {
         if (artistRepository.existsById(id)) {
             artistRepository.deleteById(id);
             return true;
@@ -51,7 +52,7 @@ public class ArtistService {
         }
     }
 
-    public boolean existsById(Integer id) {
+    public boolean existsById(Long id) {
         return artistRepository.existsById(id);
     }
 

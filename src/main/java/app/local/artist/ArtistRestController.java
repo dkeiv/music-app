@@ -1,10 +1,11 @@
 package app.local.artist;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/artists")
@@ -19,19 +20,19 @@ public class ArtistRestController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Artist>> findAllArtists() {
-        return ResponseEntity.ok(artistService.findAll());
+    public ResponseEntity<Page<Artist>> findAllArtists(Pageable pageable) {
+        return ResponseEntity.ok(artistService.findAll(pageable));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Artist> findArtistById(@PathVariable Integer id) {
+    public ResponseEntity<Artist> findArtistById(@PathVariable Long id) {
         return artistService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateArtist(@PathVariable Integer id, @RequestBody ArtistRequest request) {
+    public ResponseEntity<?> updateArtist(@PathVariable Long id, @RequestBody ArtistRequest request) {
         if (artistService.update(id, request)) {
             return ResponseEntity.ok().build();
         } else {
@@ -40,7 +41,7 @@ public class ArtistRestController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteArtist(@PathVariable Integer id) {
+    public ResponseEntity<?> deleteArtist(@PathVariable Long id) {
         if (artistService.delete(id)) {
             return ResponseEntity.noContent().build();
         } else {
@@ -48,8 +49,8 @@ public class ArtistRestController {
         }
     }
 
-    @GetMapping("/exists/{id}")
-    public ResponseEntity<Boolean> checkArtistExists(@RequestParam Integer id) {
+    @GetMapping("{id}/exists/")
+    public ResponseEntity<Boolean> checkArtistExists(@RequestParam Long id) {
         return ResponseEntity.ok(artistService.existsById(id));
     }
 

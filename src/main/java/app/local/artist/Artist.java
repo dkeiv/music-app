@@ -18,7 +18,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class Artist {
     @Id
     @GeneratedValue
-    private Integer id;
+    private Long id;
     private String name;
     private String image;
     private String artistProfile;

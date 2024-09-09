@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @Builder
 public class ArtistRequest {
-    private Integer id;
+    private Long id;
     private String name;
     private String image;
     private String artistProfile;
