@@ -22,78 +22,44 @@ import java.util.Optional;
 
 public class SongController {
 
-    private final SongService service;
-
     @RequestMapping
-    public ModelAndView list() {
-        Iterable<Song> songs = service.findAll();
-        return new ModelAndView("song/list", "songs", songs);
+    public String list() {
+        return "song/list";
     }
 
     @GetMapping("/{id}/view")
-    public String viewSong(@PathVariable Long id, Model model) {
-        Optional<Song> song = service.findById(id);
-        model.addAttribute("song", song);
+    public String viewSong() {
         return "song/detail";
     }
 
 
     @GetMapping("/create")
-    public ModelAndView createForm() {
-        ModelAndView model = new ModelAndView("song/create");
-        model.addObject("song", new SongForm());
-        return model;
+    public String createForm() {
+       return "song/create";
     }
 
-//    @PostMapping("/create")
-//    public ModelAndView save(@ModelAttribute("song") SongForm songForm) {
-//        try {
-//            Song song = service.saveSong(songForm);
-//            ModelAndView modelAndView = new ModelAndView("redirect:/songs");
-//            modelAndView.addObject("song", song);
-//            modelAndView.addObject("message", "Song created successfully!");
-//            return modelAndView;
-//        } catch (RuntimeException e) {
-//            ModelAndView modelAndView = new ModelAndView("redirect:/error");
-//            modelAndView.addObject("message", e.getMessage());
-//            return modelAndView;
-//        }
-//    }
-//
-//    @GetMapping("/{id}/edit")
-//    public ModelAndView editForm(@PathVariable Long id) {
-//        Optional<Song> song = service.findById(id);
-//        ModelAndView modelAndView = new ModelAndView("song/edit");
-//        modelAndView.addObject("song", song.get());
-//        return modelAndView;
-//    }
-//
-//    @PostMapping("/{id}/edit")
-//    public ModelAndView update(@ModelAttribute("song") SongForm songForm) {
-//        try {
-//            Song updatedSong = service.updateSong(songForm);
-//            ModelAndView modelAndView = new ModelAndView("redirect:/songs");
-//            modelAndView.addObject("message", "Song updated successfully!");
-//            return modelAndView;
-//        } catch (RuntimeException e) {
-//            ModelAndView modelAndView = new ModelAndView("redirect:/error");
-//            modelAndView.addObject("message", e.getMessage());
-//            return modelAndView;
-//        }
-//    }
+    @PostMapping("/create")
+    public String save() {
+        return "";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String editForm() {
+        return "song/update";
+    }
+
+    @PostMapping("/edit")
+    public String update() {
+        return "";
+    }
 
     @GetMapping("/{id}/delete")
-    public ModelAndView delete(@PathVariable Long id) {
-        Optional<Song> song = service.findById(id);
-        ModelAndView modelAndView = new ModelAndView("song/delete");
-        modelAndView.addObject("song", song);
-        return modelAndView;
+    public String deleteForm() {
+        return "song/delete";
     }
 
     @PostMapping("/delete")
-    public ModelAndView delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        service.remove(id);
-        redirectAttributes.addFlashAttribute("message", "Song deleted successfully!");
-        return new ModelAndView("redirect:/songs");
+    public String delete() {
+       return "/";
     }
 }
