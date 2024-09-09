@@ -1,13 +1,13 @@
 package app.local.playlist;
 
+
+import lombok.Builder;
+import lombok.Data;
+
+@Data
+@Builder
 public class PlayListRequest {
+    private Long id;
     private String name;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    private int views;
 }

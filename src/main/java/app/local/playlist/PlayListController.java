@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,27 +14,42 @@ public class PlayListController {
     private PlayListService playListService;
 
     @PostMapping
-    PlayList createPlayList(@RequestBody PlayListRequest request) {
-        return playListService.createPlayList(request);
+    ResponseEntity<PlayList> createPlayList(@RequestBody PlayListRequest request) {
+        playListService.save(request);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping
-    Page<PlayList> getAllPlayLists(@PageableDefault(value = 5) Pageable pageable) {
-        return playListService.getPlayLists(pageable);
+    ResponseEntity<Page<PlayList>> getPlayLists(@PageableDefault(value = 10) Pageable pageable) {
+        Page<PlayList> playLists = playListService.findAll(pageable);
+        return ResponseEntity.ok(playLists);
     }
 
     @GetMapping("/{playlistId}")
-    PlayList getPlayList(@PathVariable("playlistId") long playlistId) {
-        return playListService.getPlayList(playlistId);
+    ResponseEntity<PlayList> getPlayListById(@PathVariable("playlistId") long playlistId) {
+        return ResponseEntity.ok().body(playListService.getPlayList(playlistId));
     }
 
     @PutMapping("/{playlistId}")
-    PlayList updatePlayList(@PathVariable("playlistId") long playlistId, @RequestBody PlayListRequest request) {
-        return playListService.updatePlayList(playlistId, request);
+    ResponseEntity<PlayList> updatePlayList(@PathVariable("playlistId") long playlistId,@RequestBody PlayListRequest request) {
+        playListService.updatePlayList(playlistId, request);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{playlistId}")
-    void deletePlayList(@PathVariable("playlistId") long playlistId) {
+    ResponseEntity<?> deletePlayList(@PathVariable("playlistId") long playlistId) {
         playListService.deletePlayList(playlistId);
+        return ResponseEntity.ok().build();
+    }
+
+
+    @PostMapping("/{playlistId}")
+    ResponseEntity<PlayList> viewPlayList(@PathVariable("playlistId") Long playlistId) {
+        PlayList playList = playListService.increaseViews(playlistId);
+        if (playList != null) {
+            return ResponseEntity.ok(playList);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
