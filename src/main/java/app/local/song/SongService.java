@@ -23,6 +23,9 @@ public class SongService {
     @Value("${file-upload}")
     private String fileUpload;
 
+    @Value("${file-upload-img}")
+    private String fileUploadImg;
+
     public Page<Song> findAll(Pageable pageable) {
         return songRepository.findAll(pageable);
     }
@@ -52,12 +55,12 @@ public class SongService {
         }
 
         Song song = songOptional.get();
-        MultipartFile multipartFile = songRequest.getMediaUrl();
-        String path = multipartFile.getOriginalFilename();
+        MultipartFile imageFile = songRequest.getAvatarUrl();
+        String imagePath = imageFile.getOriginalFilename();
 
-        if (!path.isEmpty()) {
-            FileCopyUtils.copy(multipartFile.getBytes(), new File(fileUpload + path));
-            song.setMediaUrl(path);
+        if (!imagePath.isEmpty()) {
+            FileCopyUtils.copy(imageFile.getBytes(), new File(fileUploadImg + imagePath));
+            song.setAvatarUrl(imagePath);
         }
 
         song.setTitle(songRequest.getTitle());
@@ -74,6 +77,14 @@ public class SongService {
         if (!path.isEmpty()) {
             FileCopyUtils.copy(multipartFile.getBytes(), new File(fileUpload + path));
             song.setMediaUrl(path);
+        }
+
+        MultipartFile imageFile = songRequest.getAvatarUrl();
+        String imagePath = imageFile.getOriginalFilename();
+
+        if (!imagePath.isEmpty()) {
+            FileCopyUtils.copy(imageFile.getBytes(), new File(fileUploadImg + imagePath));
+            song.setAvatarUrl(imagePath);
         }
 
         song.setTitle(songRequest.getTitle());
