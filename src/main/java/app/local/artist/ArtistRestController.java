@@ -5,17 +5,22 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/v1/artists")
+@CrossOrigin("*")
 @RequiredArgsConstructor
 public class ArtistRestController {
     private final ArtistService artistService;
 
     @PostMapping
-    public ResponseEntity<?> save(@RequestBody ArtistRequest request) {
-        artistService.save(request);
+    public ResponseEntity<?> save(@RequestParam("name") String name,
+                                  @RequestParam("artistProfile") String artistProfile,
+                                  @RequestParam("biography") String biography,
+                                  @RequestParam("image") MultipartFile file) {
+        ArtistRequest artistRequest = new ArtistRequest(name, artistProfile, biography);
+        artistService.save(artistRequest, file);
         return ResponseEntity.accepted().build();
     }
 
@@ -32,8 +37,13 @@ public class ArtistRestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateArtist(@PathVariable Long id, @RequestBody ArtistRequest request) {
-        if (artistService.update(id, request)) {
+    public ResponseEntity<?> updateArtist(@PathVariable Long id,
+                                          @RequestParam("name") String name,
+                                          @RequestParam("artistProfile") String artistProfile,
+                                          @RequestParam("biography") String biography,
+                                          @RequestParam(value = "image", required = false) MultipartFile file) {
+        ArtistRequest artistRequest = new ArtistRequest(name, artistProfile, biography);
+        if (artistService.update(id, artistRequest, file)) {
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.notFound().build();
@@ -49,15 +59,16 @@ public class ArtistRestController {
         }
     }
 
-    @GetMapping("{id}/exists/")
-    public ResponseEntity<Boolean> checkArtistExists(@RequestParam Long id) {
+    @GetMapping("/{id}/exists")
+    public ResponseEntity<Boolean> checkArtistExists(@PathVariable Long id) {
         return ResponseEntity.ok(artistService.existsById(id));
     }
 
-//    @GetMapping("/{id}/songs")
-//    public ResponseEntity<List<Song>> findSongsByArtistId(@PathVariable Long id) {
-//        return artistService.findSongsByArtistId(id)
-//                .map(ResponseEntity::ok)
-//                .orElseGet(() -> ResponseEntity.notFound().build());
-//    }
+    // Uncomment and implement this if needed
+    // @GetMapping("/{id}/songs")
+    // public ResponseEntity<List<Song>> findSongsByArtistId(@PathVariable Long id) {
+    //     return artistService.findSongsByArtistId(id)
+    //             .map(ResponseEntity::ok)
+    //             .orElseGet(() -> ResponseEntity.notFound().build());
+    // }
 }
