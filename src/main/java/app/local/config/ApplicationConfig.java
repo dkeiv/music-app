@@ -45,10 +45,16 @@ public class ApplicationConfig implements WebMvcConfigurer, ApplicationContextAw
     @Value("${file-upload}")
     private String upload;
 
+    @Value("${file-upload-img}")
+    private String uploadImg;
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/mp3/**")
                 .addResourceLocations("file:" + upload);
+
+        registry.addResourceHandler("/images/**")
+                .addResourceLocations("file:" + uploadImg + "/images/");
     }
 
     @Override
