@@ -19,15 +19,15 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/songs")
 @RequiredArgsConstructor
-
 public class SongController {
 
-    @RequestMapping
+    @GetMapping
     public String list() {
         return "song/list";
     }
 
     @GetMapping("/{id}/view")
+
     public String viewSong() {
         return "song/detail";
     }
@@ -56,6 +56,7 @@ public class SongController {
     @GetMapping("/{id}/delete")
     public String deleteForm() {
         return "song/delete";
+
     }
 
     @PostMapping("/delete")
