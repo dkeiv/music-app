@@ -45,20 +45,17 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany
+    @ManyToMany
     private List<Song> likedSongs = new ArrayList<>();
+
+    @ManyToMany
+    private List<PlayList> likedPlaylists = new ArrayList<>();
 
     @OneToMany
     private List<Song> createdSongs = new ArrayList<>();
 
     @OneToMany
-    private List<PlayList> playlists = new ArrayList<>();
-
-    @OneToMany
-    private List<PlayList> likedPlaylists = new ArrayList<>();
-
-
-
+    private List<PlayList> createdPlaylists = new ArrayList<>();
 
 //    @ManyToMany(fetch = FetchType.EAGER)
 //    private Set<Role> roles;
