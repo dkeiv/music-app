@@ -1,6 +1,8 @@
 package app.local.user;
 
 import app.local.songcomment.SongComment;
+import app.local.playlist.PlayList;
+import app.local.song.Song;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -44,6 +46,17 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @ManyToMany
+    private List<Song> likedSongs = new ArrayList<>();
+
+    @ManyToMany
+    private List<PlayList> likedPlaylists = new ArrayList<>();
+
+    @OneToMany
+    private List<Song> createdSongs = new ArrayList<>();
+
+    @OneToMany
+    private List<PlayList> createdPlaylists = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SongComment> userComments ;
