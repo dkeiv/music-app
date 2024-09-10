@@ -1,4 +1,4 @@
-//package app.local.config;
+//package admin.local.config;
 //
 //import lombok.AllArgsConstructor;
 //import org.springframework.context.annotation.Bean;
