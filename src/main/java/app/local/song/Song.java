@@ -1,10 +1,14 @@
 package app.local.song;
 
+import app.local.artist.Artist;
+import app.local.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+
+import java.util.List;
 
 
 @Entity
@@ -35,5 +39,11 @@ public class Song {
     @Min(value = 0, message = "Play count must be zero or a positive number")
     @Column(name = "playCount", nullable = true)
     private int playCount = 0;
+
+    @OneToMany
+    private List<Artist> artists;
+
+    @OneToOne
+    private User user;
 
 }
