@@ -15,13 +15,11 @@ public class ArtistController {
 
     @GetMapping
     public String listArtist(Model model) {
-        model.addAttribute("artists", artistService.findAll(Pageable.unpaged()));
         return "artists/list";
     }
 
     @GetMapping("/{id}")
     public String viewArtist(@PathVariable Long id, Model model) {
-        model.addAttribute("artist", artistService.findById(id).orElse(null));
         return "artists/view";
     }
 
@@ -34,13 +32,11 @@ public class ArtistController {
     @PostMapping("/create")
     public String saveArtist(@ModelAttribute ArtistRequest artistRequest,
                              @RequestParam("image") MultipartFile file) {
-        artistService.save(artistRequest, file);
         return "redirect:/artists";
     }
 
     @GetMapping("/{id}/edit")
     public String editArtist(@PathVariable Long id, Model model) {
-        model.addAttribute("artist", artistService.findById(id).orElse(null));
         return "artists/edit";
     }
 
@@ -48,13 +44,11 @@ public class ArtistController {
     public String updateArtist(@PathVariable Long id,
                                @ModelAttribute ArtistRequest artistRequest,
                                @RequestParam(value = "image", required = false) MultipartFile file) {
-        artistService.update(id, artistRequest, file);
         return "redirect:/artists";
     }
 
     @GetMapping("/{id}/delete")
     public String deleteArtist(@PathVariable Long id) {
-        artistService.delete(id);
         return "redirect:/artists";
     }
 }

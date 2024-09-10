@@ -38,7 +38,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableSpringDataWebSupport
 @PropertySource("classpath:upload_file.properties")
 @ComponentScan(basePackages = "app.local")
-@EnableJpaRepositories(basePackages = "app.local.song")
+@EnableJpaRepositories(basePackages = "app.local")
 public class ApplicationConfig implements WebMvcConfigurer, ApplicationContextAware {
     private ApplicationContext applicationContext;
 

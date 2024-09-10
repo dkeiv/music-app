@@ -21,7 +21,7 @@ public class ArtistService {
 
     private final ArtistRepository artistRepository;
 
-    @Value("${file-upload}")
+    @Value("${file-upload-img}")
     private String fileUpload;
 
     @Transactional
