@@ -49,6 +49,8 @@ public class ApplicationConfig implements WebMvcConfigurer, ApplicationContextAw
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/mp3/**")
                 .addResourceLocations("file:" + upload);
+        registry.addResourceHandler("/css/**", "/js/**")
+                .addResourceLocations("classpath:/static/css/", "classpath:/static/js/");
     }
 
 
@@ -57,6 +59,8 @@ public class ApplicationConfig implements WebMvcConfigurer, ApplicationContextAw
         this.applicationContext = applicationContext;
 
     }
+
+
 
 
 //    private final UserService userService;
