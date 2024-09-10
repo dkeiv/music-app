@@ -11,14 +11,17 @@ public class SongRequest {
 
     private MultipartFile mediaUrl;
 
+    private MultipartFile avatarUrl;
+
     public SongRequest() {
     }
 
-    public SongRequest(Long id, String title, String description, MultipartFile mediaUrl) {
+    public SongRequest(Long id, String title, String description, MultipartFile mediaUrl, MultipartFile avatarUrl) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.mediaUrl = mediaUrl;
+        this.avatarUrl = avatarUrl;
     }
 
     public Long getId() {
@@ -27,6 +30,14 @@ public class SongRequest {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public MultipartFile getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(MultipartFile avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 
     public String getTitle() {

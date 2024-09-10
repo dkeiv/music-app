@@ -28,6 +28,10 @@ public class Song {
     @Column(name = "mediaUrl", nullable = false)
     private String mediaUrl;
 
+    @NotBlank(message = "Media URL is required")
+    @Column(name = "avatarUrl", nullable = false)
+    private String avatarUrl;
+
     @Min(value = 0, message = "Play count must be zero or a positive number")
     @Column(name = "playCount", nullable = true)
     private int playCount = 0;
