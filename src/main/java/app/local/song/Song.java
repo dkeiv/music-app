@@ -40,7 +40,7 @@ public class Song {
     @Column(name = "playCount", nullable = true)
     private int playCount = 0;
 
-    @OneToMany
+    @ManyToMany
     private List<Artist> artists;
 
     @OneToOne

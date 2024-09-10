@@ -46,10 +46,10 @@ public class User {
     private Role role;
 
     @ManyToMany
-    private List<Song> likedSongs = new ArrayList<>();
+    private List<Song> likedSongs;
 
     @ManyToMany
-    private List<PlayList> likedPlaylists = new ArrayList<>();
+    private List<PlayList> likedPlaylists;
 
 //    @ManyToMany(fetch = FetchType.EAGER)
 //    private Set<Role> roles;
