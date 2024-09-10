@@ -1,6 +1,6 @@
 package app.local.config;
 
-//import app.local.user.UserService;
+//import admin.local.user.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Value;
@@ -49,6 +49,8 @@ public class ApplicationConfig implements WebMvcConfigurer, ApplicationContextAw
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/mp3/**")
                 .addResourceLocations("file:" + upload);
+        registry.addResourceHandler("/css/**", "/js/**", "/imgs/**", "/fonts/**", "/scss/**", "/audio/**" , "/**")
+                .addResourceLocations("classpath:/static/css/", "classpath:/static/js/");
     }
 
 
