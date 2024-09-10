@@ -38,6 +38,6 @@ public class PlayList {
     )
     private List<Song> songs;
 
-    @OneToMany
-    private List<PlaylistComment> comments;
+//    @OneToMany
+//    private List<PlaylistComment> comments;
 }

@@ -1,5 +1,6 @@
 package app.local.song;
 
+import app.local.genre.Genre;
 import app.local.songcomment.SongComment;
 import app.local.artist.Artist;
 import app.local.user.User;
@@ -48,6 +49,9 @@ public class Song {
     @ManyToMany
     private List<Artist> artists;
 
-    @OneToOne
+    @ManyToOne
     private User user;
+
+    @ManyToMany
+    private List<Genre> genres;
 }
