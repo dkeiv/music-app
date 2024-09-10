@@ -1,11 +1,14 @@
 package app.local.playlist;
 
+import app.local.song.Song;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/playlists")
@@ -51,5 +54,23 @@ public class PlayListController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PostMapping("/{playlistId}/songs/{songId}")
+    public ResponseEntity<PlayList> addSongToPlaylist(@PathVariable Long playlistId, @PathVariable Long songId) {
+        PlayList updatedPlaylist = playListService.addSongToPlaylist(playlistId, songId);
+        return ResponseEntity.ok(updatedPlaylist);
+    }
+
+    @GetMapping("/{playlistId}/songs")
+    public ResponseEntity<List<Song>> getSongsInPlaylist(@PathVariable Long playlistId) {
+        List<Song> songs = playListService.getSongsInPlaylist(playlistId);
+        return ResponseEntity.ok(songs);
+    }
+
+    @DeleteMapping("/{playlistId}/songs/{songId}")
+    public ResponseEntity<PlayList> removeSongFromPlaylist(@PathVariable Long playlistId, @PathVariable Long songId) {
+        PlayList updatedPlaylist = playListService.removeSongFromPlaylist(playlistId, songId);
+        return ResponseEntity.ok(updatedPlaylist);
     }
 }
