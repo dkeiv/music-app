@@ -10,7 +10,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 //import org.springframework.security.core.GrantedAuthority;
 //import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -46,16 +45,16 @@ public class User {
     private Role role;
 
     @ManyToMany
-    private List<Song> likedSongs = new ArrayList<>();
+    private List<Song> likedSongs;
 
     @ManyToMany
-    private List<PlayList> likedPlaylists = new ArrayList<>();
+    private List<PlayList> likedPlaylists;
 
     @OneToMany
-    private List<Song> createdSongs = new ArrayList<>();
+    private List<Song> createdSongs;
 
     @OneToMany
-    private List<PlayList> createdPlaylists = new ArrayList<>();
+    private List<PlayList> createdPlaylists;
 
 //    @ManyToMany(fetch = FetchType.EAGER)
 //    private Set<Role> roles;

@@ -1,9 +1,11 @@
 package app.local.playlist;
 
+import app.local.playlistcomment.PlaylistComment;
 import app.local.song.Song;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
@@ -14,11 +16,15 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Data
 public class PlayList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    @Column(nullable = false, columnDefinition = "int default 0")
+    private int views;
 
     @ManyToMany
     @JoinTable(
@@ -26,40 +32,8 @@ public class PlayList {
             joinColumns = @JoinColumn(name = "playlist_id"),
             inverseJoinColumns = @JoinColumn(name = "song_id")
     )
-    private List<Song> songs = new ArrayList<>();
+    private List<Song> songs;
 
-    @Column(nullable = false, columnDefinition = "int default 0")
-    private int views;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getViews() {
-        return views;
-    }
-
-    public void setViews(int views) {
-        this.views = views;
-    }
-
-    public List<Song> getSongs() {
-        return songs;
-    }
-
-    public void setSongs(List<Song> songs) {
-        this.songs = songs;
-    }
+    @OneToMany
+    private List<PlaylistComment> comments;
 }
