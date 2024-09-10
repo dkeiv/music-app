@@ -50,5 +50,4 @@ public class Song {
 
     @OneToOne
     private User user;
-
 }

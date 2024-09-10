@@ -89,4 +89,8 @@ public class PlayListService {
 
         return playlistRepository.save(playlist);
     }
+
+    public List<PlayList> getPlayListsByUserId(Long userId) {
+        return playlistRepository.findPlayListByUserId(userId);
+    }
 }
