@@ -1,6 +1,8 @@
 package app.local.user;
 
 import app.local.songcomment.SongComment;
+import app.local.playlist.PlayList;
+import app.local.song.Song;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -9,7 +11,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 //import org.springframework.security.core.GrantedAuthority;
 //import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -44,6 +45,17 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @ManyToMany
+    private List<Song> likedSongs;
+
+    @ManyToMany
+    private List<PlayList> likedPlaylists;
+
+    @OneToMany
+    private List<Song> createdSongs;
+
+    @OneToMany
+    private List<PlayList> createdPlaylists;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SongComment> userComments ;

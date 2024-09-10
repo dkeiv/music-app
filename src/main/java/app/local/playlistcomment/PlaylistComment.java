@@ -1,22 +1,26 @@
-package app.local.likeplaylist;
+package app.local.playlistcomment;
 
 import app.local.user.User;
-import app.local.playlist.PlayList;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.bind.annotation.BindParam;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
-public class LikePlaylist {
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class PlaylistComment {
     @Id
     @GeneratedValue
     private Long id;
-    @OneToOne
-    private PlayList playlist;
+
+    @Column(nullable = false, length = 255)
+    private String content;
+
     @OneToOne
     private User user;
 }

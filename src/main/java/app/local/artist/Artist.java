@@ -23,6 +23,4 @@ public class Artist {
     private String image;
     private String artistProfile;
     private String biography;
-
-
 }

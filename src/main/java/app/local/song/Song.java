@@ -1,6 +1,8 @@
 package app.local.song;
 
 import app.local.songcomment.SongComment;
+import app.local.artist.Artist;
+import app.local.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -42,5 +44,11 @@ public class Song {
 
     @OneToMany(mappedBy = "song", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SongComment> songComments;
+
+    @ManyToMany
+    private List<Artist> artists;
+
+    @OneToOne
+    private User user;
 
 }
