@@ -213,7 +213,7 @@
      color: #114c7d;
      font-weight: 400;
      font-size: 28px;
-     background-image: url('../images/fevicon.png');
+     background-image: url('../img/fevicon.png');
      background-repeat: no-repeat;
      padding-left: 55px;
      letter-spacing: -0.5px;
@@ -1135,19 +1135,19 @@
 }
  .heroslider .slider-01 {
      width: 100%;
-     background-image: url(../images/slider-01.jpg);
+     background-image: url(../img/slider-01.jpg);
      background-size: cover;
      background-position: center;
 }
  .heroslider .slider-02 {
      width: 100%;
-     background-image: url(../images/slider-02.jpg);
+     background-image: url(../img/slider-02.jpg);
      background-size: cover;
      background-position: center;
 }
  .heroslider .slider-03 {
      width: 100%;
-     background-image: url(../images/slider-03.jpg);
+     background-image: url(../img/slider-03.jpg);
      background-size: cover;
      background-position: center;
 }
