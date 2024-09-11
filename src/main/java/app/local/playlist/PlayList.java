@@ -2,6 +2,7 @@ package app.local.playlist;
 
 import app.local.playlistcomment.PlaylistComment;
 import app.local.song.Song;
+import app.local.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,6 +27,9 @@ public class PlayList {
     @Column(nullable = false, columnDefinition = "int default 0")
     private int views;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private User user;
+
     @ManyToMany
     @JoinTable(
             name = "playlist_song",
@@ -34,6 +38,6 @@ public class PlayList {
     )
     private List<Song> songs;
 
-    @OneToMany
-    private List<PlaylistComment> comments;
+//    @OneToMany
+//    private List<PlaylistComment> comments;
 }
