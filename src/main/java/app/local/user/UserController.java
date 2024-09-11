@@ -21,17 +21,6 @@ public class UserController {
     private final PlayListService playListService;
     private final SongService songService;
 
-//    @GetMapping("/profile/{id}/")
-//    public String user(@PathVariable Long id, Model model) {
-//        try {
-//            Optional<User> user = userService.findById(id);
-//            model.addAttribute("user", user);
-//            return "user/update";
-//        } catch (NotFoundException e) {
-//            return "/error/404";
-//        }
-//    }
-
     @GetMapping("profile/{id}")
     public String userProfile(@PathVariable Long id, Model model) {
         try {
@@ -50,6 +39,17 @@ public class UserController {
             return"user/profile";
         }
         catch (Exception e) {
+            return "/error/404";
+        }
+    }
+
+    @GetMapping("profile/update/{id}")
+    public String userProfileUpdate(@PathVariable Long id, Model model) {
+        try {
+            Optional<User> user = userService.findById(id);
+            model.addAttribute("user", user);
+            return "user/update";
+        } catch (NotFoundException e) {
             return "/error/404";
         }
     }

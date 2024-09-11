@@ -41,7 +41,97 @@
 </section>
 <!-- ##### Featured Artist Area End ##### -->
 <!-- ##### Miscellaneous Area Start ##### -->
-<section th:insert="fragment :: miscellaneous-area"></section>
+<section th:fragment="miscellaneous-area" class="miscellaneous-area section-padding-100-0">
+    <div class="container">
+        <div class="row">
+            <!-- ***** Weeks Top ***** -->
+            <div class="col-12 col-lg-4">
+                <div class="weeks-top-area mb-100">
+                    <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
+                        <p>Favorite</p>
+                        <h2>Your Playlist</h2>
+                    </div>
+
+                    <th:block th:each="p : ${createdPlayLists}">
+                        <!-- Single Top Item -->
+                        <div class="single-top-item d-flex wow fadeInUp" data-wow-delay="350ms">
+                            <div class="thumbnail">
+                                <!--                          <img th:src="p.images" th:alt="${p.name}">-->
+                                <img th:src="p.images" th:alt="${p.name}">
+                            </div>
+                            <div class="content-">
+                                <h6 th:text="${p.name}"></h6>
+                                <p th:text="'Views: '+${p.views}"></p>
+                            </div>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+
+            <!-- ***** New Hits Songs ***** -->
+            <div class="col-12 col-lg-4">
+                <div class="new-hits-area mb-100">
+                    <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
+                        <p>It's yours</p>
+                        <h2>Songs</h2>
+                    </div>
+
+                   <th:block th:each="s : ${createdSongs}" >
+                       <!-- Single Top Item -->
+                       <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp"
+                            data-wow-delay="350ms">
+                           <div class="first-part d-flex align-items-center">
+                               <div class="thumbnail">
+                                   <img th:src="${s.avatarUrl}" th:alt="${s.title}">
+                               </div>
+                               <div class="content-">
+                                   <h6 th:text="${s.title}"></h6>
+                                   <p th:if="${s.genres.size() > 0}" th:text="${s.genres[0].name}"></p>
+                               </div>
+                           </div>
+                           <audio preload="auto" controls>
+                               <source src="#">
+                           </audio>
+                       </div>
+                   </th:block>
+
+                </div>
+            </div>
+
+            <!-- ***** New Hits Songs ***** -->
+            <div class="col-12 col-lg-4">
+                <div class="new-hits-area mb-100">
+                    <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
+                        <p>Love</p>
+                        <h2>Liked Songs</h2>
+                    </div>
+
+                    <th:block th:each="s : ${likedSongs}" >
+                        <!-- Single Top Item -->
+                        <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp"
+                             data-wow-delay="350ms">
+                            <div class="first-part d-flex align-items-center">
+                                <div class="thumbnail">
+                                    <img th:src="${s.avatarUrl}" th:alt="${s.title}">
+                                </div>
+                                <div class="content-">
+                                    <h6 th:text="${s.title}"></h6>
+                                    <p th:if="${s.genres.size() > 0}" th:text="${s.genres[0].name}"></p>
+                                </div>
+                            </div>
+                            <audio preload="auto" controls>
+                                <source src="#">
+                            </audio>
+                        </div>
+                    </th:block>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
 <!-- ##### Miscellaneous Area End ##### -->
 <!-- ##### Contact Area Start ##### -->
 <section th:insert="fragment :: contact-area"></section>
