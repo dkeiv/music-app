@@ -49,6 +49,7 @@ public class ApplicationConfig implements WebMvcConfigurer, ApplicationContextAw
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/mp3/**")
                 .addResourceLocations("file:" + upload);
+
         registry.addResourceHandler("/css/**", "/js/**", "/imgs/**", "/icon/**", "/audio/**", "/scss/**", "/fonts/**")
                 .addResourceLocations(
                         "classpath:/static/css/",
@@ -58,8 +59,6 @@ public class ApplicationConfig implements WebMvcConfigurer, ApplicationContextAw
                         "classpath:/static/audio/",
                         "classpath:/static/scss/",
                         "classpath:/static/fonts/"
-
-
                 );
     }
 

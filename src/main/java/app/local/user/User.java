@@ -51,12 +51,6 @@ public class User {
     @ManyToMany
     private List<PlayList> likedPlaylists;
 
-    @OneToMany
-    private List<Song> createdSongs;
-
-    @OneToMany
-    private List<PlayList> createdPlaylists;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<SongComment> userComments ;
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<SongComment> userComments ;
 }

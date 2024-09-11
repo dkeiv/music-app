@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -91,5 +92,9 @@ public class SongService {
         song.setDescription(songRequest.getDescription());
 
         return song;
+    }
+
+    public List<Song> getSongByUserId(Long id) {
+        return songRepository.findSongByUserId(id);
     }
 }

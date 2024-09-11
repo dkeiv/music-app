@@ -1,11 +1,13 @@
 package app.local.user;
 
 import app.local.exception.NotFoundException;
+import app.local.playlist.PlayList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -61,4 +63,5 @@ public class UserService {
         }
         userRepository.deleteById(id);
     }
+
 }
