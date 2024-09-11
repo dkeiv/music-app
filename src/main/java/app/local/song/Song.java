@@ -1,7 +1,6 @@
 package app.local.song;
 
 import app.local.genre.Genre;
-import app.local.songcomment.SongComment;
 import app.local.artist.Artist;
 import app.local.user.User;
 import jakarta.persistence.*;
@@ -10,7 +9,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -42,9 +40,6 @@ public class Song {
     @Min(value = 0, message = "Play count must be zero or a positive number")
     @Column(name = "playCount", nullable = true)
     private int playCount;
-
-    @OneToMany(mappedBy = "song", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<SongComment> songComments;
 
     @ManyToMany
     private List<Artist> artists;
