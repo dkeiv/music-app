@@ -1,6 +1,6 @@
 package app.local.config;
 
-//import app.local.user.UserService;
+//import admin.local.user.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Value;
@@ -49,8 +49,17 @@ public class ApplicationConfig implements WebMvcConfigurer, ApplicationContextAw
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/mp3/**")
                 .addResourceLocations("file:" + upload);
-        registry.addResourceHandler("/css/**", "/js/**")
-                .addResourceLocations("classpath:/static/css/", "classpath:/static/js/");
+
+        registry.addResourceHandler("/css/**", "/js/**", "/imgs/**", "/icon/**", "/audio/**", "/scss/**", "/fonts/**")
+                .addResourceLocations(
+                        "classpath:/static/css/",
+                        "classpath:/static/js/",
+                        "classpath:/static/imgs/",
+                        "classpath:/static/icon/",
+                        "classpath:/static/audio/",
+                        "classpath:/static/scss/",
+                        "classpath:/static/fonts/"
+                );
     }
 
 
@@ -59,6 +68,8 @@ public class ApplicationConfig implements WebMvcConfigurer, ApplicationContextAw
         this.applicationContext = applicationContext;
 
     }
+
+
 
 
 //    private final UserService userService;

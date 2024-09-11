@@ -25,8 +25,8 @@ public class SongCommentService {
         songCmtRepository.save(songComment);
     }
 
-    public Page<SongComment> getSongComment(Pageable page) {
-        return songCmtRepository.findAll(page);
+    public Page<SongComment> findAllCommentBySongId(Long songId, Pageable pageable) {
+        return songCmtRepository.findAllCommentBySongId(songId, pageable);
     }
 
     public SongComment createSongComment(SongComment songComment) {
