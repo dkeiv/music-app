@@ -21,25 +21,31 @@ public class UserController {
     private final PlayListService playListService;
     private final SongService songService;
 
-    @GetMapping("/profile/{id}/")
-    public String user(@PathVariable Long id, Model model) {
+//    @GetMapping("/profile/{id}/")
+//    public String user(@PathVariable Long id, Model model) {
+//        try {
+//            Optional<User> user = userService.findById(id);
+//            model.addAttribute("user", user);
+//            return "user/update";
+//        } catch (NotFoundException e) {
+//            return "/error/404";
+//        }
+//    }
+
+    @GetMapping("profile/{id}")
+    public String userProfile(@PathVariable Long id, Model model) {
         try {
             Optional<User> user = userService.findById(id);
             model.addAttribute("user", user);
-            return "user/update";
-        } catch (NotFoundException e) {
-            return "/error/404";
-        }
-    }
 
-    @GetMapping("/{id}")
-    public String userProfile(@PathVariable Long id, Model model) {
-        try {
             List<PlayList>  createdPlayLists = playListService.getPlayListsByUserId(id);
             model.addAttribute("createdPlayLists", createdPlayLists);
 
             List<Song> createdSongs = songService.getSongByUserId(id);
             model.addAttribute("createdSongs", createdSongs);
+
+            List<Song> likedSongs = songService.findLikedSongsByUserId(id);
+            model.addAttribute("likedSongs", likedSongs);
 
             return"user/profile";
         }

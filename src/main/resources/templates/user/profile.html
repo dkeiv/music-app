@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <!-- Title -->
+    <title th:text="${user.get.name} + '\'s profile'"></title>
+    <!-- Favicon -->
+    <link rel="icon" href="/imgs/core-img/favicon.ico">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+<header th:insert="fragment:: header"></header>
+<!-- ##### Featured Artist Area Start ##### -->
+<section class="featured-artist-area section-padding-100 bg-img bg-overlay bg-fixed"
+         style="background-image: url(/imgs/bg-img/bg-4.jpg);">
+    <div class="container">
+        <div class="row align-items-end">
+            <div class="col-12 col-md-5 col-lg-4">
+                <div class="featured-artist-thumb">
+                    <img src="/imgs/bg-img/fa.jpg" alt="">
+                </div>
+            </div>
+            <div class="col-12 col-md-7 col-lg-8">
+                <div class="featured-artist-content">
+                    <!-- Section Heading -->
+                    <div class="section-heading white text-left mb-30">
+                        <p th:text="${user.get.name}"></p>
+                    </div>
+                    <p th:text="${user.get.bio}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ##### Featured Artist Area End ##### -->
+<!-- ##### Miscellaneous Area Start ##### -->
+<section th:insert="fragment :: miscellaneous-area"></section>
+<!-- ##### Miscellaneous Area End ##### -->
+<!-- ##### Contact Area Start ##### -->
+<section th:insert="fragment :: contact-area"></section>
+<!-- ##### Contact Area End ##### -->
+<!-- ##### Footer Area Start ##### -->
+<footer th:insert="fragment :: footer"></footer>
+<!-- ##### Footer Area Start ##### -->
+
+<!-- ##### All Javascript Script ##### -->
+<div th:insert="fragment :: import-js-file"></div>
+</body>
+</html>

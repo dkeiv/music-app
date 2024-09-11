@@ -45,8 +45,9 @@ public class Song {
     private List<Artist> artists;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Genre> genres;
 }

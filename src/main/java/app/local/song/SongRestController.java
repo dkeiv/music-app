@@ -1,8 +1,6 @@
 package app.local.song;
 
 import app.local.exception.NotFoundException;
-import app.local.songcomment.SongComment;
-import app.local.songcomment.SongCommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,7 +18,6 @@ import java.util.Optional;
 public class SongRestController {
 
     private final SongService songService;
-    private final SongCommentService songCommentService;
 
     @GetMapping
     public ResponseEntity<Page<Song>> fillAllSong(@PageableDefault(value = 10) Pageable pageable) {
@@ -66,21 +63,5 @@ public class SongRestController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/{id}/comments")
-    public ResponseEntity<Page<SongComment>> getSongComments(@PathVariable Long id, @PageableDefault(value = 10) Pageable pageable) {
-        Page<SongComment> songComments = songCommentService.findAllCommentBySongId(id, pageable);
-        return new ResponseEntity<>(songComments, HttpStatus.OK);
-    }
-
-    @DeleteMapping("/{id}/comments/{id}")
-    public ResponseEntity<String> deleteSongComments(@PathVariable Long id, @PathVariable Long commentId, @RequestHeader("User-Id") Long currentUserId) throws NotFoundException {
-        try {
-            songCommentService.delete(commentId, currentUserId);
-            return ResponseEntity.noContent().build();
-        } catch (NotFoundException e) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
-        }
-
-    }
 }
 

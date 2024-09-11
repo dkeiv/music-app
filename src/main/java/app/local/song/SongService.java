@@ -97,4 +97,8 @@ public class SongService {
     public List<Song> getSongByUserId(Long id) {
         return songRepository.findSongByUserId(id);
     }
+
+    public List<Song> findLikedSongsByUserId(Long userId) {
+        return songRepository.findLikedSongsByUserId(userId);
+    }
 }

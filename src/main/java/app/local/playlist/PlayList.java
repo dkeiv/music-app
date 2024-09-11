@@ -25,7 +25,8 @@ public class PlayList {
     @Column(nullable = false, columnDefinition = "int default 0")
     private int views;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToMany
@@ -35,7 +36,4 @@ public class PlayList {
             inverseJoinColumns = @JoinColumn(name = "song_id")
     )
     private List<Song> songs;
-
-//    @OneToMany
-//    private List<PlaylistComment> comments;
 }
