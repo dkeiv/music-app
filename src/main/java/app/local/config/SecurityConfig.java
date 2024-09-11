@@ -15,7 +15,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity(debug = true)
 @EnableMethodSecurity
-@AllArgsConstructor
 public class SecurityConfig {
 //    private final AuthenticationProvider authenticationProvider;
 
@@ -33,10 +32,11 @@ public class SecurityConfig {
                                         "/icon/**",
                                         "/imgs/**",
                                         "/scss/**",
+                                        "/login",
                                         "/music-app",
-                                        "/music-app/login",
-                                        "/music-app/process-login",
                                         "/music-app/logout",
+                                        "/music-app/register",
+                                        "/music-app/process-register",
                                         "/music-app/artists",
                                         "/music-app/artists/**",
                                         "/music-app/playlists",
@@ -44,7 +44,6 @@ public class SecurityConfig {
                                         "/music-app/songs",
                                         "/music-app/songs/**",
                                         "/music-app/contact"
-
                                 ).permitAll()
                                 .requestMatchers(
                                         "music-app/users/profile/**",
@@ -56,7 +55,8 @@ public class SecurityConfig {
                                 .anyRequest().authenticated()
                 )
                 .formLogin(login -> login
-                        .loginPage("/music-app/login")
+                        .usernameParameter("email")
+                        .loginPage("/login")
                         .successForwardUrl("/music-app")
                         .failureUrl("/login?error")
                         .permitAll()
@@ -67,7 +67,7 @@ public class SecurityConfig {
                         .permitAll()
                 )
                 .exceptionHandling(eh ->eh
-                        .accessDeniedPage("/login")
+                        .accessDeniedPage("/music-app/login")
                 )
         ;
         return http.build();

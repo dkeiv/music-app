@@ -1,7 +1,9 @@
 package app.local.config;
 
 //import admin.local.user.UserService;
+
 import app.local.user.UserDetailsServiceImpl;
+import app.local.user.UserRepository;
 import app.local.user.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeansException;
@@ -77,7 +79,7 @@ public class ApplicationConfig implements WebMvcConfigurer, ApplicationContextAw
     }
 
     // Security
-//    private UserService userService;
+//    private UserRepository userRepository;
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -92,7 +94,7 @@ public class ApplicationConfig implements WebMvcConfigurer, ApplicationContextAw
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-       provider.setUserDetailsService(userDetailsService());
+        provider.setUserDetailsService(userDetailsService());
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
