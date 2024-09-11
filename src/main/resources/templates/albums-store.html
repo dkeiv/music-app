@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>One Music</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/imgs/core-img/favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+
+<body>
+<!--&lt;!&ndash; Preloader &ndash;&gt;-->
+<!--<div class="preloader d-flex align-items-center justify-content-center">-->
+<!--    <div class="lds-ellipsis">-->
+<!--        <div></div>-->
+<!--        <div></div>-->
+<!--        <div></div>-->
+<!--        <div></div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!-- ##### Header Area Start ##### -->
+<header class="header-area">
+    <!-- Navbar Area -->
+    <div class="oneMusic-main-menu">
+        <div class="classy-nav-container breakpoint-off">
+            <div class="container">
+                <!-- Menu -->
+                <nav class="classy-navbar justify-content-between" id="oneMusicNav">
+
+                    <!-- Nav brand -->
+                    <a th:href="@{/admin}" class="nav-brand"><img src="/imgs/core-img/logo.png" alt=""></a>
+
+                    <!-- Navbar Toggler -->
+                    <div class="classy-navbar-toggler">
+                        <span class="navbarToggler"><span></span><span></span><span></span></span>
+                    </div>
+
+                    <!-- Menu -->
+                    <div class="classy-menu">
+
+                        <!-- Close Button -->
+                        <div class="classycloseIcon">
+                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                        </div>
+
+                        <!-- Nav Start -->
+                        <div class="classynav">
+                            <ul>
+                                <li><a th:href="@{/admin}">Home</a></li>
+                                <li><a th:href="@{/admin/playlists}">Playlist</a></li>
+                            </ul>
+
+                            <!-- Login/Register & Cart Button -->
+                            <div class="login-register-cart-button d-flex align-items-center">
+                                <!-- Login/Register -->
+                                <div class="login-register-btn mr-50">
+                                    <a href="login.html" id="loginBtn">Login / Register</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Nav End -->
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- ##### Header Area End ##### -->
+
+<!-- ##### Breadcumb Area Start ##### -->
+<section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/imgs/bg-img/banner.jpg);">
+    <div class="bradcumbContent">
+        <p>Danh Sách</p>
+        <h2>PLAYLIST</h2>
+    </div>
+</section>
+
+
+<!-- ##### Breadcumb Area End ##### -->
+
+<!-- ##### Album Catagory Area Start ##### -->
+<section class="album-catagory section-padding-100-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+
+            </div>
+        </div>
+
+        <div class="row oneMusic-albums">
+
+            <th:block th:each="p : ${playLists}" >
+                <!-- Single Album -->
+                <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item">
+                    <div class="single-album">
+                        <img th:src="@{'/image/' + ${p.image}}" th:alt="${p.name}">
+                        <div class="album-info">
+                            <a th:href="@{/playlists/__${p.id}__}">
+                                <h5 th:text="${p.name}"></h5>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+
+
+<!--            &lt;!&ndash; Single Album &ndash;&gt;-->
+<!--            <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item s e q">-->
+<!--                <div class="single-album">-->
+<!--                    <img src="/imgs/bg-img/a2.jpg" alt="">-->
+<!--                    <div class="album-info">-->
+<!--                        <a href="#">-->
+<!--                            <h5>Sam Smith</h5>-->
+<!--                        </a>-->
+<!--                        <p>Underground</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; Single Album &ndash;&gt;-->
+<!--            <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item w f r">-->
+<!--                <div class="single-album">-->
+<!--                    <img src="/imgs/bg-img/a3.jpg" alt="">-->
+<!--                    <div class="album-info">-->
+<!--                        <a href="#">-->
+<!--                            <h5>Will I am</h5>-->
+<!--                        </a>-->
+<!--                        <p>First</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; Single Album &ndash;&gt;-->
+<!--            <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item t g u">-->
+<!--                <div class="single-album">-->
+<!--                    <img src="/imgs/bg-img/a4.jpg" alt="">-->
+<!--                    <div class="album-info">-->
+<!--                        <a href="#">-->
+<!--                            <h5>The Cure</h5>-->
+<!--                        </a>-->
+<!--                        <p>Second Song</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; Single Album &ndash;&gt;-->
+<!--            <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item d h v">-->
+<!--                <div class="single-album">-->
+<!--                    <img src="/imgs/bg-img/a5.jpg" alt="">-->
+<!--                    <div class="album-info">-->
+<!--                        <a href="#">-->
+<!--                            <h5>DJ SMITH</h5>-->
+<!--                        </a>-->
+<!--                        <p>The Album</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; Single Album &ndash;&gt;-->
+<!--            <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item t i x">-->
+<!--                <div class="single-album">-->
+<!--                    <img src="/imgs/bg-img/a6.jpg" alt="">-->
+<!--                    <div class="album-info">-->
+<!--                        <a href="#">-->
+<!--                            <h5>The Ustopable</h5>-->
+<!--                        </a>-->
+<!--                        <p>Unplugged</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; Single Album &ndash;&gt;-->
+<!--            <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item b j y">-->
+<!--                <div class="single-album">-->
+<!--                    <img src="/imgs/bg-img/a7.jpg" alt="">-->
+<!--                    <div class="album-info">-->
+<!--                        <a href="#">-->
+<!--                            <h5>Beyonce</h5>-->
+<!--                        </a>-->
+<!--                        <p>Songs</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; Single Album &ndash;&gt;-->
+<!--            <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item a k z">-->
+<!--                <div class="single-album">-->
+<!--                    <img src="/imgs/bg-img/a8.jpg" alt="">-->
+<!--                    <div class="album-info">-->
+<!--                        <a href="#">-->
+<!--                            <h5>Aam Smith</h5>-->
+<!--                        </a>-->
+<!--                        <p>Underground</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; Single Album &ndash;&gt;-->
+<!--            <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item w l number">-->
+<!--                <div class="single-album">-->
+<!--                    <img src="/imgs/bg-img/a9.jpg" alt="">-->
+<!--                    <div class="album-info">-->
+<!--                        <a href="#">-->
+<!--                            <h5>Will I am</h5>-->
+<!--                        </a>-->
+<!--                        <p>First</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; Single Album &ndash;&gt;-->
+<!--            <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item d m">-->
+<!--                <div class="single-album">-->
+<!--                    <img src="/imgs/bg-img/a10.jpg" alt="">-->
+<!--                    <div class="album-info">-->
+<!--                        <a href="#">-->
+<!--                            <h5>DJ SMITH</h5>-->
+<!--                        </a>-->
+<!--                        <p>The Album</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; Single Album &ndash;&gt;-->
+<!--            <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item t n">-->
+<!--                <div class="single-album">-->
+<!--                    <img src="/imgs/bg-img/a11.jpg" alt="">-->
+<!--                    <div class="album-info">-->
+<!--                        <a href="#">-->
+<!--                            <h5>The Ustopable</h5>-->
+<!--                        </a>-->
+<!--                        <p>Unplugged</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; Single Album &ndash;&gt;-->
+<!--            <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item b o">-->
+<!--                <div class="single-album">-->
+<!--                    <img src="/imgs/bg-img/a12.jpg" alt="">-->
+<!--                    <div class="album-info">-->
+<!--                        <a href="#">-->
+<!--                            <h5>Beyonce</h5>-->
+<!--                        </a>-->
+<!--                        <p>Songs</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+    </div>
+</section>
+<!-- ##### Album Catagory Area End ##### -->
+
+<!-- ##### Add Area Start ##### -->
+<div class="add-area mb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="adds">
+                    <a href="#"><img src="/imgs/bg-img/add3.gif" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ##### Add Area End ##### -->
+
+<!-- ##### Song Area Start ##### -->
+<div class="one-music-songs-area mb-70">
+    <div class="container">
+        <div class="row">
+
+            <!-- Single Song Area -->
+            <div class="col-12">
+                <div class="single-song-area mb-30 d-flex flex-wrap align-items-end">
+                    <div class="song-thumbnail">
+                        <img src="/imgs/bg-img/s1.jpg" alt="">
+                    </div>
+                    <div class="song-play-area">
+                        <div class="song-name">
+                            <p>01. Main Hit Song</p>
+                        </div>
+                        <audio preload="auto" controls>
+                            <source src="audio/dummy-audio.mp3">
+                        </audio>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Single Song Area -->
+            <div class="col-12">
+                <div class="single-song-area mb-30 d-flex flex-wrap align-items-end">
+                    <div class="song-thumbnail">
+                        <img src="/imgs/bg-img/s2.jpg" alt="">
+                    </div>
+                    <div class="song-play-area">
+                        <div class="song-name">
+                            <p>01. Main Hit Song</p>
+                        </div>
+                        <audio preload="auto" controls>
+                            <source src="audio/dummy-audio.mp3">
+                        </audio>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Single Song Area -->
+            <div class="col-12">
+                <div class="single-song-area mb-30 d-flex flex-wrap align-items-end">
+                    <div class="song-thumbnail">
+                        <img src="/imgs/bg-img/s3.jpg" alt="">
+                    </div>
+                    <div class="song-play-area">
+                        <div class="song-name">
+                            <p>01. Main Hit Song</p>
+                        </div>
+                        <audio preload="auto" controls>
+                            <source src="audio/dummy-audio.mp3">
+                        </audio>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Single Song Area -->
+            <div class="col-12">
+                <div class="single-song-area mb-30 d-flex flex-wrap align-items-end">
+                    <div class="song-thumbnail">
+                        <img src="/imgs/bg-img/s4.jpg" alt="">
+                    </div>
+                    <div class="song-play-area">
+                        <div class="song-name">
+                            <p>01. Main Hit Song</p>
+                        </div>
+                        <audio preload="auto" controls>
+                            <source src="audio/dummy-audio.mp3">
+                        </audio>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- ##### Song Area End ##### -->
+
+<!-- ##### Footer Area Start ##### -->
+<footer class="footer-area">
+    <div class="container">
+        <div class="row d-flex flex-wrap align-items-center">
+            <div class="col-12 col-md-6">
+                <a href="#"><img src="/imgs/core-img/logo.png" alt=""></a>
+<!--                <p class="copywrite-text">-->
+<!--                    <a href="#">-->
+<!--                        &lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;-->
+<!--                    Copyright &copy;<script>document.write(new Date().getFullYear());-->
+<!--                    </script> All rights reserved | This template is made with-->
+<!--                        <i class="fa fa-heart-o" aria-hidden="true"></i>-->
+<!--                        by-->
+<!--                        <a href="https://colorlib.com" target="_blank">Colorlib</a>-->
+<!--                    &lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;-->
+<!--                </p>-->
+            </div>
+
+            <div class="col-12 col-md-6">
+                <div class="footer-nav">
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Playlist</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- ##### Footer Area Start ##### -->
+
+<!-- ##### All Javascript Script ##### -->
+<!-- jQuery-2.2.4 js -->
+<script src="js/jquery/jquery-2.2.4.min.js"></script>
+<!-- Popper js -->
+<script src="js/bootstrap/popper.min.js"></script>
+<!-- Bootstrap js -->
+<script src="js/bootstrap/bootstrap.min.js"></script>
+<!-- All Plugins js -->
+<script src="js/plugins/plugins.js"></script>
+<!-- Active js -->
+<script src="js/active.js"></script>
+</body>
+
+</html>
