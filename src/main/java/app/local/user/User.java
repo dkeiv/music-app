@@ -1,5 +1,7 @@
 package app.local.user;
 
+import app.local.playlist.PlayList;
+import app.local.song.Song;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -7,6 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 //import org.springframework.security.core.GrantedAuthority;
 //import org.springframework.security.core.authority.SimpleGrantedAuthority;
 //import org.springframework.security.core.userdetails.UserDetails;
@@ -40,7 +44,15 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @ManyToMany
+    private List<Song> likedSongs;
 
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    private Set<Role> roles;
+    @ManyToMany
+    private List<PlayList> likedPlaylists;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Song> createdSongs;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PlayList> createdPlaylists;
 }
