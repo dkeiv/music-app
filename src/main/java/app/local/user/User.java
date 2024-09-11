@@ -1,6 +1,5 @@
 package app.local.user;
 
-import app.local.songcomment.SongComment;
 import app.local.playlist.PlayList;
 import app.local.song.Song;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -51,6 +50,4 @@ public class User {
     @ManyToMany
     private List<PlayList> likedPlaylists;
 
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<SongComment> userComments ;
 }

@@ -1,6 +1,5 @@
 package app.local.playlist;
 
-import app.local.playlistcomment.PlaylistComment;
 import app.local.song.Song;
 import app.local.user.User;
 import jakarta.persistence.*;
@@ -9,7 +8,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
