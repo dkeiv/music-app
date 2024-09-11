@@ -43,39 +43,15 @@
                         <!-- Nav Start -->
                         <div class="classynav">
                             <ul>
-                                <li><a th:href="@{/index.html}">Home</a></li>
-                                <li><a th:href="@{/albums-store.html}">Albums</a></li>
-                                <li><a href="#">Pages</a>
-                                    <ul class="dropdown">
-                                        <li><a th:href="@{/index.html}">Home</a></li>
-                                        <li><a th:href="@{/albums-store.html}">Albums</a></li>
-                                        <li><a th:href="@{/event.html}">Events</a></li>
-                                        <li><a th:href="@{/blog.html}">News</a></li>
-                                        <li><a th:href="@{/contact.html}">Contact</a></li>
-                                        <li><a th:href="@{/elements.html}">Elements</a></li>
-                                        <li><a th:href="@{/login.html}">Login</a></li>
-                                        <li><a href="#">Dropdown</a>
-                                            <ul class="dropdown">
-                                                <li><a href="#">Even Dropdown</a></li>
-                                                <li><a href="#">Even Dropdown</a></li>
-                                                <li><a href="#">Even Dropdown</a></li>
-                                                <li><a href="#">Even Dropdown</a>
-                                                    <ul class="dropdown">
-                                                        <li><a href="#">Deeply Dropdown</a></li>
-                                                        <li><a href="#">Deeply Dropdown</a></li>
-                                                        <li><a href="#">Deeply Dropdown</a></li>
-                                                        <li><a href="#">Deeply Dropdown</a></li>
-                                                        <li><a href="#">Deeply Dropdown</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="#">Even Dropdown</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li><a th:href="@{/event.html}">Events</a></li>
-                                <li><a th:href="@{/blog.html}">News</a></li>
-                                <li><a th:href="@{/contact.html}">Contact</a></li>
+                                <li><a th:href="@{/music-app}">Home</a></li>
+                                <li><a th:href="@{/music-app/artists}">Artist</a></li>
+                                <li><a th:href="@{/music-app/playlists}">Playlist</a></li>
+                                <li><a th:href="@{/music-app/songs}">Songs</a></li>
+                                <li><a th:href="@{/music-app/contact}">Contact</a></li>
+                                <!-- <li><a th:href="@{/music-app/users/profile/__${currentUser.id}__}">News</a></li>-->
+                                <!-- <li><a href="#">Profile</a></li>-->
+                                <li><a th:href="@{/music-app/login}">Login</a></li>
+                                <!-- <li><a th:href="@{/music-app/logout}">Logout</a></li> -->
                             </ul>
                         </div>
                     </div>
@@ -87,279 +63,11 @@
 <!-- ##### Header Area End ##### -->
 
 <!-- ##### Miscellaneous Area Start ##### -->
-<section th:fragment="miscellaneous-area" class="miscellaneous-area section-padding-100-0">
-    <div class="container">
-        <div class="row">
-            <!-- ***** Weeks Top ***** -->
-            <div class="col-12 col-lg-4">
-                <div class="weeks-top-area mb-100">
-                    <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
-                        <p>See what’s new</p>
-                        <h2>This week’s top</h2>
-                    </div>
-
-                    <!-- Single Top Item -->
-                    <div class="single-top-item d-flex wow fadeInUp" data-wow-delay="100ms">
-                        <div class="thumbnail">
-                            <img src="/imgs/bg-img/wt1.jpg" alt="">
-                        </div>
-                        <div class="content-">
-                            <h6>Sam Smith</h6>
-                            <p>Underground</p>
-                        </div>
-                    </div>
-
-                    <!-- Single Top Item -->
-                    <div class="single-top-item d-flex wow fadeInUp" data-wow-delay="150ms">
-                        <div class="thumbnail">
-                            <img src="/imgs/bg-img/wt2.jpg" alt="">
-                        </div>
-                        <div class="content-">
-                            <h6>Power Play</h6>
-                            <p>In my mind</p>
-                        </div>
-                    </div>
-
-                    <!-- Single Top Item -->
-                    <div class="single-top-item d-flex wow fadeInUp" data-wow-delay="200ms">
-                        <div class="thumbnail">
-                            <img src="/imgs/bg-img/wt3.jpg" alt="">
-                        </div>
-                        <div class="content-">
-                            <h6>Cristinne Smith</h6>
-                            <p>My Music</p>
-                        </div>
-                    </div>
-
-                    <!-- Single Top Item -->
-                    <div class="single-top-item d-flex wow fadeInUp" data-wow-delay="250ms">
-                        <div class="thumbnail">
-                            <img src="/imgs/bg-img/wt4.jpg" alt="">
-                        </div>
-                        <div class="content-">
-                            <h6>The Music Band</h6>
-                            <p>Underground</p>
-                        </div>
-                    </div>
-
-                    <!-- Single Top Item -->
-                    <div class="single-top-item d-flex wow fadeInUp" data-wow-delay="300ms">
-                        <div class="thumbnail">
-                            <img src="/imgs/bg-img/wt5.jpg" alt="">
-                        </div>
-                        <div class="content-">
-                            <h6>Creative Lyrics</h6>
-                            <p>Songs and stuff</p>
-                        </div>
-                    </div>
-
-                    <!-- Single Top Item -->
-                    <div class="single-top-item d-flex wow fadeInUp" data-wow-delay="350ms">
-                        <div class="thumbnail">
-                            <img src="/imgs/bg-img/wt6.jpg" alt="">
-                        </div>
-                        <div class="content-">
-                            <h6>The Culture</h6>
-                            <p>Pop Songs</p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- ***** New Hits Songs ***** -->
-            <div class="col-12 col-lg-4">
-                <div class="new-hits-area mb-100">
-                    <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
-                        <p>See what’s new</p>
-                        <h2>New Hits</h2>
-                    </div>
-
-                    <!-- Single Top Item -->
-                    <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="100ms">
-                        <div class="first-part d-flex align-items-center">
-                            <div class="thumbnail">
-                                <img src="/imgs/bg-img/wt7.jpg" alt="">
-                            </div>
-                            <div class="content-">
-                                <h6>Sam Smith</h6>
-                                <p>Underground</p>
-                            </div>
-                        </div>
-                        <audio preload="auto" controls>
-                            <source src="/audio/dummy-audio.mp3">
-                        </audio>
-                    </div>
-
-                    <!-- Single Top Item -->
-                    <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="150ms">
-                        <div class="first-part d-flex align-items-center">
-                            <div class="thumbnail">
-                                <img src="/imgs/bg-img/wt8.jpg" alt="">
-                            </div>
-                            <div class="content-">
-                                <h6>Power Play</h6>
-                                <p>In my mind</p>
-                            </div>
-                        </div>
-                        <audio preload="auto" controls>
-                            <source src="/audio/dummy-audio.mp3">
-                        </audio>
-                    </div>
-
-                    <!-- Single Top Item -->
-                    <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="200ms">
-                        <div class="first-part d-flex align-items-center">
-                            <div class="thumbnail">
-                                <img src="/imgs/bg-img/wt9.jpg" alt="">
-                            </div>
-                            <div class="content-">
-                                <h6>Cristinne Smith</h6>
-                                <p>My Music</p>
-                            </div>
-                        </div>
-                        <audio preload="auto" controls>
-                            <source src="/audio/dummy-audio.mp3">
-                        </audio>
-                    </div>
-
-                    <!-- Single Top Item -->
-                    <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="250ms">
-                        <div class="first-part d-flex align-items-center">
-                            <div class="thumbnail">
-                                <img src="/imgs/bg-img/wt10.jpg" alt="">
-                            </div>
-                            <div class="content-">
-                                <h6>The Music Band</h6>
-                                <p>Underground</p>
-                            </div>
-                        </div>
-                        <audio preload="auto" controls>
-                            <source src="/audio/dummy-audio.mp3">
-                        </audio>
-                    </div>
-
-                    <!-- Single Top Item -->
-                    <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="300ms">
-                        <div class="first-part d-flex align-items-center">
-                            <div class="thumbnail">
-                                <img src="/imgs/bg-img/wt11.jpg" alt="">
-                            </div>
-                            <div class="content-">
-                                <h6>Creative Lyrics</h6>
-                                <p>Songs and stuff</p>
-                            </div>
-                        </div>
-                        <audio preload="auto" controls>
-                            <source src="/audio/dummy-audio.mp3">
-                        </audio>
-                    </div>
-
-                    <!-- Single Top Item -->
-                    <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="350ms">
-                        <div class="first-part d-flex align-items-center">
-                            <div class="thumbnail">
-                                <img src="/imgs/bg-img/wt12.jpg" alt="">
-                            </div>
-                            <div class="content-">
-                                <h6>The Culture</h6>
-                                <p>Pop Songs</p>
-                            </div>
-                        </div>
-                        <audio preload="auto" controls>
-                            <source src="/audio/dummy-audio.mp3">
-                        </audio>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ***** Popular Artists ***** -->
-            <div class="col-12 col-lg-4">
-                <div class="popular-artists-area mb-100">
-                    <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
-                        <p>See what’s new</p>
-                        <h2>Popular Artist</h2>
-                    </div>
-
-                    <!-- Single Artist -->
-                    <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="100ms">
-                        <div class="thumbnail">
-                            <img src="/imgs/bg-img/pa1.jpg" alt="">
-                        </div>
-                        <div class="content-">
-                            <p>Sam Smith</p>
-                        </div>
-                    </div>
-
-                    <!-- Single Artist -->
-                    <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="150ms">
-                        <div class="thumbnail">
-                            <img src="/imgs/bg-img/pa2.jpg" alt="">
-                        </div>
-                        <div class="content-">
-                            <p>William Parker</p>
-                        </div>
-                    </div>
-
-                    <!-- Single Artist -->
-                    <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="200ms">
-                        <div class="thumbnail">
-                            <img src="/imgs/bg-img/pa3.jpg" alt="">
-                        </div>
-                        <div class="content-">
-                            <p>Jessica Walsh</p>
-                        </div>
-                    </div>
-
-                    <!-- Single Artist -->
-                    <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="250ms">
-                        <div class="thumbnail">
-                            <img src="/imgs/bg-img/pa4.jpg" alt="">
-                        </div>
-                        <div class="content-">
-                            <p>Tha Stoves</p>
-                        </div>
-                    </div>
-
-                    <!-- Single Artist -->
-                    <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="300ms">
-                        <div class="thumbnail">
-                            <img src="/imgs/bg-img/pa5.jpg" alt="">
-                        </div>
-                        <div class="content-">
-                            <p>DJ Ajay</p>
-                        </div>
-                    </div>
-
-                    <!-- Single Artist -->
-                    <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="350ms">
-                        <div class="thumbnail">
-                            <img src="/imgs/bg-img/pa6.jpg" alt="">
-                        </div>
-                        <div class="content-">
-                            <p>Radio Vibez</p>
-                        </div>
-                    </div>
-
-                    <!-- Single Artist -->
-                    <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="400ms">
-                        <div class="thumbnail">
-                            <img src="/imgs/bg-img/pa7.jpg" alt="">
-                        </div>
-                        <div class="content-">
-                            <p>Music 4u</p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 <!-- ##### Miscellaneous Area End ##### -->
 
 <!-- ##### Contact Area Start ##### -->
-<section th:fragment="contact-area" class="contact-area section-padding-100 bg-img bg-overlay bg-fixed has-bg-img" style="background-image: url(/imgs/bg-img/bg-2.jpg);">
+<section th:fragment="contact-area" class="contact-area section-padding-100 bg-img bg-overlay bg-fixed has-bg-img"
+         style="background-image: url(/imgs/bg-img/bg-2.jpg);">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -393,11 +101,13 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group wow fadeInUp" data-wow-delay="400ms">
-                                    <textarea name="message" class="form-control" id="message" cols="30" rows="10" placeholder="Message"></textarea>
+                                    <textarea name="message" class="form-control" id="message" cols="30" rows="10"
+                                              placeholder="Message"></textarea>
                                 </div>
                             </div>
                             <div class="col-12 text-center wow fadeInUp" data-wow-delay="500ms">
-                                <button class="btn oneMusic-btn mt-30" type="submit">Send <i class="fa fa-angle-double-right"></i></button>
+                                <button class="btn oneMusic-btn mt-30" type="submit">Send <i
+                                        class="fa fa-angle-double-right"></i></button>
                             </div>
                         </div>
                     </form>
