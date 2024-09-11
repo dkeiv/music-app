@@ -21,7 +21,7 @@ public class UserController {
     private final PlayListService playListService;
     private final SongService songService;
 
-    @GetMapping("/{id}/update")
+    @GetMapping("/profile/{id}/")
     public String user(@PathVariable Long id, Model model) {
         try {
             Optional<User> user = userService.findById(id);
