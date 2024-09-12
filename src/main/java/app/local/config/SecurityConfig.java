@@ -46,8 +46,7 @@ public class SecurityConfig {
                                         "/music-app/contact"
                                 ).permitAll()
                                 .requestMatchers(
-                                        "music-app/users/profile/**",
-                                        "music-app/users/profile/update/**"
+                                        "/music-app/me"
                                 ).hasAnyRole("USER", "ADMIN")
                                 .requestMatchers(
                                         "admin.music-app/**"
@@ -57,7 +56,8 @@ public class SecurityConfig {
                 .formLogin(login -> login
                         .usernameParameter("email")
                         .loginPage("/login")
-                        .successForwardUrl("/music-app")
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/music-app", true)
                         .failureUrl("/login?error")
                         .permitAll()
                 )
