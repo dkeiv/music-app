@@ -37,7 +37,8 @@ public class UserService {
                 .password(request.getPassword())
                 .profilePicture(request.getProfilePicture())
                 .bio(request.getBio())
-                .role(request.getRole())
+//                .role(request.getRole())
+                .roles(request.getRoles())
                 .build();
         userRepository.save(user);
     }
@@ -51,7 +52,8 @@ public class UserService {
                     .password(request.getPassword() == null ? user.get().getPassword() : request.getPassword())
                     .profilePicture(request.getProfilePicture() == null ? user.get().getProfilePicture() : request.getProfilePicture())
                     .bio(request.getBio() == null ? user.get().getBio() : request.getBio())
-                    .role(request.getRole() == null ? user.get().getRole() : request.getRole())
+//                    .role(request.getRole() == null ? user.get().getRole() : request.getRole())
+                    .roles(request.getRoles().isEmpty() ? user.get().getRoles() : request.getRoles())
                     .build();
             userRepository.save(updatedUser);
     }
@@ -62,6 +64,11 @@ public class UserService {
             throw  new NotFoundException("not found");
         }
         userRepository.deleteById(id);
+    }
+
+
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
 }

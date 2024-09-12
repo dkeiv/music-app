@@ -3,6 +3,8 @@ package app.local.user;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.Set;
+
 @Data
 @Builder
 public class UserRequest {
@@ -12,5 +14,6 @@ public class UserRequest {
     private String password;
     private String profilePicture;
     private String bio;
-    private Role role;
+//    private Role role;
+    private Set<UserRole> roles;
 }
