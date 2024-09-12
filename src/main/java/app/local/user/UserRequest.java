@@ -1,5 +1,6 @@
 package app.local.user;
 
+import app.local.role.UserRole;
 import lombok.Builder;
 import lombok.Data;
 
