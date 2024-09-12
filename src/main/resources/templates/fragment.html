@@ -50,9 +50,8 @@
                                 <li><a th:href="@{/music-app/songs}">Songs</a></li>
                                 <li><a th:href="@{/music-app/contact}">Contact</a></li>
                                 <li sec:authorize="isAuthenticated()"><a
-                                        th:href="@{/music-app/users/profile/__${.id}__}">News</a></li>
-                                <!-- <li><a href="#">Profile</a></li>-->
-                                <li sec:authorize="!isAuthenticated()"><a th:href="@{/music-app/login}">Login</a></li>
+                                        th:href="@{/music-app/me}">Me</a></li>
+                                <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Login</a></li>
                                 <li sec:authorize="isAuthenticated()"><a th:href="@{/music-app/logout}">Logout</a></li>
                             </ul>
                         </div>
