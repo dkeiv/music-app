@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -40,13 +41,18 @@ public class SongController {
 
 
     @GetMapping("/create")
-    public String createForm() {
-       return "song/create";
+    public String createForm(Model model) {
+        model.addAttribute("song", new SongRequest());
+        return "song/createSong";
     }
 
     @PostMapping("/create")
-    public String save() {
-        return "";
+    public String save(@ModelAttribute SongRequest request, BindingResult result) throws IOException {
+        if (result.hasErrors()) {
+            return "song/createSong"; // Return to form view if there are errors
+        }
+        songService.save(request);
+        return "redirect:/songs";
     }
 
     @GetMapping("/{id}/edit")

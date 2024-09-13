@@ -1,5 +1,6 @@
 package app.local.song;
 
+import app.local.artist.Artist;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -100,5 +101,9 @@ public class SongService {
 
     public List<Song> findLikedSongsByUserId(Long userId) {
         return songRepository.findLikedSongsByUserId(userId);
+    }
+
+    public List<Song> findByArtist(Optional<Artist> featuredArtist) {
+        return songRepository.findSongsByArtistId(featuredArtist.get().getId());
     }
 }

@@ -7,25 +7,24 @@ import app.local.playlist.PlayListService;
 import app.local.song.Song;
 import app.local.song.SongService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+import java.util.Optional;
+
 @Controller
 @RequestMapping("/music-app")
 @RequiredArgsConstructor
 public class AppController {
 
-    private final SongService service;
+    private final SongService songService;
     private final PlayListService playListService;
     private final ArtistService artistService;
 
@@ -34,9 +33,16 @@ public class AppController {
         int pageSize = 6;
         Pageable pageable = PageRequest.of(page, pageSize);
 
-        Page<Song> songList = service.findAll(pageable);
+        Page<Song> songList = songService.findAll(pageable);
         Page<PlayList> playlistList = playListService.findAll(pageable);
         Page<Artist> artistList = artistService.findAll(pageable);
+
+        Optional<Artist> featuredArtist = artistService.findById(1L);
+        model.addAttribute("featuredArtist", featuredArtist.get());
+
+        List<Song> featuredSong = songService.findByArtist(featuredArtist);
+        model.addAttribute("featuredSong", featuredSong.get(0));
+
 
         model.addAttribute("songs", songList);
         model.addAttribute("playlist", playlistList);
@@ -49,7 +55,8 @@ public class AppController {
     public String songIndex() {
         return "song/index";
     }
-//    @GetMapping("/playlists")
+
+    //    @GetMapping("/playlists")
 //    public String songIndex() {
 //        return "playlist/index";
 //    }
