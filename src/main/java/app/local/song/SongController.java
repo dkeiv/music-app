@@ -2,6 +2,8 @@ package app.local.song;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -17,13 +19,17 @@ import java.util.Optional;
 
 
 @Controller
-@RequestMapping("/songs")
+@RequestMapping("/music-app/songs")
 @RequiredArgsConstructor
 public class SongController {
 
+    private final SongService songService;
+
     @GetMapping
-    public String list() {
-        return "song/list";
+    public String list(Model model, Pageable pageable) {
+        Page<Song> allSongs = songService.findAll(pageable);
+        model.addAttribute("allSongs", allSongs);
+        return "song/index";
     }
 
     @GetMapping("/{id}/view")
