@@ -18,7 +18,7 @@ public class ArtistRestController {
     public ResponseEntity<?> save(@RequestParam("name") String name,
                                   @RequestParam("artistProfile") String artistProfile,
                                   @RequestParam("biography") String biography,
-                                  @RequestParam("image") MultipartFile file) {
+                                  @RequestPart(value = "image", required = false) MultipartFile file) {
         ArtistRequest artistRequest = new ArtistRequest(name, artistProfile, biography);
         artistService.save(artistRequest, file);
         return ResponseEntity.accepted().build();
@@ -41,7 +41,7 @@ public class ArtistRestController {
                                           @RequestParam("name") String name,
                                           @RequestParam("artistProfile") String artistProfile,
                                           @RequestParam("biography") String biography,
-                                          @RequestParam(value = "image", required = false) MultipartFile file) {
+                                          @RequestPart(value = "image", required = false) MultipartFile file) {
         ArtistRequest artistRequest = new ArtistRequest(name, artistProfile, biography);
         if (artistService.update(id, artistRequest, file)) {
             return ResponseEntity.ok().build();
@@ -63,12 +63,4 @@ public class ArtistRestController {
     public ResponseEntity<Boolean> checkArtistExists(@PathVariable Long id) {
         return ResponseEntity.ok(artistService.existsById(id));
     }
-
-    // Uncomment and implement this if needed
-    // @GetMapping("/{id}/songs")
-    // public ResponseEntity<List<Song>> findSongsByArtistId(@PathVariable Long id) {
-    //     return artistService.findSongsByArtistId(id)
-    //             .map(ResponseEntity::ok)
-    //             .orElseGet(() -> ResponseEntity.notFound().build());
-    // }
 }

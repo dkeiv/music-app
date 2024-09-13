@@ -13,6 +13,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -45,14 +49,24 @@ public class AppController {
     public String songIndex() {
         return "song/index";
     }
+public class AppController {
 
-    @RequestMapping("/contact")
+
+    @GetMapping("/music-app")
+    public String dashboard() {
+        return "index";
+    }
+
+//    @GetMapping("/playlists")
+//    public String songIndex() {
+//        return "playlist/index";
+//    }
+
+    @GetMapping("/music-app/contact")
     public String contactIndex() {
         return "contact/contact";
     }
 
-    @RequestMapping("/login")
-    public String loginForm() {
-        return "login/login";
-    }
+
+
 }

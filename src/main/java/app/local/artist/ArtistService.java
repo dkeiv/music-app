@@ -36,6 +36,7 @@ public class ArtistService {
         artistRepository.save(artist);
     }
 
+
     public Page<Artist> findAll(Pageable pageable) {
         return artistRepository.findAll(pageable);
     }
