@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/artists")
+@RequestMapping("/music-app/artists")
 @RequiredArgsConstructor
 public class ArtistController {
     private final ArtistService artistService;
