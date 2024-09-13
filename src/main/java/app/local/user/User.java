@@ -1,6 +1,8 @@
 package app.local.user;
 
+import app.local.exception.NotFoundException;
 import app.local.playlist.PlayList;
+import app.local.role.UserRole;
 import app.local.song.Song;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -46,7 +48,7 @@ public class User implements UserDetails {
 //    private Role role;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<UserRole> roles;
+    private Set<UserRole> roles = new HashSet<>();
 
     @ManyToMany
     private List<Song> likedSongs;
@@ -59,6 +61,10 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PlayList> createdPlaylists;
+
+    public void addRole(UserRole role) {
+        roles.add(role);
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

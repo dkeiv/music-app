@@ -1,4 +1,4 @@
-package app.local.user;
+package app.local.role;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

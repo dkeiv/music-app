@@ -32,6 +32,7 @@ public class SecurityConfig {
                                         "/icon/**",
                                         "/imgs/**",
                                         "/scss/**",
+                                        "/**", //?
                                         "/login",
                                         "/music-app",
                                         "/music-app/logout",
@@ -49,7 +50,7 @@ public class SecurityConfig {
                                         "/music-app/me"
                                 ).hasAnyRole("USER", "ADMIN")
                                 .requestMatchers(
-                                        "admin.music-app/**"
+                                        "/admin.music-app/**"
                                 ).hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 )
@@ -66,7 +67,7 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/music-app")
                         .permitAll()
                 )
-                .exceptionHandling(eh ->eh
+                .exceptionHandling(eh -> eh
                         .accessDeniedPage("/music-app/login")
                 )
         ;
