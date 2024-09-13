@@ -49,14 +49,6 @@ public class AppController {
     public String songIndex() {
         return "song/index";
     }
-public class AppController {
-
-
-    @GetMapping("/music-app")
-    public String dashboard() {
-        return "index";
-    }
-
 //    @GetMapping("/playlists")
 //    public String songIndex() {
 //        return "playlist/index";
