@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Artist</title>
+    <!-- Thêm các liên kết tới CSS nếu cần -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<!-- Header -->
+<header th:insert="fragments/header :: header"></header>
+
+<!-- Content -->
+<main>
+    <h2>Edit Artist</h2>
+    <form th:action="@{/music-app/admin/artists/{id}/edit(id=${artist.id})}" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="_method" value="post"> <!-- Thêm hidden input nếu cần xử lý phương thức POST -->
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" th:value="${artist.name}" required>
+        </div>
+        <div>
+            <label for="artistProfile">Artist Profile:</label>
+            <input type="text" id="artistProfile" name="artistProfile" th:value="${artist.artistProfile}" required>
+        </div>
+        <div>
+            <label for="biography">Biography:</label>
+            <textarea id="biography" name="biography" required th:text="${artist.biography}"></textarea>
+        </div>
+        <div>
+            <label for="image">Image:</label>
+            <input type="file" id="image" name="image">
+        </div>
+        <button type="submit">Update</button>
+    </form>
+
+
+    <!-- Hiển thị thông báo thành công hoặc lỗi nếu có -->
+    <div th:if="${message}" th:text="${message}" style="color: green;"></div>
+    <div th:if="${error}" th:text="${error}" style="color: red;"></div>
+</main>
+
+<!-- Footer -->
+<footer th:insert="fragments/footer :: footer"></footer>
+
+<!-- Thêm các script JS nếu cần -->
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>
