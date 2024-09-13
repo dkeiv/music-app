@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
 <head>
     <meta charset="UTF-8">
@@ -24,7 +25,7 @@
         <div class="row align-items-end">
             <div class="col-12 col-md-5 col-lg-4">
                 <div class="featured-artist-thumb">
-                    <img src="/imgs/bg-img/fa.jpg" alt="">
+                    <img th:src="${user.get.profilePicture}" th:alt="${user.get.name}">
                 </div>
             </div>
             <div class="col-12 col-md-7 col-lg-8">

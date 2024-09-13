@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
 <head>
     <meta charset="UTF-8">
@@ -194,6 +195,12 @@
                         Vietnam's entertainment industry. Often referred to as a trendsetter, Sơn Tùng M-TP continues to
                         push creative boundaries, earning him millions of fans both domestically and
                         internationally.</p>
+                        <h2>Buy What’s New</h2>
+                    </div>
+                    <p>Nam tristique ex vel magna tincidunt, ut porta nisl finibus. Vivamus eu dolor eu quam varius
+                        rutrum. Fusce nec justo id sem aliquam fringilla nec non lacus. Suspendisse eget lobortis nisi,
+                        ac cursus odio. Vivamus nibh velit, rutrum at ipsum ac, dignissim iaculis ante. Donec in velit
+                        non elit pulvinar pellentesque et non eros.</p>
                     <div class="song-play-area">
                         <div class="song-name">
                             <p>01. Chung ta cua tuong lai</p>
@@ -259,6 +266,84 @@
                                     <h6>Sam Smith</h6>
                                     <p>Underground</p>
                                 </div>
+                    <!-- Single Top Item -->
+                    <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp"
+                         data-wow-delay="100ms">
+                        <div class="first-part d-flex align-items-center">
+                            <div class="thumbnail">
+                                <img src="/imgs/bg-img/wt7.jpg" alt="">
+                            </div>
+                            <div class="content-">
+                                <h6>Sam Smith</h6>
+                                <p>Underground</p>
+                            </div>
+                        </div>
+                        <audio preload="auto" controls>
+                            <source src="/audio/dummy-audio.mp3">
+                        </audio>
+                    </div>
+
+                    <!-- Single Top Item -->
+                    <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp"
+                         data-wow-delay="150ms">
+                        <div class="first-part d-flex align-items-center">
+                            <div class="thumbnail">
+                                <img src="/imgs/bg-img/wt8.jpg" alt="">
+                            </div>
+                            <div class="content-">
+                                <h6>Power Play</h6>
+                                <p>In my mind</p>
+                            </div>
+                        </div>
+                        <audio preload="auto" controls>
+                            <source src="/audio/dummy-audio.mp3">
+                        </audio>
+                    </div>
+
+                    <!-- Single Top Item -->
+                    <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp"
+                         data-wow-delay="200ms">
+                        <div class="first-part d-flex align-items-center">
+                            <div class="thumbnail">
+                                <img src="/imgs/bg-img/wt9.jpg" alt="">
+                            </div>
+                            <div class="content-">
+                                <h6>Cristinne Smith</h6>
+                                <p>My Music</p>
+                            </div>
+                        </div>
+                        <audio preload="auto" controls>
+                            <source src="/audio/dummy-audio.mp3">
+                        </audio>
+                    </div>
+
+                    <!-- Single Top Item -->
+                    <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp"
+                         data-wow-delay="250ms">
+                        <div class="first-part d-flex align-items-center">
+                            <div class="thumbnail">
+                                <img src="/imgs/bg-img/wt10.jpg" alt="">
+                            </div>
+                            <div class="content-">
+                                <h6>The Music Band</h6>
+                                <p>Underground</p>
+                            </div>
+                        </div>
+                        <audio preload="auto" controls>
+                            <source src="/audio/dummy-audio.mp3">
+                        </audio>
+                    </div>
+
+                    <!-- Single Top Item -->
+                    <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp"
+                         data-wow-delay="300ms">
+                        <div class="first-part d-flex align-items-center">
+                            <div class="thumbnail">
+                                <img src="/imgs/bg-img/wt11.jpg" alt="">
+                            </div>
+                            <div class="content-">
+                                <h6>Creative Lyrics</h6>
+                                <p>Songs and stuff</p>
                             </div>
                             <audio preload="auto" controls>
                                 <source src="/audio/dummy-audio.mp3">
@@ -266,6 +351,22 @@
                         </div>
                     </div>
 
+                    <!-- Single Top Item -->
+                    <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp"
+                         data-wow-delay="350ms">
+                        <div class="first-part d-flex align-items-center">
+                            <div class="thumbnail">
+                                <img src="/imgs/bg-img/wt12.jpg" alt="">
+                            </div>
+                            <div class="content-">
+                                <h6>The Culture</h6>
+                                <p>Pop Songs</p>
+                            </div>
+                        </div>
+                        <audio preload="auto" controls>
+                            <source src="/audio/dummy-audio.mp3">
+                        </audio>
+                    </div>
                 </div>
             </div>
 
@@ -376,20 +477,11 @@
         </div>
     </div>
 </footer>
+<footer th:insert="fragment :: footer"></footer>
 <!-- ##### Footer Area Start ##### -->
 
 <!-- ##### All Javascript Script ##### -->
-<!-- jQuery-2.2.4 js -->
-<!-- jQuery -->
-<script src="/js/jquery/jquery-2.2.4.min.js"></script>
-<!-- Popper js -->
-<script src="/js/bootstrap/popper.min.js"></script>
-<!-- Bootstrap js -->
-<script src="/js/bootstrap/bootstrap.min.js"></script>
-<!-- All Plugins js -->
-<script src="/js/plugins/plugins.js"></script>
-<!-- Active js -->
-<script src="/js/active.js"></script>
+<div th:insert="fragment :: import-js-file">
 
 </body>
 
