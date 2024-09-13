@@ -23,6 +23,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PlayListService {
 
+    @Autowired
     private final PlayListRepository playlistRepository;
     private final SongRepository songRepository;
 

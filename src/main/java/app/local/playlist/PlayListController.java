@@ -31,7 +31,7 @@ public class PlayListController {
     @GetMapping
     public ModelAndView getPlayLists(@PageableDefault(value = 10) Pageable pageable) {
         Page<PlayList> playLists = playListService.findAll(pageable);
-        ModelAndView modelAndView = new ModelAndView("albums-store");
+        ModelAndView modelAndView = new ModelAndView("/playlist/albums-store");
         modelAndView.addObject("playLists", playLists);
         return modelAndView;
     }
@@ -51,7 +51,7 @@ public class PlayListController {
                                        @RequestParam(value = "image", required = false) MultipartFile image) {
         PlayListRequest playListRequest = new PlayListRequest(name, views);
         if (playListService.updatePlayList(playlistId, playListRequest, image)) {
-            return new ModelAndView("redirect:/api/v1/playlists");
+            return new ModelAndView("redirect:/playlists");
         } else {
             return new ModelAndView("error/404");
         }
@@ -60,7 +60,7 @@ public class PlayListController {
     @DeleteMapping("/{playlistId}")
     public ModelAndView deletePlayList(@PathVariable("playlistId") long playlistId) {
         playListService.deletePlayList(playlistId);
-        return new ModelAndView("redirect:/api/v1/playlists");
+        return new ModelAndView("redirect:/playlists");
     }
 
     @PostMapping("/{playlistId}")
