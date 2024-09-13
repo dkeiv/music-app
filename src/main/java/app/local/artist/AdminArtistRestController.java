@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 public class AdminArtistRestController {
     private final ArtistService artistService;
 
-
     @PostMapping
     public ResponseEntity<?> save(@RequestParam("name") String name,
                                   @RequestParam("artistProfile") String artistProfile,

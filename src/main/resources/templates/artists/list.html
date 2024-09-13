@@ -50,7 +50,7 @@
                 <div class="single-album">
                     <img th:src="@{'/image/' + ${artist.image}}" th:alt="${artist.name}">
                     <div class="album-info">
-                        <a th:href="@{'/artists/' + ${artist.id}}">
+                        <a th:href="@{/music-app/artists/{id}(id=${artist.id})}">
                             <h5 th:text="${artist.name}">Artist Name</h5>
                         </a>
                         <!--                        <p th:text="${artist.artistProfile}">Artist Profile</p>-->

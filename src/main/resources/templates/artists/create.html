@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <!-- Title -->
+    <title>One Music - Modern Music HTML5 Template</title>
+
+    <!-- Favicon -->
+    <link th:href="@{/imgs/core-img/favicon.ico}" rel="icon">
+
+    <!-- Stylesheet -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+
+<body>
+<!-- Preloader -->
+<div class="preloader d-flex align-items-center justify-content-center">
+    <div class="lds-ellipsis">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+
+<!-- Header -->
+<header th:insert="~{fragment :: header}"></header>
+
+<!-- ##### Header Area End ##### -->
+
+<!-- ##### Breadcumb Area Start ##### -->
+<section class="breadcumb-area bg-img bg-overlay" th:style="'background-image: url(' + @{/imgs/bg-img/bg-1.jpg} + ');'">
+    <div class="bradcumbContent">
+        <h2>Artist</h2>
+    </div>
+</section>
+
+<div class="container mt-5">
+    <h1 class="mb-4">Create Artist</h1>
+
+    <form th:action="@{/music-app/admin/artists/create}" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name:</label>
+            <input type="text" id="name" name="name" class="form-control" th:value="${artistRequest.name}" required/>
+        </div>
+
+        <div class="mb-3">
+            <label for="artistProfile" class="form-label">Artist Profile:</label>
+            <input type="text" id="artistProfile" name="artistProfile" class="form-control"
+                   th:value="${artistRequest.artistProfile}" required/>
+        </div>
+
+        <div class="mb-3">
+            <label for="biography" class="form-label">Biography:</label>
+            <textarea id="biography" name="biography" class="form-control" required
+                      th:text="${artistRequest.biography}"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="image">Image:</label>
+            <input type="file" id="image" name="image" class="form-control-file">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create Artist</button>
+    </form>
+
+
+    <footer class="footer-area">
+        <div class="container">
+            <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-12 col-md-6">
+                    <a th:href="@{/}">
+                        <img th:src="@{/imgs/core-img/logo.png}" alt="Logo">
+                    </a>
+                    <p class="copywrite-text">
+                        Copyright &copy;<script
+                            th:inline="javascript">document.write(new Date().getFullYear());</script>
+                        All rights reserved | This template is made with <i class="fa fa-heart-o"
+                                                                            aria-hidden="true"></i> by
+                        <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                    </p>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <div class="footer-nav">
+                        <ul>
+                            <li><a th:href="@{/}">Home</a></li>
+                            <li><a th:href="@{/albums}">Albums</a></li>
+                            <li><a th:href="@{/events}">Events</a></li>
+                            <li><a th:href="@{/news}">News</a></li>
+                            <li><a th:href="@{/contact}">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        ¬
+    </footer>
+    <!-- ##### Footer Area End ##### -->
+
+    <!-- ##### All Javascript Script ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
+    <!-- Popper js -->
+    <script th:src="@{/js/bootstrap/popper.min.js}"></script>
+    <!-- Bootstrap js -->
+    <script th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+    <!-- All Plugins js -->
+    <script th:src="@{/js/plugins/plugins.js}"></script>
+    <!-- Active js -->
+    <script th:src="@{/js/active.js}"></script>
+
+</body>
+
+</html>
