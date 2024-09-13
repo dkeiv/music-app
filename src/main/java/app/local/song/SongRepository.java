@@ -1,5 +1,7 @@
 package app.local.song;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
@@ -23,4 +25,6 @@ public interface SongRepository extends PagingAndSortingRepository<Song, Long> {
             nativeQuery = true
     )
     List<Song> findLikedSongsByUserId(@Param("userId") Long id);
+
+    Page<Song> findSongByTitleContainingIgnoreCase(String title, Pageable pageable);
 }

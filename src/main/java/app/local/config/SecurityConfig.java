@@ -32,7 +32,7 @@ public class SecurityConfig {
                                         "/icon/**",
                                         "/imgs/**",
                                         "/scss/**",
-                                        "/**", //?
+//                                        "/**", //?
                                         "/login",
                                         "/music-app",
                                         "/music-app/logout",
@@ -44,7 +44,8 @@ public class SecurityConfig {
                                         "/music-app/playlists/**",
                                         "/music-app/songs",
                                         "/music-app/songs/**",
-                                        "/music-app/contact"
+                                        "/music-app/contact",
+                                        "/music-app/search"
                                 ).permitAll()
                                 .requestMatchers(
                                         "/music-app/me"

@@ -101,4 +101,8 @@ public class SongService {
     public List<Song> findLikedSongsByUserId(Long userId) {
         return songRepository.findLikedSongsByUserId(userId);
     }
+
+    public Page<Song> findSongByTitle(String title, Pageable pageable) {
+        return songRepository.findSongByTitleContainingIgnoreCase(title, pageable);
+    }
 }

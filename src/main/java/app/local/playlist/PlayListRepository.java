@@ -1,5 +1,7 @@
 package app.local.playlist;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,4 +17,6 @@ public interface PlayListRepository extends PagingAndSortingRepository<PlayList,
     void deleteById(Long id);
 
     List<PlayList> findPlayListByUserId(Long id);
+
+    Page<PlayList> findPlayListByNameContainingIgnoreCase(String name, Pageable pageable);
 }
