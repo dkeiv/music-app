@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add New Song</title>
+</head>
+<body>
+<h1>Add New Song</h1>
+
+<form th:action="@{/songs/create}" th:object="${song}" method="post" enctype="multipart/form-data">
+    <div>
+        <label for="title">Title:</label>
+        <input type="text" id="title" th:field="*{title}" placeholder="Enter song title"/>
+        <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+    </div>
+
+    <div>
+        <label for="description">Description:</label>
+        <textarea id="description" th:field="*{description}" placeholder="Enter song description"></textarea>
+        <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+    </div>
+
+    <div>
+        <label for="mediaUrl">Media URL:</label>
+        <input type="text" id="mediaUrl" th:field="*{mediaUrl}" placeholder="Enter media URL"/>
+        <span th:if="${#fields.hasErrors('mediaUrl')}" th:errors="*{mediaUrl}"></span>
+    </div>
+
+    <div>
+        <label for="avatarUrl">Avatar URL:</label>
+        <input type="text" id="avatarUrl" th:field="*{avatarUrl}" placeholder="Enter avatar URL"/>
+        <span th:if="${#fields.hasErrors('avatarUrl')}" th:errors="*{avatarUrl}"></span>
+    </div>
+
+    <div>
+        <button type="submit">Add Song</button>
+    </div>
+</form>
+
+<a href="/songs">Back to song list</a>
+</body>
+</html>

@@ -36,7 +36,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -52,18 +51,18 @@ public class ApplicationConfig implements WebMvcConfigurer, ApplicationContextAw
     private ApplicationContext applicationContext;
 
     @Value("${file-upload}")
-    private String upload;
+    private String audioDirectory;
 
     @Value("${file-upload-img}")
-    private String fileUpload;
+    private String imageDirectory;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/mp3/**")
-                .addResourceLocations("file:" + upload);
+                .addResourceLocations("file:" + audioDirectory);
 
         registry.addResourceHandler("/image/**")
-                .addResourceLocations("file:" + fileUpload);
+                .addResourceLocations("file:" + imageDirectory);
 
         registry.addResourceHandler("/css/**", "/js/**", "/imgs/**", "/icon/**", "/audio/**", "/scss/**", "/fonts/**")
                 .addResourceLocations(

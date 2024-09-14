@@ -36,6 +36,7 @@ public class ArtistService {
         artistRepository.save(artist);
     }
 
+
     public Page<Artist> findAll(Pageable pageable) {
         return artistRepository.findAll(pageable);
     }
@@ -58,6 +59,7 @@ public class ArtistService {
                     return true;
                 }).orElse(false);
     }
+
 
     public boolean delete(Long id) {
         if (artistRepository.existsById(id)) {

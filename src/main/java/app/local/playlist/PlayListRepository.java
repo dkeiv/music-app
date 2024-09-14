@@ -17,4 +17,6 @@ public interface PlayListRepository extends PagingAndSortingRepository<PlayList,
     void deleteById(Long id);
 
     Page<PlayList> findPlayListByUserId(Long id, Pageable pageable);
+
+    Page<PlayList> findPlayListByNameContainingIgnoreCase(String name, Pageable pageable);
 }
