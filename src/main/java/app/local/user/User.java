@@ -53,6 +53,12 @@ public class User implements UserDetails {
     @ManyToMany
     private List<Song> likedSongs;
 
+    public void likeSong(Song song) {
+        if (!likedSongs.contains(song)) {
+            likedSongs.add(song);
+        }
+    }
+
     @ManyToMany
     private List<PlayList> likedPlaylists;
 

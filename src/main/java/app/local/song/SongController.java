@@ -1,9 +1,16 @@
 package app.local.song;
 
+import app.local.artist.Artist;
+import app.local.artist.ArtistService;
+import app.local.exception.NotFoundException;
+import app.local.user.User;
+import app.local.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -16,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -25,9 +33,11 @@ import java.util.Optional;
 public class SongController {
 
     private final SongService songService;
+    private final UserService userService;
+    private final ArtistService artistService;
 
     @GetMapping
-    public String list(Model model, Pageable pageable) {
+    public String list(Model model,@PageableDefault(size = 10) Pageable pageable) {
         Page<Song> allSongs = songService.findAll(pageable);
         model.addAttribute("allSongs", allSongs);
         return "song/index";
@@ -41,8 +51,10 @@ public class SongController {
 
 
     @GetMapping("/create")
-    public String createForm(Model model) {
+    public String createForm(Model model, Pageable pageable) {
         model.addAttribute("song", new SongRequest());
+        Page<Artist> artists = artistService.findAll(pageable);
+        model.addAttribute("artists", artists);
         return "song/createSong";
     }
 
@@ -71,5 +83,11 @@ public class SongController {
     @PostMapping("/delete")
     public String delete() {
        return "/";
+    }
+
+    @PostMapping("/songs/like/{songId}")
+    public String likeSong(@PathVariable Long songId, @AuthenticationPrincipal User user) throws NotFoundException {
+        userService.likeSong(user.getId(), songId);
+        return "redirect:/music-app/songs" + songId;
     }
 }

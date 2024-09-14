@@ -32,7 +32,7 @@
                 <form action="#" th:action="@{/music-app/songs/create}" th:object="${song}" method="post" enctype="multipart/form-data">
                     <!-- Song Title -->
                     <div class="form-group">
-                        <label for="title">Title:</label>
+                        <label for="title">Name:</label>
                         <input type="text" id="title" name="title" th:field="*{title}" placeholder="Enter song title" class="form-control" required>
                         <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="text-danger">Title Error</div>
                     </div>
@@ -55,6 +55,16 @@
                         <label for="avatarFile">Upload Avatar Image:</label>
                         <input type="file" id="avatarFile" name="avatarUrl" accept="image/*" class="form-control">
                     </div>
+
+                    <div class="form-group">
+                        <label for="artists">Artists:</label>
+                        <select id="artists" name="artist" multiple style="width: 100px">
+                            <option th:each="artist : ${artists}"
+                                    th:value="${artist.id}"
+                                    th:text="${artist.name}">Artist Name</option>
+                        </select>
+                    </div>
+
 
                     <!-- Submit Button -->
                     <button type="submit" class="btn oneMusic-btn mt-30">Save Song</button>
