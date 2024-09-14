@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Title -->
-    <title th:text="${artist.name} + ' - Artist Detail'">Artist Detail</title>
+    <title>Music App</title>
 
     <!-- Favicon -->
     <link th:href="@{/imgs/core-img/favicon.ico}" rel="icon">
@@ -29,40 +29,51 @@
 </div>
 
 <!-- Header -->
-<header th:insert="fragment :: header"></header>
+<header th:insert="~{fragment :: header}">
+</header>
 
 <!-- ##### Header Area End ##### -->
 
 <!-- ##### Breadcumb Area Start ##### -->
 <section class="breadcumb-area bg-img bg-overlay" th:style="'background-image: url(' + @{/imgs/bg-img/bg-1.jpg} + ');'">
     <div class="bradcumbContent">
-        <h2>Artist Detail</h2>
+        <h2>Artist for Admin</h2>
     </div>
 </section>
 <!-- ##### Breadcumb Area End ##### -->
 
 <!-- ##### Artist Profile Area Start ##### -->
-<section class="artist-profile section-padding-100-0">
+<section class="album-catagory section-padding-100-0">
     <div class="container">
         <div class="row">
-            <div class="col-12 col-md-4">
-                <!-- Artist Image -->
-                <img th:src="@{'/image/' + ${artist.image}}" alt="Artist Image" class="img-fluid">
+            <div class="col-12 text-center mb-4">
+                <a class="btn btn-primary" th:href="@{/music-app/admin/artists/create}">Add Artist</a>
             </div>
-            <div class="col-12 col-md-8">
-                <!-- Artist Details -->
-                <h2 th:text="${artist.name}">Artist Name</h2>
-                <p th:text="${artist.biography}">Artist Biography</p>
-                <!-- Additional Information -->
-                <div class="artist-additional-info">
-                    <p><strong>Profile:</strong> <span th:text="${artist.artistProfile}">Artist Profile</span></p>
+        </div>
+        <div class="row oneMusic-albums">
+            <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item"
+                 th:each="artist : ${artists.content}">
+                <div class="single-album">
+                    <img th:src="@{'/image/' + ${artist.image}}" th:alt="${artist.name}">
+                    <div class="album-info">
+                        <a th:href="@{/music-app/admin/artists/{id}(id=${artist.id})}">
+                            <h5 th:text="${artist.name}">Artist Name</h5>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+
+        <div class="d-flex justify-content-center my-4">
+            <ul class="pagination">
+                <!-- Page Numbers -->
+                <li th:each="page : ${#numbers.sequence(0, artists.totalPages - 1)}" class="page-item">
+                    <a th:href="@{/music-app/admin/artists?page=${page}}" class="page-link" th:text="${page + 1}"></a>
+                </li>
+            </ul>
+        </div>
     </div>
 </section>
-<!-- ##### Artist Profile Area End ##### -->
 
 <!-- ##### Footer Area Start ##### -->
 <footer class="footer-area">
@@ -73,6 +84,7 @@
                     <img th:src="@{/imgs/core-img/logo.png}" alt="Logo">
                 </a>
                 <p class="copywrite-text">
+                    <!-- Hiển thị năm hiện tại -->
                     Copyright &copy;<script th:inline="javascript">document.write(new Date().getFullYear());</script>
                     All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by
                     <a href="https://colorlib.com" target="_blank">Colorlib</a>
@@ -106,17 +118,6 @@
 <script th:src="@{/js/plugins/plugins.js}"></script>
 <!-- Active js -->
 <script th:src="@{/js/active.js}"></script>
-
-<!-- Confirmation for delete action -->
-<script>
-    document.querySelectorAll('.btn-danger').forEach(button => {
-        button.addEventListener('click', function (event) {
-            if (!confirm('Are you sure you want to delete this artist?')) {
-                event.preventDefault();
-            }
-        });
-    });
-</script>
 
 </body>
 
