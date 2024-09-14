@@ -7,6 +7,8 @@ import app.local.playlist.PlayListService;
 import app.local.song.Song;
 import app.local.song.SongService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -43,7 +45,6 @@ public class AppController {
         List<Song> featuredSong = songService.findByArtist(featuredArtist);
         model.addAttribute("featuredSong", featuredSong.get(0));
 
-
         model.addAttribute("songs", songList);
         model.addAttribute("playlist", playlistList);
         model.addAttribute("artists", artistList);
@@ -67,5 +68,26 @@ public class AppController {
     }
 
 
+    @GetMapping("/music-app/search")
+    public String searchIndex(
+            @RequestParam(required = false) String query,
+            Model model,
+            Pageable pageable
+    ) {
+        if(query == null) {
+            return "search";
+        }
 
+        if(!query.isEmpty()) {
+            Page<Song> songResult = songService.findSongByTitle(query, pageable);
+            model.addAttribute("songResult", songResult);
+
+            Page<PlayList> playlistResult = playListService.findPlayListsByName(query, pageable);
+            model.addAttribute("playlistResult", playlistResult);
+
+            model.addAttribute("query", query);
+        }
+
+        return "search";
+    }
 }

@@ -48,7 +48,7 @@
                         <div class="hero-slides-content text-center">
                             <h6 data-animation="fadeInUp" data-delay="100ms">Latest album</h6>
                             <h2 data-animation="fadeInUp" data-delay="300ms">Beyond Time <span>Beyond Time</span></h2>
-                            <a data-animation="fadeInUp" data-delay="500ms" th:href="@{/music-app/songs}"
+                            <a data-animation="fadeInUp" data-delay="500ms" th:href="@{/music-app/search}"
                                class="btn oneMusic-btn mt-50">Discover <i class="fa fa-angle-double-right"></i></a>
                         </div>
                     </div>
@@ -68,7 +68,7 @@
                             <h6 data-animation="fadeInUp" data-delay="100ms">Latest album</h6>
                             <h2 data-animation="fadeInUp" data-delay="300ms">Colorlib Music <span>Colorlib Music</span>
                             </h2>
-                            <a data-animation="fadeInUp" data-delay="500ms" href="#" class="btn oneMusic-btn mt-50">Discover
+                            <a data-animation="fadeInUp" data-delay="500ms" th:href="@{/music-app/search}" class="btn oneMusic-btn mt-50">Discover
                                 <i class="fa fa-angle-double-right"></i></a>
                         </div>
                     </div>
@@ -378,18 +378,7 @@
 <!-- ##### Footer Area Start ##### -->
 
 <!-- ##### All Javascript Script ##### -->
-<!-- jQuery-2.2.4 js -->
-<!-- jQuery -->
-<script src="/js/jquery/jquery-2.2.4.min.js"></script>
-<!-- Popper js -->
-<script src="/js/bootstrap/popper.min.js"></script>
-<!-- Bootstrap js -->
-<script src="/js/bootstrap/bootstrap.min.js"></script>
-<!-- All Plugins js -->
-<script src="/js/plugins/plugins.js"></script>
-<!-- Active js -->
-<script src="/js/active.js"></script>
+<div th:insert="fragment :: import-js-file"></div>
 
 </body>
-
 </html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>One Music - Modern Music HTML5 Template</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/imgs/core-img/favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+
+<body>
+<!--&lt;!&ndash; Preloader &ndash;&gt;-->
+<!--<div class="preloader d-flex align-items-center justify-content-center">-->
+<!--    <div class="lds-ellipsis">-->
+<!--        <div></div>-->
+<!--        <div></div>-->
+<!--        <div></div>-->
+<!--        <div></div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!-- ##### Header Area Start ##### -->
+<header th:insert="fragment :: header"></header>
+<!-- ##### Header Area End ##### -->
+
+<!-- ##### Hero Area Start ##### -->
+<!-- ##### Hero Area End ##### -->
+
+<!-- ##### Latest Albums Area Start ##### -->
+<section class="latest-albums-area section-padding-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading style-2">
+                    <p>What's your mood</p>
+                    <h2>find it now</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-9">
+                <div class="ablums-text text-center mb-70">
+                    <form th:action="@{/music-app/search}" method="GET">
+                        <div class="input-group">
+                            <input type="search"
+                                   class="form-control rounded"
+                                   placeholder="What do you want to hear?"
+                                   aria-label="Search"
+                                   aria-describedby="search-addon"
+                                   name="query"
+                                   th:value="${query}"
+                            />
+                            <button type="button" class="btn btn-outline-secondary" data-mdb-ripple-init>Hear it
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- ##### result song ##### -->
+        <div class="row" th:if="${songResult != null}">
+            <div class="col-12">
+                <div class="section-heading style-2">
+                    <p>Song</p>
+                </div>
+            </div>
+
+            <th:block th:each="s : ${songResult}">
+                <!-- Single Album Area -->
+                <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                    <div class="single-album-area wow fadeInUp" data-wow-delay="100ms">
+                        <div class="album-thumb">
+                            <img th:src="${s.avatarUrl}" alt="">
+                        </div>
+                        <div class="album-info">
+                            <a th:ref="@{/music-app/songs/__${s.id}__}">
+                                <h5 th:text="${s.title}"></h5>
+                            </a>
+                            <span th:each="g : ${s.genres}" th:text="${g.name}+ ' '"></span>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+
+        <!-- ##### result playlist ##### -->
+        <div class="row" th:if="${playlistResult != null}">
+            <div class="col-12">
+                <div class="section-heading style-2">
+                    <p>Playlist</p>
+                </div>
+            </div>
+
+            <th:block th:each="p : ${playlistResult}">
+                <!-- Single Album Area -->
+                <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                    <div class="single-album-area wow fadeInUp" data-wow-delay="100ms">
+                        <div class="album-thumb">
+                            <!--                            <img th:src="${p.views}" th:alt="${p.name}">-->
+                            <img th:src="'#'" th:alt="${p.name}">
+                        </div>
+                        <div class="album-info">
+                            <a th:href="@{/music-app/playlists/__${p.id}__}">
+                                <h5 th:text="${p.name}"></h5>
+                            </a>
+                            <p th:text="'Views: ' + ${p.views}"></p>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+
+        </div>
+    </div>
+</section>
+<!-- ##### Latest Albums Area End ##### -->
+
+
+<section class="contact-area section-padding-100 bg-img bg-overlay bg-fixed has-bg-img"
+         style="background-image: url(/imgs/bg-img/bg-2.jpg);">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading white wow fadeInUp" data-wow-delay="100ms">
+                    <p>See what’s new</p>
+                    <h2>Get In Touch</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <!-- Contact Form Area -->
+                <div class="contact-form-area">
+                    <form action="#" method="post">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4">
+                                <div class="form-group wow fadeInUp" data-wow-delay="100ms">
+                                    <input type="text" class="form-control" id="name" placeholder="Name">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="form-group wow fadeInUp" data-wow-delay="200ms">
+                                    <input type="email" class="form-control" id="email" placeholder="E-mail">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group wow fadeInUp" data-wow-delay="300ms">
+                                    <input type="text" class="form-control" id="subject" placeholder="Subject">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group wow fadeInUp" data-wow-delay="400ms">
+                                    <textarea name="message" class="form-control" id="message" cols="30" rows="10"
+                                              placeholder="Message"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-12 text-center wow fadeInUp" data-wow-delay="500ms">
+                                <button class="btn oneMusic-btn mt-30" type="submit">Send <i
+                                        class="fa fa-angle-double-right"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ##### Footer Area Start ##### -->
+<footer th:insert="~{fragment :: footer}"></footer>
+<!-- ##### Footer Area Start ##### -->
+
+<!-- ##### All Javascript Script ##### -->
+<div th:insert="~{fragment :: import-js-file}"></div>
+
+</body>
+
+</html>
