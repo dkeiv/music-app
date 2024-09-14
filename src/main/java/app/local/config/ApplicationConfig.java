@@ -51,22 +51,18 @@ public class ApplicationConfig implements WebMvcConfigurer, ApplicationContextAw
     private ApplicationContext applicationContext;
 
     @Value("${file-upload}")
-    private String upload;
+    private String audioDirectory;
 
     @Value("${file-upload-img}")
-    private String uploadImg;
-    private String fileUpload;
-
+    private String imageDirectory;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/mp3/**")
-                .addResourceLocations("file:" + upload);
+                .addResourceLocations("file:" + audioDirectory);
 
-        registry.addResourceHandler("/img/**")
-                .addResourceLocations("file:" + uploadImg);
         registry.addResourceHandler("/image/**")
-                .addResourceLocations("file:" + fileUpload);
+                .addResourceLocations("file:" + imageDirectory);
 
         registry.addResourceHandler("/css/**", "/js/**", "/imgs/**", "/icon/**", "/audio/**", "/scss/**", "/fonts/**")
                 .addResourceLocations(

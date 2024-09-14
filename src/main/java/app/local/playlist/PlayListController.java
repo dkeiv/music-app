@@ -1,76 +1,104 @@
 package app.local.playlist;
 
 import app.local.song.Song;
+import app.local.song.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/v1/playlists")
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
+@Controller
+@RequestMapping("/music-app/playlists")
+@CrossOrigin("*")
 public class PlayListController {
     @Autowired
     private PlayListService playListService;
 
+    @Autowired
+    private SongService songService;
+
     @PostMapping
-    ResponseEntity<PlayList> createPlayList(@RequestBody PlayListRequest request) {
-        playListService.save(request);
-        return ResponseEntity.ok().build();
+    public ModelAndView createPlayList(@RequestParam("name") String name,
+                                       @RequestParam("views") int views,
+                                       @RequestParam("image") MultipartFile file) {
+        PlayListRequest playListRequest = new PlayListRequest(name, views);
+        playListService.save(playListRequest, file);
+        return new ModelAndView("redirect:/playlists");
     }
 
     @GetMapping
-    ResponseEntity<Page<PlayList>> getPlayLists(@PageableDefault(value = 10) Pageable pageable) {
+    public ModelAndView getPlayLists(@RequestParam(defaultValue = "0") int page,
+                                     @RequestParam(defaultValue = "12") int size) {
+        Pageable pageable = PageRequest.of(page, size);
         Page<PlayList> playLists = playListService.findAll(pageable);
-        return ResponseEntity.ok(playLists);
+        ModelAndView modelAndView = new ModelAndView("/playlist/albums-store");
+        modelAndView.addObject("playLists", playLists);
+        return modelAndView;
     }
 
     @GetMapping("/{playlistId}")
-    ResponseEntity<PlayList> getPlayListById(@PathVariable("playlistId") long playlistId) {
-        return ResponseEntity.ok().body(playListService.getPlayList(playlistId));
+    public ModelAndView getPlayListById(@PathVariable("playlistId") long playlistId) {
+        PlayList playList = playListService.getPlayList(playlistId);
+        ModelAndView modelAndView = new ModelAndView("playlists/detail");
+        modelAndView.addObject("playList", playList);
+        return modelAndView;
     }
 
     @PutMapping("/{playlistId}")
-    ResponseEntity<PlayList> updatePlayList(@PathVariable("playlistId") long playlistId,@RequestBody PlayListRequest request) {
-        playListService.updatePlayList(playlistId, request);
-        return ResponseEntity.ok().build();
+    public ModelAndView updatePlayList(@PathVariable("playlistId") long playlistId,
+                                       @RequestParam("name") String name,
+                                       @RequestParam("views") int views,
+                                       @RequestParam(value = "image", required = false) MultipartFile image) {
+        PlayListRequest playListRequest = new PlayListRequest(name, views);
+        if (playListService.updatePlayList(playlistId, playListRequest, image)) {
+            return new ModelAndView("redirect:/playlists");
+        } else {
+            return new ModelAndView("error/404");
+        }
     }
 
     @DeleteMapping("/{playlistId}")
-    ResponseEntity<?> deletePlayList(@PathVariable("playlistId") long playlistId) {
+    public ModelAndView deletePlayList(@PathVariable("playlistId") long playlistId) {
         playListService.deletePlayList(playlistId);
-        return ResponseEntity.ok().build();
+        return new ModelAndView("redirect:/playlists");
     }
 
-
     @PostMapping("/{playlistId}")
-    ResponseEntity<PlayList> viewPlayList(@PathVariable("playlistId") Long playlistId) {
+    public ModelAndView viewPlayList(@PathVariable("playlistId") Long playlistId) {
         PlayList playList = playListService.increaseViews(playlistId);
         if (playList != null) {
-            return ResponseEntity.ok(playList);
+            return new ModelAndView("playlists/detail", "playList", playList);
         } else {
-            return ResponseEntity.notFound().build();
+            return new ModelAndView("error/404");
         }
     }
 
     @PostMapping("/{playlistId}/songs/{songId}")
-    public ResponseEntity<PlayList> addSongToPlaylist(@PathVariable Long playlistId, @PathVariable Long songId) {
+    public ModelAndView addSongToPlaylist(@PathVariable Long playlistId, @PathVariable Long songId) {
         PlayList updatedPlaylist = playListService.addSongToPlaylist(playlistId, songId);
-        return ResponseEntity.ok(updatedPlaylist);
+        return new ModelAndView("playlists/detail", "playList", updatedPlaylist);
     }
 
     @GetMapping("/{playlistId}/songs")
-    public ResponseEntity<List<Song>> getSongsInPlaylist(@PathVariable Long playlistId) {
+    public ModelAndView getSongsInPlaylist(@PathVariable Long playlistId) {
         List<Song> songs = playListService.getSongsInPlaylist(playlistId);
-        return ResponseEntity.ok(songs);
+        ModelAndView modelAndView = new ModelAndView("playlist/songs");
+        modelAndView.addObject("songs", songs);
+        return modelAndView;
     }
 
     @DeleteMapping("/{playlistId}/songs/{songId}")
-    public ResponseEntity<PlayList> removeSongFromPlaylist(@PathVariable Long playlistId, @PathVariable Long songId) {
+    public ModelAndView removeSongFromPlaylist(@PathVariable Long playlistId, @PathVariable Long songId) {
         PlayList updatedPlaylist = playListService.removeSongFromPlaylist(playlistId, songId);
-        return ResponseEntity.ok(updatedPlaylist);
+        return new ModelAndView("playlists/detail", "playList", updatedPlaylist);
     }
 }

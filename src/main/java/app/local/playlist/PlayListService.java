@@ -2,13 +2,20 @@ package app.local.playlist;
 
 import app.local.song.Song;
 import app.local.song.SongRepository;
-import app.local.song.SongService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,8 +23,12 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PlayListService {
 
+    @Autowired
     private final PlayListRepository playlistRepository;
     private final SongRepository songRepository;
+
+    @Value("${file-upload-img}")
+    private String fileUpload;
 
     // Phương thức chung để lấy PlayList với xử lý ngoại lệ
     private PlayList findPlayListById(Long playlistId) {
@@ -25,13 +36,29 @@ public class PlayListService {
                 .orElseThrow(() -> new RuntimeException("Playlist not found with id: " + playlistId));
     }
 
-    public void save(PlayListRequest request) {
+    public void save(PlayListRequest request, MultipartFile file) {
+        String imageFileName = saveFile(file);
         var playlist = PlayList.builder()
                 .id(request.getId())
                 .name(request.getName())
+                .image(imageFileName)
                 .views(request.getViews())
                 .build();
         playlistRepository.save(playlist);
+    }
+
+    private String saveFile(MultipartFile file) {
+        if (file.isEmpty()) {
+            return null;
+        }
+        try {
+            Path path = Paths.get(fileUpload + File.separator + file.getOriginalFilename());
+            Files.copy(file.getInputStream(), path);
+            return file.getOriginalFilename();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public Page<PlayList> findAll(Pageable pageable) {
@@ -42,14 +69,18 @@ public class PlayListService {
         return findPlayListById(playlistId); // sử dụng phương thức chung
     }
 
-    public void updatePlayList(Long playlistId, PlayListRequest request) {
-        PlayList playlist = findPlayListById(playlistId);
-        var updatedPlayList = PlayList.builder()
-                .id(playlist.getId())
-                .name(request.getName() == null ? playlist.getName() : request.getName())
-                .views(request.getViews())
-                .build();
-        playlistRepository.save(updatedPlayList);
+    @Transactional
+    public boolean updatePlayList(Long playlistId, PlayListRequest request, MultipartFile file) {
+        return playlistRepository.findById(playlistId)
+                .map(playList -> {
+                    playList.setName(request.getName());
+                    if (file != null && !file.isEmpty()) {
+                        playList.setImage(saveFile(file));
+                    }
+                    playList.setViews(request.getViews());
+                    playlistRepository.save(playList);
+                    return true;
+                }).orElse(false);
     }
 
     public void deletePlayList(Long playlistId) {
@@ -91,8 +122,8 @@ public class PlayListService {
         return playlistRepository.save(playlist);
     }
 
-    public List<PlayList> getPlayListsByUserId(Long userId) {
-        return playlistRepository.findPlayListByUserId(userId);
+    public Page<PlayList> getPlayListsByUserId(Long userId, Pageable pageable) {
+        return playlistRepository.findPlayListByUserId(userId, pageable);
     }
 
     public Page<PlayList> findPlayListsByName(String name, Pageable pageable) {

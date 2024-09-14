@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>One Music</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/imgs/core-img/favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+
+<body>
+<header th:insert="fragment :: header"></header>
+<div class="preloader d-flex align-items-center justify-content-center">
+    <div class="lds-ellipsis">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+
+<!-- ##### Breadcumb Area Start ##### -->
+<section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/imgs/bg-img/banner.jpg);">
+    <div class="bradcumbContent">
+        <p>Danh Sách</p>
+        <h2>PLAYLIST</h2>
+    </div>
+</section>
+<!-- ##### Breadcumb Area End ##### -->
+
+<!-- ##### Album Catagory Area Start ##### -->
+<section class="album-catagory section-padding-100-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+
+            </div>
+        </div>
+
+        <div class="row oneMusic-albums" >
+            <th:block th:each="p : ${playLists}">
+                <!-- Single Album -->
+                <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item">
+                    <div class="single-album">
+                        <img th:href="@{/music-app/playlists/{playlistId}/songs(playlistId=${p.id})}" th:src="@{'/image/' + ${p.image}}" th:alt="${p.name}">
+                        <div class="album-info">
+                            <a th:href="@{/music-app/playlists/{playlistId}/songs(playlistId=${p.id})}">
+                                <h5 th:text="${p.name}"></h5>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:classappend="${playLists.hasPrevious()} ? '' : 'disabled'">
+                    <a class="page-link" th:href="@{/music-app/playlists(page=${playLists.number - 1}, size=${size})}"
+                       aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item" th:each="page : ${#numbers.sequence(0, playLists.totalPages - 1)}"
+                    th:classappend="${page == playLists.number} ? 'active'">
+                    <a class="page-link" th:href="@{/music-app/playlists(page=${page}, size=${size})}"
+                       th:text="${page + 1}"></a>
+                </li>
+                <li class="page-item" th:classappend="${playLists.hasNext()} ? '' : 'disabled'">
+                    <a class="page-link" th:href="@{/music-app/playlists(page=${playLists.number + 1}, size=${size})}"
+                       aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</section>
+<!-- ##### Album Catagory Area End ##### -->
+
+<!-- ##### Add Area Start ##### -->
+<div class="add-area mb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="adds">
+                    <a href="#"><img src="/imgs/bg-img/add3.gif" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ##### Song Area End ##### -->
+
+<!-- ##### Footer Area Start ##### -->
+<!-- ##### Footer Area Start ##### -->
+
+<!-- ##### All Javascript Script ##### -->
+<!-- jQuery-2.2.4 js -->
+<script src="/js/jquery/jquery-2.2.4.min.js"></script>
+<!-- Popper js -->
+<script src="/js/bootstrap/popper.min.js"></script>
+<!-- Bootstrap js -->
+<script src="/js/bootstrap/bootstrap.min.js"></script>
+<!-- All Plugins js -->
+<script src="/js/plugins/plugins.js"></script>
+<!-- Active js -->
+<script src="/js/active.js"></script>
+<header th:insert="fragment :: footer"></header>
+</body>
+
+</html>
