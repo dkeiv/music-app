@@ -4,8 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/music-app/artists")
@@ -14,41 +15,21 @@ public class ArtistController {
     private final ArtistService artistService;
 
     @GetMapping
-    public String listArtist(Model model) {
+    public String listArtist(Model model, Pageable pageable) {
+        model.addAttribute("artists", artistService.findAll(pageable).getContent());
         return "artists/list";
     }
 
+
     @GetMapping("/{id}")
     public String viewArtist(@PathVariable Long id, Model model) {
-        return "artists/view";
-    }
-
-    @GetMapping("/create")
-    public String createArtist(Model model) {
-        model.addAttribute("artistRequest", new ArtistRequest());
-        return "artists/create";
-    }
-
-    @PostMapping("/create")
-    public String saveArtist(@ModelAttribute ArtistRequest artistRequest,
-                             @RequestParam("image") MultipartFile file) {
-        return "redirect:/artists";
-    }
-
-    @GetMapping("/{id}/edit")
-    public String editArtist(@PathVariable Long id, Model model) {
-        return "artists/edit";
-    }
-
-    @PostMapping("/{id}/edit")
-    public String updateArtist(@PathVariable Long id,
-                               @ModelAttribute ArtistRequest artistRequest,
-                               @RequestParam(value = "image", required = false) MultipartFile file) {
-        return "redirect:/artists";
-    }
-
-    @GetMapping("/{id}/delete")
-    public String deleteArtist(@PathVariable Long id) {
-        return "redirect:/artists";
+        return artistService.findById(id)
+                .map(artist -> {
+                    model.addAttribute("artist", artist);
+                    return "artists/view";
+                })
+                .orElse("redirect:/music-app/artists");
     }
 }
+
+

@@ -35,7 +35,7 @@ public class SongRestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Song> updateSong(@PathVariable Long id, @RequestPart("songRequest") SongRequest songRequest) {
+    public ResponseEntity<Song> updateSong(@PathVariable Long id, @ModelAttribute SongRequest songRequest) {
         try {
             Song updatedSong = songService.updateSongRest(id, songRequest);
             return new ResponseEntity<>(updatedSong, HttpStatus.OK);
