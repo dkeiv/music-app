@@ -51,7 +51,7 @@
                                 <li><a th:href="@{/music-app/contact}">Contact</a></li>
                                 <li sec:authorize="isAuthenticated()"><a
                                         th:href="@{/music-app/me}">Me</a></li>
-                                <li sec:authorize="hasAnyRole('ADMIN')"><a th:href="@{/music-app/songs/create}">Upload</a></li>
+                                <li ><a th:href="@{/music-app/songs/create}">Upload</a></li>
                                 <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Login</a></li>
                                 <li sec:authorize="isAuthenticated()"><a th:href="@{/music-app/logout}">Logout</a></li>
                             </ul>

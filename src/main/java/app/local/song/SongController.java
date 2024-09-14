@@ -47,12 +47,9 @@ public class SongController {
     }
 
     @PostMapping("/create")
-    public String save(@ModelAttribute SongRequest request, BindingResult result) throws IOException {
-        if (result.hasErrors()) {
-            return "song/createSong"; // Return to form view if there are errors
-        }
+    public String save(@ModelAttribute SongRequest request) throws IOException {
         songService.save(request);
-        return "redirect:/songs";
+        return "redirect:/music-app/songs";
     }
 
     @GetMapping("/{id}/edit")

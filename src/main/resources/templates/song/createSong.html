@@ -1,41 +1,102 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
-    <title>Add New Song</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Create New Song</title>
+
+    <link rel="icon" href="/imgs/core-img/favicon.ico">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
+
 <body>
-<h1>Add New Song</h1>
+<header th:insert="~{fragment :: header}"></header>
 
-<form th:action="@{/songs/create}" th:object="${song}" method="post" enctype="multipart/form-data">
-    <div>
-        <label for="title">Title:</label>
-        <input type="text" id="title" th:field="*{title}" placeholder="Enter song title"/>
-        <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+<!-- ##### Breadcumb Area Start ##### -->
+<section class="breadcumb-area bg-img bg-overlay" th:style="'background-image: url(' + @{/imgs/bg-img/bg-1.jpg} + ');'">
+    <div class="bradcumbContent">
+        <h2>Create New Song</h2>
     </div>
+</section>
+<!-- ##### Breadcumb Area End ##### -->
 
-    <div>
-        <label for="description">Description:</label>
-        <textarea id="description" th:field="*{description}" placeholder="Enter song description"></textarea>
-        <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+<!-- ##### Form Area Start ##### -->
+<div class="oneMusic-buy-now-area mb-100" style="margin: 50px 0">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <form action="#" th:action="@{/music-app/songs/create}" th:object="${song}" method="post" enctype="multipart/form-data">
+                    <!-- Song Title -->
+                    <div class="form-group">
+                        <label for="title">Title:</label>
+                        <input type="text" id="title" name="title" th:field="*{title}" placeholder="Enter song title" class="form-control" required>
+                        <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="text-danger">Title Error</div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea id="description" name="description" th:field="*{description}" placeholder="Enter song description" class="form-control"></textarea>
+                        <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger">Description Error</div>
+                    </div>
+
+                    <!-- Media File -->
+                    <div class="form-group">
+                        <label for="mediaFile">Upload Media File:</label>
+                        <input type="file" id="mediaFile" name="mediaUrl" accept="audio/*" class="form-control">
+                    </div>
+
+                    <!-- Avatar Image -->
+                    <div class="form-group">
+                        <label for="avatarFile">Upload Avatar Image:</label>
+                        <input type="file" id="avatarFile" name="avatarUrl" accept="image/*" class="form-control">
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn oneMusic-btn mt-30">Save Song</button>
+                </form>
+            </div>
+        </div>
     </div>
+</div>
+<!-- ##### Form Area End ##### -->
 
-    <div>
-        <label for="mediaUrl">Media URL:</label>
-        <input type="text" id="mediaUrl" th:field="*{mediaUrl}" placeholder="Enter media URL"/>
-        <span th:if="${#fields.hasErrors('mediaUrl')}" th:errors="*{mediaUrl}"></span>
+<!-- ##### Footer Area Start ##### -->
+<footer class="footer-area">
+    <div class="container">
+        <div class="row d-flex flex-wrap align-items-center">
+            <div class="col-12 col-md-6">
+                <a href="#"><img src="img/core-img/logo.png" alt=""></a>
+                <p class="copywrite-text">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                    All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i>
+                    by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </p>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <div class="footer-nav">
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Albums</a></li>
+                        <li><a href="#">Events</a></li>
+                        <li><a href="#">News</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
+</footer>
+<!-- ##### Footer Area End ##### -->
 
-    <div>
-        <label for="avatarUrl">Avatar URL:</label>
-        <input type="text" id="avatarUrl" th:field="*{avatarUrl}" placeholder="Enter avatar URL"/>
-        <span th:if="${#fields.hasErrors('avatarUrl')}" th:errors="*{avatarUrl}"></span>
-    </div>
-
-    <div>
-        <button type="submit">Add Song</button>
-    </div>
-</form>
-
-<a href="/songs">Back to song list</a>
+<!-- ##### All Javascript Script ##### -->
+<div th:insert="fragment :: import-js-file"></div>
 </body>
 </html>
