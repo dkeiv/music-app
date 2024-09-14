@@ -18,5 +18,7 @@ public interface PlayListRepository extends PagingAndSortingRepository<PlayList,
 
     Page<PlayList> findPlayListByUserId(Long id, Pageable pageable);
 
+    List<PlayList> findPlayListByUserId(Long id);
+
     Page<PlayList> findPlayListByNameContainingIgnoreCase(String name, Pageable pageable);
 }
