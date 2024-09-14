@@ -51,7 +51,8 @@ public class SecurityConfig {
                                         "/music-app/me"
                                 ).hasAnyRole("USER", "ADMIN")
                                 .requestMatchers(
-                                        "/admin.music-app/**"
+                                        "/admin.music-app/**",
+                                        "/music-app/songs/create"
                                 ).hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 )

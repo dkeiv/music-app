@@ -1,5 +1,6 @@
 package app.local.song;
 
+import app.local.artist.Artist;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -104,5 +105,9 @@ public class SongService {
 
     public Page<Song> findSongByTitle(String title, Pageable pageable) {
         return songRepository.findSongByTitleContainingIgnoreCase(title, pageable);
+    }
+
+    public List<Song> findByArtist(Optional<Artist> featuredArtist) {
+        return songRepository.findSongsByArtistId(featuredArtist.get().getId());
     }
 }

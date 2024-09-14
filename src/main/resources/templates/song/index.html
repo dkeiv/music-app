@@ -19,7 +19,12 @@
 </head>
 
 <body>
-    <header th:insert="fragment :: header"></header>
+<header th:insert="~{fragment :: header}"></header>
+<section class="breadcumb-area bg-img bg-overlay" th:style="'background-image: url(' + @{/imgs/bg-img/bg-1.jpg} + ');'">
+    <div class="bradcumbContent">
+        <h2>Musics</h2>
+    </div>
+</section>
     <!-- Preloader -->
     <div class="preloader d-flex align-items-center justify-content-center">
         <div class="lds-ellipsis">
@@ -29,16 +34,6 @@
             <div></div>
         </div>
     </div>
-
-    <!-- ##### Breadcumb Area Start ##### -->
-    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(img/bg-img/breadcumb3.jpg);">
-        <div class="bradcumbContent">
-            <p>See what’s new</p>
-            <h2>Latest Songs</h2>
-        </div>
-    </section>
-    <!-- ##### Breadcumb Area End ##### -->
-
 
     <!-- ##### Buy Now Area Start ##### -->
     <div class="oneMusic-buy-now-area mb-100">
@@ -50,7 +45,7 @@
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="single-album-area">
                             <div class="album-thumb">
-                                <img style="max-width: 130px;" th:src="${s.avatarUrl}" th:alt="${s.title}">
+                                <img style="max-width: 130px;" th:src="'/img/' + ${s.avatarUrl}" th:alt="${s.title}">
                                 <!-- Album Price -->
                                 <div class="album-price">
 <!--                                    <p th:text="${s.title}"></p>-->
@@ -64,7 +59,7 @@
                                 <a href="#">
                                     <h5 th:text="${s.title}"></h5>
                                 </a>
-                                <p th:if="${s.artists.size() > 0}" th:text="${s.artists[0].name}"></p>
+<!--                                <p th:text="${s.artists[0].name}"></p>-->
                             </div>
                         </div>
                     </div>
@@ -103,73 +98,25 @@
         <div class="container">
             <div class="row">
 
-                <!-- Single Song Area -->
-                <div class="col-12">
-                    <div class="single-song-area mb-30 d-flex flex-wrap align-items-end">
-                        <div class="song-thumbnail">
-                            <img src="img/bg-img/s1.jpg" alt="">
-                        </div>
-                        <div class="song-play-area">
-                            <div class="song-name">
-                                <p>01. Main Hit Song</p>
+                <th:block th:each="s : ${allSongs}">
+                    <!-- Single Song Area -->
+                    <div class="col-12">
+                        <div class="single-song-area mb-30 d-flex flex-wrap align-items-end">
+                            <div class="song-thumbnail">
+                                <img th:src="'/img/' + ${s.avatarUrl}" alt="">
                             </div>
-                            <audio preload="auto" controls>
-                                <source src="audio/dummy-audio.mp3">
-                            </audio>
+                            <div class="song-play-area">
+                                <div class="song-name">
+                                    <p th:text="${s.title}"></p>
+                                </div>
+                                <audio preload="auto" controls>
+                                    <source th:src="'/mp3/' + ${s.mediaUrl}">
+                                </audio>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </th:block>
 
-                <!-- Single Song Area -->
-                <div class="col-12">
-                    <div class="single-song-area mb-30 d-flex flex-wrap align-items-end">
-                        <div class="song-thumbnail">
-                            <img src="img/bg-img/s2.jpg" alt="">
-                        </div>
-                        <div class="song-play-area">
-                            <div class="song-name">
-                                <p>01. Main Hit Song</p>
-                            </div>
-                            <audio preload="auto" controls>
-                                <source src="audio/dummy-audio.mp3">
-                            </audio>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single Song Area -->
-                <div class="col-12">
-                    <div class="single-song-area mb-30 d-flex flex-wrap align-items-end">
-                        <div class="song-thumbnail">
-                            <img src="img/bg-img/s3.jpg" alt="">
-                        </div>
-                        <div class="song-play-area">
-                            <div class="song-name">
-                                <p>01. Main Hit Song</p>
-                            </div>
-                            <audio preload="auto" controls>
-                                <source src="audio/dummy-audio.mp3">
-                            </audio>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single Song Area -->
-                <div class="col-12">
-                    <div class="single-song-area mb-30 d-flex flex-wrap align-items-end">
-                        <div class="song-thumbnail">
-                            <img src="img/bg-img/s4.jpg" alt="">
-                        </div>
-                        <div class="song-play-area">
-                            <div class="song-name">
-                                <p>01. Main Hit Song</p>
-                            </div>
-                            <audio preload="auto" controls>
-                                <source src="audio/dummy-audio.mp3">
-                            </audio>
-                        </div>
-                    </div>
-                </div>
 
             </div>
         </div>

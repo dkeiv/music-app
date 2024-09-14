@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title th:text="${artist.name} + ' - Artist Detail'">Artist Detail</title>
+
+    <!-- Favicon -->
+    <link th:href="@{/imgs/core-img/favicon.ico}" rel="icon">
+
+    <!-- Stylesheet -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+
+<body>
+<!-- Preloader -->
+<div class="preloader d-flex align-items-center justify-content-center">
+    <div class="lds-ellipsis">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+
+<!-- Header -->
+<header th:insert="fragment :: header"></header>
+
+<!-- ##### Header Area End ##### -->
+
+<!-- ##### Breadcumb Area Start ##### -->
+<section class="breadcumb-area bg-img bg-overlay" th:style="'background-image: url(' + @{/imgs/bg-img/bg-1.jpg} + ');'">
+    <div class="bradcumbContent">
+        <h2>Artist Detail</h2>
+    </div>
+</section>
+<!-- ##### Breadcumb Area End ##### -->
+
+<!-- ##### Artist Profile Area Start ##### -->
+<section class="artist-profile section-padding-100-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <!-- Artist Image -->
+                <img th:src="@{'/image/' + ${artist.image}}" alt="Artist Image" class="img-fluid">
+            </div>
+            <div class="col-12 col-md-8">
+                <!-- Artist Details -->
+                <h2 th:text="${artist.name}">Artist Name</h2>
+                <p th:text="${artist.biography}">Artist Biography</p>
+                <!-- Additional Information -->
+                <div class="artist-additional-info">
+                    <p><strong>Profile:</strong> <span th:text="${artist.artistProfile}">Artist Profile</span></p>
+                </div>
+
+                <!-- Edit and Delete Buttons -->
+                <div class="artist-actions mt-4">
+                    <!-- Edit Button -->
+                    <a th:href="@{/music-app/admin/artists/{id}/edit(id=${artist.id})}"
+                       class="btn btn-warning btn-sm me-2" role="button">
+                        Edit
+                    </a>
+
+                    <!-- Delete Button -->
+                    <form th:action="@{/music-app/admin/artists/{id}/delete(id=${artist.id})}" method="post"
+                          style="display:inline;">
+                        <input type="hidden" name="_method" value="DELETE"/>
+                        <button type="submit" class="btn btn-danger btn-sm">
+                            Delete
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ##### Artist Profile Area End ##### -->
+
+<!-- ##### Footer Area Start ##### -->
+<footer class="footer-area">
+    <div class="container">
+        <div class="row d-flex flex-wrap align-items-center">
+            <div class="col-12 col-md-6">
+                <a th:href="@{/}">
+                    <img th:src="@{/imgs/core-img/logo.png}" alt="Logo">
+                </a>
+                <p class="copywrite-text">
+                    Copyright &copy;<script th:inline="javascript">document.write(new Date().getFullYear());</script>
+                    All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by
+                    <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                </p>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <div class="footer-nav">
+                    <ul>
+                        <li><a th:href="@{/}">Home</a></li>
+                        <li><a th:href="@{/albums}">Albums</a></li>
+                        <li><a th:href="@{/events}">Events</a></li>
+                        <li><a th:href="@{/news}">News</a></li>
+                        <li><a th:href="@{/contact}">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- ##### Footer Area End ##### -->
+
+<!-- ##### All Javascript Script ##### -->
+<!-- jQuery-2.2.4 js -->
+<script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
+<!-- Popper js -->
+<script th:src="@{/js/bootstrap/popper.min.js}"></script>
+<!-- Bootstrap js -->
+<script th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+<!-- All Plugins js -->
+<script th:src="@{/js/plugins/plugins.js}"></script>
+<!-- Active js -->
+<script th:src="@{/js/active.js}"></script>
+
+<!-- Confirmation for delete action -->
+<script>
+    document.querySelectorAll('.btn-danger').forEach(button => {
+        button.addEventListener('click', function (event) {
+            if (!confirm('Are you sure you want to delete this artist?')) {
+                event.preventDefault();
+            }
+        });
+    });
+</script>
+
+</body>
+
+</html>
