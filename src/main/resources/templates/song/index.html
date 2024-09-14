@@ -240,11 +240,15 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                 <div class="col-12 col-md-6">
                     <div class="footer-nav">
                         <ul>
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">Albums</a></li>
-                            <li><a href="#">Events</a></li>
-                            <li><a href="#">News</a></li>
-                            <li><a href="#">Contact</a></li>
+                            <li><a th:href="@{/music-app}">Home</a></li>
+                            <li><a th:href="@{/music-app/artists}">Artist</a></li>
+                            <li><a th:href="@{/music-app/playlists}">Playlist</a></li>
+                            <li><a th:href="@{/music-app/songs}">Songs</a></li>
+                            <li><a th:href="@{/music-app/contact}">Contact</a></li>
+                            <li sec:authorize="isAuthenticated()"><a
+                                    th:href="@{/music-app/me}">Me</a></li>
+                            <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Login</a></li>
+                            <li sec:authorize="isAuthenticated()"><a th:href="@{/music-app/logout}">Logout</a></li>
                         </ul>
                     </div>
                 </div>

@@ -1,8 +1,10 @@
 package app.local.playlist;
 
 import app.local.song.Song;
+import app.local.song.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -12,12 +14,17 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @Controller
-@RequestMapping("/playlists")
+@RequestMapping("/music-app/playlists")
 @CrossOrigin("*")
 public class PlayListController {
     @Autowired
     private PlayListService playListService;
+
+    @Autowired
+    private SongService songService;
 
     @PostMapping
     public ModelAndView createPlayList(@RequestParam("name") String name,
@@ -29,7 +36,9 @@ public class PlayListController {
     }
 
     @GetMapping
-    public ModelAndView getPlayLists(@PageableDefault(value = 10) Pageable pageable) {
+    public ModelAndView getPlayLists(@RequestParam(defaultValue = "0") int page,
+                                     @RequestParam(defaultValue = "12") int size) {
+        Pageable pageable = PageRequest.of(page, size);
         Page<PlayList> playLists = playListService.findAll(pageable);
         ModelAndView modelAndView = new ModelAndView("/playlist/albums-store");
         modelAndView.addObject("playLists", playLists);
@@ -82,7 +91,7 @@ public class PlayListController {
     @GetMapping("/{playlistId}/songs")
     public ModelAndView getSongsInPlaylist(@PathVariable Long playlistId) {
         List<Song> songs = playListService.getSongsInPlaylist(playlistId);
-        ModelAndView modelAndView = new ModelAndView("playlists/songs");
+        ModelAndView modelAndView = new ModelAndView("playlist/songs");
         modelAndView.addObject("songs", songs);
         return modelAndView;
     }
