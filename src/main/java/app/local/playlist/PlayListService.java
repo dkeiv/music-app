@@ -126,6 +126,10 @@ public class PlayListService {
         return playlistRepository.findPlayListByUserId(userId, pageable);
     }
 
+    public List<PlayList> getPlayListsByUserId(Long userId) {
+        return playlistRepository.findPlayListByUserId(userId);
+    }
+
     public Page<PlayList> findPlayListsByName(String name, Pageable pageable) {
         return playlistRepository.findPlayListByNameContainingIgnoreCase(name, pageable);
     }
