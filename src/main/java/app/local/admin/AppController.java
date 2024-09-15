@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+import java.util.Optional;
+
 @Controller
 @RequestMapping("/music-app")
 @RequiredArgsConstructor
@@ -38,7 +41,7 @@ public class AppController {
 
         Page<Artist> artistList = artistService.findAll(pageable);
 
-        Optional<Artist> featuredArtist = artistService.findById(1L);
+        Optional<Artist> featuredArtist = artistService.findById(3L);
         model.addAttribute("featuredArtist", featuredArtist.get());
 
         List<Song> featuredSong = songService.findByArtist(featuredArtist);
