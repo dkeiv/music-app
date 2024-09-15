@@ -1,5 +1,6 @@
 package app.local.playlist;
 
+import app.local.exception.NotFoundException;
 import app.local.song.Song;
 import app.local.song.SongRepository;
 import jakarta.transaction.Transactional;
@@ -17,7 +18,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -132,6 +132,14 @@ public class PlayListService {
 
     public Page<PlayList> findPlayListsByName(String name, Pageable pageable) {
         return playlistRepository.findPlayListByNameContainingIgnoreCase(name, pageable);
+    }
+
+    public void addSongPlaylist(Long songId, Long playlistId) throws NotFoundException  {
+        Song song = songRepository.findById(songId).orElseThrow(() -> new NotFoundException("Không tìm thấy bài hát"));
+        PlayList playlist = playlistRepository.findById(playlistId).orElseThrow(() -> new NotFoundException("Không tìm thấy playlist"));
+
+        playlist.addSong(song);
+        playlistRepository.save(playlist);
     }
 
 }

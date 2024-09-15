@@ -59,6 +59,10 @@ public class User implements UserDetails {
         }
     }
 
+    public void unLikeSong(Song song) {
+            likedSongs.remove(song);
+    }
+
     @ManyToMany
     private List<PlayList> likedPlaylists;
 

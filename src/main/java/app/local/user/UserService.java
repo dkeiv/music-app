@@ -24,6 +24,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
     private final SongRepository songRepository;
+    private final PlayListRepository playListRepository;
 
     public Page<User> findAll(Pageable pageable) {
         return userRepository.findAll(pageable);
@@ -93,5 +94,18 @@ public class UserService {
 
         user.likeSong(song);
         userRepository.save(user);
+    }
+
+    public void unlikeSong(Long userId, Long songId) throws NotFoundException {
+        User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("Không tìm thấy người dùng"));
+        Song song = songRepository.findById(songId).orElseThrow(() -> new NotFoundException("Không tìm thấy bài hát"));
+
+        user.unLikeSong(song);
+        userRepository.save(user);
+    }
+
+    public List<PlayList> getPlaylistsByUserId(Long id) throws NotFoundException {
+        User user = userRepository.findById(id).orElseThrow(() -> new NotFoundException("Không tìm thấy người dùng"));
+        return playListRepository.findPlayListByUserId(user.getId());
     }
 }
