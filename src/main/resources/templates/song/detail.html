@@ -124,11 +124,17 @@
                 </div>
 
                 <!-- Audio Player -->
-                <div class="song-play-area">
+                <div class="song-play-area" style="display: flex">
                     <audio preload="auto" controls>
                         <source th:src="'/mp3/' + ${song.mediaUrl}" type="audio/mpeg">
                         Your browser does not support the audio element.
                     </audio>
+
+                    <form th:action="@{/music-app/songs/like/{id}(id=${song.id})}" method="post"  style="margin-left: 20px">
+                        <button type="submit" class="btn btn-light" style=" height: 30px;line-height: 100%; margin-top: 5px;">
+                            Like
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
