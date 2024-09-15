@@ -1,12 +1,12 @@
 package app.local.song;
 
 import app.local.artist.Artist;
+import app.local.artist.ArtistRepository;
+import app.local.genre.Genre;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +21,7 @@ import java.util.Optional;
 public class SongService {
 
     private final SongRepository songRepository;
+    private final ArtistRepository artistRepository;
 
     @Value("${file-upload}")
     private String fileUpload;
@@ -68,6 +69,11 @@ public class SongService {
         song.setTitle(songRequest.getTitle());
         song.setDescription(songRequest.getDescription());
 
+        if (songRequest.getArtist()!= null) {
+            List<Artist> artists = artistRepository.findAllByIds(songRequest.getArtist());
+            song.setArtists(artists);
+        }
+
         return songRepository.save(song);
     }
 
@@ -91,6 +97,10 @@ public class SongService {
 
         song.setTitle(songRequest.getTitle());
         song.setDescription(songRequest.getDescription());
+        if (songRequest.getArtist() != null) {
+            List<Artist> artists = artistRepository.findAllByIds(songRequest.getArtist());
+            song.setArtists(artists);
+        }
 
         return song;
     }
@@ -109,5 +119,13 @@ public class SongService {
 
     public List<Song> findByArtist(Optional<Artist> featuredArtist) {
         return songRepository.findSongsByArtistId(featuredArtist.get().getId());
+    }
+
+    public List<Artist> getArtistBySong(Long songId) {
+        return songRepository.findArtistsBySongId(songId);
+    }
+
+    public List<Genre> getGenresBySongId(Long songId) {
+        return songRepository.findGenreBySongId(songId);
     }
 }

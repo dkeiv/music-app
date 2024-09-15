@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Title -->
+    <title th:text="'Song Detail - ' + ${song.title}">Song Detail</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/imgs/core-img/favicon.ico">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<style>
+    /* Global style for song images */
+    img.song-avatar {
+        width: 100%;  /* Make sure the image takes up the full width of its container */
+        height: auto; /* Maintain aspect ratio */
+        max-width: 200px; /* Limit the max width */
+        object-fit: cover; /* Ensure the image covers the whole container */
+        border-radius: 15px; /* Increase the rounded corners */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: add a shadow effect */
+    }
+
+
+    /* To make sure all song thumbnails are the same size */
+    .song-thumbnail-container {
+        margin-top: 14px;
+        width: 200px; /* Fixed width */
+        height: 200px; /* Fixed height */
+        overflow: hidden; /* Hide overflow in case the image is too large */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 15px; /* Optional: add rounded corners */
+    }
+
+    /* Optionally, use aspect ratio for flexibility */
+    .song-thumbnail-container {
+        aspect-ratio: 1 / 1; /* Ensures a square container */
+        width: 200px; /* You can change this based on your design */
+        overflow: hidden;
+    }
+
+    /* Styling the song info container */
+    .song-info-container {
+        border: 1px solid #ccc; /* Add border to create the frame */
+        border-radius: 8px; /* Optional: Rounded corners */
+        padding: 15px 5px; /* Padding inside the border */
+        background-color: #f9f9f9; /* Optional: Light background for better visibility */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add subtle shadow */
+    }
+
+    span {
+        color: #000000;
+        font-weight: 600;
+    }
+
+    .margin {
+        margin: 10px 0;
+    }
+
+</style>
+
+<body>
+
+<header th:insert="~{fragment :: header}"></header>
+
+<section class="breadcumb-area bg-img bg-overlay" th:style="'background-image: url(' + @{/imgs/bg-img/bg-1.jpg} + ');'">
+    <div class="bradcumbContent">
+        <h2 >Song Info</h2>
+    </div>
+</section>
+
+<div class="one-music-song-detail-area mb-70" style="margin: 50px 0">
+    <div class="container">
+        <div class="row" style="margin-right: 100px">
+            <div class="col-12">
+                <!-- Song Detail -->
+                <div class="song-detail-area mb-30">
+                    <div class="row" style="margin-right: 100px;">
+                        <div class="col-md-4 song-thumbnail-container"  >
+                            <img th:src="'/image/' + ${song.avatarUrl}" alt="Song Image" class="song-avatar" >
+                        </div>
+                        <div class="col-md-8 song-info-container">
+                            <div style="display: flex" class="margin">
+                                <h3 style=" padding-right: 20px;">Name:</h3>
+                                <h3 th:text="${song.title}">Song Title</h3>
+                            </div>
+                            <div style="display: flex" class="margin">
+                                <span style=" font-size: 15px; padding-right: 20px;">Description:</span>
+                                <span th:text="${song.description}">Description of the song</span>
+                            </div>
+
+
+
+                            <div style="display: flex" class="margin">
+                                <strong style="padding-right: 20px;">Artists:</strong>
+                                <ul>
+                                    <li th:each="artist : ${song.artists}" th:text="${artist.name}" style="padding-right: 8px;">Artist Name</li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <strong>Genres:</strong>
+                                <ul>
+                                    <li th:each="genre : ${song.genres}" th:text="${genre.name}">Genre Name</li>
+                                </ul>
+                            </div>
+
+                            <div style="display: flex" class="margin">
+                                <span style=" font-size: 15px; padding-right: 14px;">Play Count:</span>
+                                <span th:text="${song.playCount}" style="padding-right: 4px">0</span>
+                                <span> play</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Audio Player -->
+                <div class="song-play-area" style="display: flex">
+                    <audio preload="auto" controls>
+                        <source th:src="'/mp3/' + ${song.mediaUrl}" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+
+                    <form th:action="@{/music-app/songs/like/{id}(id=${song.id})}" method="post"  style="margin-left: 20px">
+                        <button type="submit" class="btn btn-light" style=" height: 30px;line-height: 100%; margin-top: 5px;">
+                            Like
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:insert="~{fragment :: footer}"></footer>
+
+<!-- Scripts -->
+<div th:insert="fragment :: import-js-file"></div>
+</body>
+</html>

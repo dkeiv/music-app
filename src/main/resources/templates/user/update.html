@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>One Music - Modern Music HTML5 Template</title>
+
+    <link rel="icon" href="/imgs/core-img/favicon.ico">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+<!-- Preloader -->
+<div class="preloader d-flex align-items-center justify-content-center">
+    <div class="lds-ellipsis">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+
+<!-- ##### Header Area Start ##### -->
+<header th:insert="fragment :: header" ></header>
+<!-- ##### Header Area End ##### -->
+
+<!-- ##### Breadcumb Area Start ##### -->
+<section class="breadcumb-area bg-img bg-overlay" style="background-image: url(img/bg-img/breadcumb3.jpg);">
+    <div class="bradcumbContent">
+        <p>Profile</p>
+    </div>
+</section>
+<!-- ##### Breadcumb Area End ##### -->
+
+<!-- ##### Login Area Start ##### -->
+<section class="login-area section-padding-100">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+                <div class="login-content">
+                    <h3>Personal info</h3>
+                    <!-- Login Form -->
+                    <div class="login-form">
+                        <form th:object="${user}">
+                            <div class="form-group text-center">
+                                <img class="img-thumbnail" th:src="${user.profilePicture}" alt="user-profile">
+                                <input class="" type="file" th:field="*{profilePicture}">
+                            </div>
+                            <div class="form-group">
+                                <label for="userName">Your name</label>
+                                <input type="text" class="form-control" id="userName" aria-describedby="userName" placeholder="Enter your name" th:field="*{name}">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email address</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter E-mail" th:field="*{email}">
+                            </div>
+                            <a class="btn oneMusic-btn mt-30" th:onclick="onUpdateHandle()">Save</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ##### Login Area End ##### -->
+
+<!-- ##### Footer Area Start ##### -->
+<footer th:insert="fragment :: footer"></footer>
+<!-- ##### Footer Area Start ##### -->
+
+<!-- ##### All Javascript Script ##### -->
+<!-- jQuery-2.2.4 js -->
+<div th:insert="fragment :: import-js-file"></div>
+<script th:src="@{/js/user.js}"></script>
+</body>
+
+</html>

@@ -1,5 +1,7 @@
 package app.local.artist;
 
+import app.local.song.Song;
+import app.local.song.SongRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -13,6 +15,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,6 +23,7 @@ import java.util.Optional;
 public class ArtistService {
 
     private final ArtistRepository artistRepository;
+    private final SongRepository songRepository;
 
     @Value("${file-upload-img}")
     private String fileUpload;
@@ -86,5 +90,9 @@ public class ArtistService {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public List<Song> findSongsByArtistId(Long artistId) {
+        return songRepository.findSongsByArtistId(artistId);
     }
 }
