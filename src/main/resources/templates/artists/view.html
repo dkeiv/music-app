@@ -78,14 +78,14 @@
             <div class="col-12" th:each="song : ${songs}">
                 <div class="single-song-area mb-30 d-flex flex-wrap align-items-end">
                     <div class="song-thumbnail mr-3"> <!-- Add margin-right -->
-                        <img th:src="@{'/images/' + ${song.avatarUrl}}" alt="Song Image">
+                        <img th:src="@{'/image/' + ${song.avatarUrl}}" alt="Song Image">
                     </div>
                     <div class="song-play-area">
                         <div class="song-name">
                             <p th:text="${song.title}">Song Title</p>
                         </div>
                         <audio preload="auto" controls>
-                            <source th:src="@{'/audio/' + ${song.mediaUrl}}" type="audio/mpeg">
+                            <source th:src="'/mp3/' + ${song.mediaUrl}" type="audio/mpeg">
                         </audio>
                     </div>
                 </div>
