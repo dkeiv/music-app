@@ -48,14 +48,14 @@
                             <ul>
                                 <li><a th:href="@{/music-app}">Home</a></li>
                                 <li><a th:href="@{/music-app/artists}">Artist</a></li>
-                                <li sec:authorize="hasAnyRole('ADMIN')"><a th:href="@{/music-app/admin/artists}">Artist</a></li>
+<!--                                <li sec:authorize="hasAnyRole('ADMIN')"><a th:href="@{/music-app/admin/artists}">Artist</a></li>-->
                                 <li><a th:href="@{/music-app/playlists}">Playlist</a></li>
                                 <li><a th:href="@{/music-app/songs}">Songs</a></li>
                                 <li><a th:href="@{/music-app/contact}">Contact</a></li>
                                 <li sec:authorize="isAuthenticated()"><a
                                         th:href="@{/music-app/me}">Me</a></li>
 <!--                                <li><a th:href="@{/music-app/songs/create}">Upload</a></li>-->
-                                <li sec:authorize="hasAnyRole('ADMIN')"><a th:href="@{/music-app/admin/songs/create}">Upload</a></li>
+                                <li sec:authorize="hasAnyRole('ADMIN')"><a th:href="@{/music-app/admin}">Dashboard</a></li>
                                 <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Login</a></li>
                                 <li sec:authorize="isAuthenticated()"><a th:href="@{/music-app/logout}">Logout</a></li>
                             </ul>

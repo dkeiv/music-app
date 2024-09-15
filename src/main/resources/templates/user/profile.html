@@ -82,7 +82,7 @@
                             data-wow-delay="350ms">
                            <div class="first-part d-flex align-items-center">
                                <div class="thumbnail">
-                                   <img th:src="${s.avatarUrl}" th:alt="${s.title}">
+                                   <img th:src="'/image/' +${s.avatarUrl}" th:alt="${s.title}">
                                </div>
                                <div class="content-">
                                    <h6 th:text="${s.title}"></h6>

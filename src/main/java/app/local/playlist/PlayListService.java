@@ -133,9 +133,4 @@ public class PlayListService {
     public Page<PlayList> findPlayListsByName(String name, Pageable pageable) {
         return playlistRepository.findPlayListByNameContainingIgnoreCase(name, pageable);
     }
-
-    public List<PlayList> getPlayListsByUserId(Long userId) {
-        return playlistRepository.findPlayListByUserId(userId);
-    }
-
 }
