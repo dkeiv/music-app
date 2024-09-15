@@ -46,14 +46,6 @@ public class PlayListController {
         return modelAndView;
     }
 
-    @GetMapping("/{playlistId}")
-    public ModelAndView getPlayListById(@PathVariable("playlistId") long playlistId) {
-        PlayList playList = playListService.getPlayList(playlistId);
-        ModelAndView modelAndView = new ModelAndView("playlists/detail");
-        modelAndView.addObject("playList", playList);
-        return modelAndView;
-    }
-
     @PostMapping("/{playlistId}/update")
     public ModelAndView updatePlayList(@PathVariable("playlistId") long playlistId,
                                        @RequestParam("name") String name,
@@ -73,30 +65,25 @@ public class PlayListController {
         return new ModelAndView("redirect:/music-app/admin");
     }
 
-    @PostMapping("/{playlistId}/songs/{songId}")
-    public ModelAndView addSongToPlaylist(@PathVariable Long playlistId, @PathVariable Long songId) {
-        PlayList updatedPlaylist = playListService.addSongToPlaylist(playlistId, songId);
-        return new ModelAndView("playlists/detail", "playList", updatedPlaylist);
+//    Song - Playlist
+
+
+    @PostMapping("/{playlistId}/song/{songId}")
+    public String addPlaylist(@PathVariable Long playlistId, @PathVariable Long songId) throws NotFoundException {
+        playListService.addSongPlaylist(songId, playlistId);
+        return "/music-app/playlists/" + playlistId+"/songs";
     }
 
     @GetMapping("/{playlistId}/songs")
     public ModelAndView getSongsInPlaylist(@PathVariable Long playlistId) {
+        PlayList playList1 = playListService.increaseViews(playlistId);
+//        PlayList playList = playListService.findById(playlistId);
         List<Song> songs = playListService.getSongsInPlaylist(playlistId);
         ModelAndView modelAndView = new ModelAndView("playlist/songs");
+        modelAndView.addObject("playlist", playList1);
+//        modelAndView.addObject("playlist", playList);
         modelAndView.addObject("songs", songs);
         return modelAndView;
     }
 
-    @DeleteMapping("/{playlistId}/songs/{songId}")
-    public ModelAndView removeSongFromPlaylist(@PathVariable Long playlistId, @PathVariable Long songId) {
-        PlayList updatedPlaylist = playListService.removeSongFromPlaylist(playlistId, songId);
-        return new ModelAndView("playlists/detail", "playList", updatedPlaylist);
-    }
-
-
-    @PostMapping("/playlists/{playlistId}/song/{songId}")
-    public String addPlaylist(@PathVariable Long playlistId, @PathVariable Long songId) throws NotFoundException {
-        playListService.addSongPlaylist(songId, playlistId);
-        return "/music-app/playlists/" + playlistId;
-    }
 }

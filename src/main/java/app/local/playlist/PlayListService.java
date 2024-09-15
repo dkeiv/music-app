@@ -142,4 +142,9 @@ public class PlayListService {
         playlistRepository.save(playlist);
     }
 
+    public PlayList findById(Long playlistId) {
+        PlayList playList = playlistRepository.findById(playlistId).orElse(null);
+        playList.setViews(playList.getViews() + 1);
+        return playList;
+    }
 }
