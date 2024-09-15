@@ -17,6 +17,24 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 
 </head>
+<style>
+    .song-thumbnail img {
+        border: 2px solid #ccc; /* Tạo viền với màu xám */
+        padding: 5px; /* Khoảng cách giữa ảnh và viền */
+        border-radius: 10px; /* Làm bo góc viền */
+        max-width: 150px; /* Đặt kích thước tối đa của ảnh */
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ cho ảnh */
+    }
+
+    .song-thumbnail img {
+        width: 150px; /* Đặt chiều rộng cố định */
+        height: 120px; /* Đặt chiều cao cố định */
+        object-fit: cover; /* Cắt ảnh để vừa với khung mà không bị méo */
+        padding: 5px; /* Khoảng cách giữa ảnh và viền */
+        border-radius: 10px; /* Làm bo góc viền */
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ cho ảnh */
+    }
+</style>
 
 <body>
 <header th:insert="~{fragment :: header}"></header>
@@ -36,7 +54,7 @@
 </div>
 
 <!-- ##### Buy Now Area Start ##### -->
-<div class="oneMusic-buy-now-area mb-100">
+<div class="oneMusic-buy-now-area mb-100" style="margin: 50px 0;">
     <div class="container">
         <div class="row">
 
@@ -44,10 +62,10 @@
 
 
                 <!-- Single Album Area -->
-                <div class="col-12 col-sm-6 col-md-3">
+                <div class="col-12 col-sm-6 col-md-3" style="text-align: center">
                     <a th:href="@{/music-app/songs/{id}(id=${s.id})}">
                         <div class="single-album-area">
-                            <div class="album-thumb">
+                            <div class="album-thumb song-thumbnail">
                                 <img style="max-width: 130px;" th:src="'/image/' + ${s.avatarUrl}" th:alt="${s.title}">
                                 <!-- Album Price -->
                                 <div class="album-price">
@@ -99,22 +117,25 @@
                 <!-- Single Song Area -->
                 <div class="col-12">
                     <div class="single-song-area mb-30 d-flex flex-wrap align-items-end">
-                        <div class="song-thumbnail">
+                        <div class="song-thumbnail song-thumbnail">
                             <img th:src="'/image/' + ${s.avatarUrl}" alt="">
                         </div>
                         <div class="song-play-area">
                             <div class="song-name">
                                 <p th:text="${s.title}"></p>
                             </div>
-                            <audio preload="auto" controls>
-                                <source th:src="'/mp3/' + ${s.mediaUrl}">
-                            </audio>
+                            <div style="display: flex">
+                                <audio preload="auto" controls>
+                                    <source th:src="'/mp3/' + ${s.mediaUrl}">
+                                </audio>
 
-                            <!--                                <form th:action="@{/music-app/songs/like/{id}(id=${song.id})}" method="post">-->
-                            <!--                                    <button type="submit" class="btn btn-primary">-->
-                            <!--                                        <i class="fa fa-heart"></i> Like-->
-                            <!--                                    </button>-->
-                            <!--                                </form>-->
+                                <form th:action="@{/music-app/songs/like/{id}(id=${s.id})}" method="post"  style="margin-left: 20px">
+                                    <button type="submit" class="btn btn-light" style=" height: 30px;line-height: 100%; margin-top: 5px;">
+                                        Like
+                                    </button>
+                                </form>
+                            </div>
+
                         </div>
                     </div>
                 </div>

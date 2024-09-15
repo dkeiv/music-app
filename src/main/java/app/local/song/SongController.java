@@ -86,10 +86,10 @@ public class SongController {
        return "/";
     }
 
-    @PostMapping("/songs/like/{songId}")
+    @PostMapping("/like/{songId}")
     public String likeSong(@PathVariable Long songId, @AuthenticationPrincipal User user) throws NotFoundException {
         userService.likeSong(user.getId(), songId);
-        return "redirect:/music-app/songs" + songId;
+        return "redirect:/music-app/songs/" + songId;
     }
 
     @GetMapping("/{songId}")
