@@ -1,5 +1,6 @@
 package app.local.playlist;
 
+import app.local.exception.NotFoundException;
 import app.local.song.Song;
 import app.local.song.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,5 +91,12 @@ public class PlayListController {
     public ModelAndView removeSongFromPlaylist(@PathVariable Long playlistId, @PathVariable Long songId) {
         PlayList updatedPlaylist = playListService.removeSongFromPlaylist(playlistId, songId);
         return new ModelAndView("playlists/detail", "playList", updatedPlaylist);
+    }
+
+
+    @PostMapping("/playlists/{playlistId}/song/{songId}")
+    public String addPlaylist(@PathVariable Long playlistId, @PathVariable Long songId) throws NotFoundException {
+        playListService.addSongPlaylist(songId, playlistId);
+        return "/music-app/playlists/" + playlistId;
     }
 }
