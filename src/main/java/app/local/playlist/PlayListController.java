@@ -53,7 +53,7 @@ public class PlayListController {
         return modelAndView;
     }
 
-    @PostMapping("/{playlistId}/create")
+    @PostMapping("/{playlistId}/update")
     public ModelAndView updatePlayList(@PathVariable("playlistId") long playlistId,
                                        @RequestParam("name") String name,
                                        @RequestParam("views") int views,
@@ -71,16 +71,6 @@ public class PlayListController {
         playListService.deletePlayList(playlistId);
         return new ModelAndView("redirect:/music-app/admin");
     }
-
-//    @PostMapping("/{playlistId}")
-//    public ModelAndView viewPlayList(@PathVariable("playlistId") Long playlistId) {
-//        PlayList playList = playListService.increaseViews(playlistId);
-//        if (playList != null) {
-//            return new ModelAndView("playlists/detail", "playList", playList);
-//        } else {
-//            return new ModelAndView("error/404");
-//        }
-//    }
 
     @PostMapping("/{playlistId}/songs/{songId}")
     public ModelAndView addSongToPlaylist(@PathVariable Long playlistId, @PathVariable Long songId) {
