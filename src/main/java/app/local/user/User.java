@@ -62,8 +62,8 @@ public class User implements UserDetails {
     @ManyToMany
     private List<PlayList> likedPlaylists;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Song> createdSongs;
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Song> createdSongs;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PlayList> createdPlaylists;
