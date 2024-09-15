@@ -1,6 +1,8 @@
 package app.local.artist;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +18,10 @@ public class ArtistController {
 
     @GetMapping
     public String listArtist(Model model, Pageable pageable) {
-        model.addAttribute("artists", artistService.findAll(pageable).getContent());
+        Pageable adjustedPageable = PageRequest.of(pageable.getPageNumber(), 6);
+        Page<Artist> artistPage = artistService.findAll(adjustedPageable);
+        model.addAttribute("artists", artistPage.getContent());
+        model.addAttribute("page", artistPage);
         return "artists/list";
     }
 

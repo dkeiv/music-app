@@ -7,8 +7,6 @@ import app.local.playlist.PlayListService;
 import app.local.song.Song;
 import app.local.song.SongService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,9 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/music-app")
@@ -38,12 +33,12 @@ public class AppController {
         Page<Song> songList = songService.findAll(pageable);
         Page<PlayList> playlistList = playListService.findAll(pageable);
         Page<Artist> artistList = artistService.findAll(pageable);
-
-        Optional<Artist> featuredArtist = artistService.findById(1L);
-        model.addAttribute("featuredArtist", featuredArtist.get());
-
-        List<Song> featuredSong = songService.findByArtist(featuredArtist);
-        model.addAttribute("featuredSong", featuredSong.get(0));
+//
+//        Optional<Artist> featuredArtist = artistService.findById(1L);
+//        model.addAttribute("featuredArtist", featuredArtist.get());
+//
+//        List<Song> featuredSong = songService.findByArtist(featuredArtist);
+//        model.addAttribute("featuredSong", featuredSong.get(0));
 
         model.addAttribute("songs", songList);
         model.addAttribute("playlist", playlistList);
@@ -89,5 +84,10 @@ public class AppController {
         }
 
         return "search";
+    }
+
+    @GetMapping("/admin")
+    public String adminDashboard() {
+        return "admin"; // Trả về file admin.html trong thư mục templates/admin
     }
 }

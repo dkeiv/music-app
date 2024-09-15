@@ -64,6 +64,32 @@
 </section>
 <!-- ##### Artist Profile Area End ##### -->
 
+<!-- ##### Song Area Start ##### -->
+<div class="one-music-songs-area mb-70">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-12" th:each="song : ${artist.songs}">
+                <div class="single-song-area mb-30 d-flex flex-wrap align-items-end">
+                    <div class="song-thumbnail">
+                        <img th:src="@{'/imgs/songs/' + ${song.image}}" alt="Song Image">
+                    </div>
+                    <div class="song-play-area">
+                        <div class="song-name">
+                            <p th:text="${song.trackNumber + '. ' + song.title}">Song Title</p>
+                        </div>
+                        <audio preload="auto" controls>
+                            <source th:src="@{'/audio/' + ${song.audioFile}}" type="audio/mpeg">
+                        </audio>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- ##### Song Area End ##### -->
+
 <!-- ##### Footer Area Start ##### -->
 <footer class="footer-area">
     <div class="container">
