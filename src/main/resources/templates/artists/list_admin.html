@@ -15,6 +15,8 @@
 
     <!-- Stylesheet -->
     <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -29,51 +31,102 @@
 </div>
 
 <!-- Header -->
-<header th:insert="~{fragment :: header}">
-</header>
+<header th:insert="~{fragment :: header}"></header>
 
-<!-- ##### Header Area End ##### -->
-
-<!-- ##### Breadcumb Area Start ##### -->
+<!-- ##### Breadcrumb Area Start ##### -->
 <section class="breadcumb-area bg-img bg-overlay" th:style="'background-image: url(' + @{/imgs/bg-img/bg-1.jpg} + ');'">
-    <div class="bradcumbContent">
-        <h2>Artist for Admin</h2>
-    </div>
+
 </section>
-<!-- ##### Breadcumb Area End ##### -->
+</br>
+<!-- ##### Breadcrumb Area End ##### -->
 
 <!-- ##### Artist Profile Area Start ##### -->
-<section class="album-catagory section-padding-100-0">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 text-center mb-4">
-                <a class="btn btn-primary" th:href="@{/music-app/admin/artists/create}">Add Artist</a>
-            </div>
-        </div>
-        <div class="row oneMusic-albums">
-            <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item"
-                 th:each="artist : ${artists.content}">
-                <div class="single-album">
-                    <img th:src="@{'/image/' + ${artist.image}}"
-                         th:alt="${artist.name}"
-                         style="width: 130px; height: 170px;"
-                    >
-                    <div class="album-info">
-                        <a th:href="@{/music-app/admin/artists/{id}(id=${artist.id})}">
-                            <h5 th:text="${artist.name}">Artist Name</h5>
-                        </a>
-                    </div>
+<div class="container">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-12 col-lg-3 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title" style="text-align: center">Option</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-2">
+                            <a class="nav-link btn btn-outline-primary" href="/music-app/admin/playlists">
+                                <i class="fa fa-music mr-2"></i> Playlist
+                            </a>
+                        </li>
+                        <li class="nav-item mb-2">
+                            <a class="nav-link btn btn-outline-primary" href="#">
+                                <i class="fa fa-music mr-2"></i> Song
+                            </a>
+                        </li>
+                        <li class="nav-item mb-2">
+                            <a class="nav-link btn btn-outline-primary active" href="/music-app/admin/artists">
+                                <i class="fa fa-music mr-2"></i> Artists
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
 
-
+        <!-- Main Content -->
+        <div class="col-12 col-lg-9">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h5 class="card-title mb-0">List of Artists</h5>
+                        <a class="btn btn-success" th:href="@{/music-app/admin/artists/create}">
+                            <i class="fa fa-plus mr-2"></i> Add Artist
+                        </a>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th style="text-align: center">Image</th>
+                                <th style="text-align: center">Name Artist</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="artist : ${artists.content}">
+                                <td class="text-center">
+                                    <img class="img-fluid rounded" style="width: 100px; height: auto;"
+                                         th:src="@{'/image/' + ${artist.image}}" th:alt="${artist.name}">
+                                </td>
+                                <td class="text-center">
+                                    <a class="btn btn-link" th:href="@{/music-app/admin/artists/{id}(id=${artist.id})}"
+                                       th:text="${artist.name}">Artist Name</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item" th:classappend="${artists.hasPrevious()} ? '' : 'disabled'">
+                                <a class="page-link" th:href="@{/music-app/admin/artists(page=${artists.number - 1}, size=${size})}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item" th:each="page : ${#numbers.sequence(0, artists.totalPages - 1)}"
+                                th:classappend="${page == artists.number} ? 'active'">
+                                <a class="page-link" th:href="@{/music-app/admin/artists(page=${page}, size=${size})}" th:text="${page + 1}"></a>
+                            </li>
+                            <li class="page-item" th:classappend="${artists.hasNext()} ? '' : 'disabled'">
+                                <a class="page-link" th:href="@{/music-app/admin/artists(page=${artists.number + 1}, size=${size})}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
         </div>
-
     </div>
-</section>
+</div>
+<!-- ##### Artist Profile Area End ##### -->
 
-<!-- ##### Footer Area Start ##### -->
+<!-- Footer (unchanged) -->
 <footer class="footer-area">
     <div class="container">
         <div class="row d-flex flex-wrap align-items-center">
@@ -82,7 +135,6 @@
                     <img th:src="@{/imgs/core-img/logo.png}" alt="Logo">
                 </a>
                 <p class="copywrite-text">
-                    <!-- Hiển thị năm hiện tại -->
                     Copyright &copy;<script th:inline="javascript">document.write(new Date().getFullYear());</script>
                     All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by
                     <a href="https://colorlib.com" target="_blank">Colorlib</a>
@@ -103,20 +155,12 @@
         </div>
     </div>
 </footer>
-<!-- ##### Footer Area End ##### -->
 
-<!-- ##### All Javascript Script ##### -->
-<!-- jQuery-2.2.4 js -->
+<!-- All Javascript Script (unchanged) -->
 <script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
-<!-- Popper js -->
 <script th:src="@{/js/bootstrap/popper.min.js}"></script>
-<!-- Bootstrap js -->
 <script th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
-<!-- All Plugins js -->
 <script th:src="@{/js/plugins/plugins.js}"></script>
-<!-- Active js -->
 <script th:src="@{/js/active.js}"></script>
-
 </body>
-
 </html>
