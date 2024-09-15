@@ -130,4 +130,8 @@ public class PlayListService {
         return playlistRepository.findPlayListByNameContainingIgnoreCase(name, pageable);
     }
 
+    public List<PlayList> getPlayListsByUserId(Long userId) {
+        return playlistRepository.findPlayListByUserId(userId);
+    }
+
 }

@@ -37,6 +37,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -64,6 +65,10 @@ public class ApplicationConfig implements WebMvcConfigurer, ApplicationContextAw
         registry.addResourceHandler("/image/**")
                 .addResourceLocations("file:" + imageDirectory);
 
+        registry.addResourceHandler("/static/**")
+                .addResourceLocations("classpath:/static/"
+                );
+
         registry.addResourceHandler("/css/**", "/js/**", "/imgs/**", "/icon/**", "/audio/**", "/scss/**", "/fonts/**")
                 .addResourceLocations(
                         "classpath:/static/css/",
@@ -74,6 +79,11 @@ public class ApplicationConfig implements WebMvcConfigurer, ApplicationContextAw
                         "classpath:/static/scss/",
                         "classpath:/static/fonts/"
                 );
+    }
+
+    @Override
+    public void configurePathMatch(PathMatchConfigurer configurer) {
+        configurer.setUseTrailingSlashMatch(true);
     }
 
 

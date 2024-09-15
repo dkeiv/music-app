@@ -32,7 +32,7 @@ public class PlayListController {
                                        @RequestParam("image") MultipartFile file) {
         PlayListRequest playListRequest = new PlayListRequest(name, views);
         playListService.save(playListRequest, file);
-        return new ModelAndView("redirect:/playlists");
+        return new ModelAndView("redirect:/music-app/admin");
     }
 
     @GetMapping
@@ -53,34 +53,34 @@ public class PlayListController {
         return modelAndView;
     }
 
-    @PutMapping("/{playlistId}")
+    @PostMapping("/{playlistId}/create")
     public ModelAndView updatePlayList(@PathVariable("playlistId") long playlistId,
                                        @RequestParam("name") String name,
                                        @RequestParam("views") int views,
                                        @RequestParam(value = "image", required = false) MultipartFile image) {
         PlayListRequest playListRequest = new PlayListRequest(name, views);
         if (playListService.updatePlayList(playlistId, playListRequest, image)) {
-            return new ModelAndView("redirect:/playlists");
+            return new ModelAndView("redirect:/music-app/admin");
         } else {
             return new ModelAndView("error/404");
         }
     }
 
-    @DeleteMapping("/{playlistId}")
+    @PostMapping("/{playlistId}/delete")
     public ModelAndView deletePlayList(@PathVariable("playlistId") long playlistId) {
         playListService.deletePlayList(playlistId);
-        return new ModelAndView("redirect:/playlists");
+        return new ModelAndView("redirect:/music-app/admin");
     }
 
-    @PostMapping("/{playlistId}")
-    public ModelAndView viewPlayList(@PathVariable("playlistId") Long playlistId) {
-        PlayList playList = playListService.increaseViews(playlistId);
-        if (playList != null) {
-            return new ModelAndView("playlists/detail", "playList", playList);
-        } else {
-            return new ModelAndView("error/404");
-        }
-    }
+//    @PostMapping("/{playlistId}")
+//    public ModelAndView viewPlayList(@PathVariable("playlistId") Long playlistId) {
+//        PlayList playList = playListService.increaseViews(playlistId);
+//        if (playList != null) {
+//            return new ModelAndView("playlists/detail", "playList", playList);
+//        } else {
+//            return new ModelAndView("error/404");
+//        }
+//    }
 
     @PostMapping("/{playlistId}/songs/{songId}")
     public ModelAndView addSongToPlaylist(@PathVariable Long playlistId, @PathVariable Long songId) {

@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.Optional;
@@ -37,13 +38,14 @@ public class AppController {
 
         Page<Song> songList = songService.findAll(pageable);
         Page<PlayList> playlistList = playListService.findAll(pageable);
+
         Page<Artist> artistList = artistService.findAll(pageable);
 
-        Optional<Artist> featuredArtist = artistService.findById(1L);
-        model.addAttribute("featuredArtist", featuredArtist.get());
-
-        List<Song> featuredSong = songService.findByArtist(featuredArtist);
-        model.addAttribute("featuredSong", featuredSong.get(0));
+//        Optional<Artist> featuredArtist = artistService.findById(1L);
+//        model.addAttribute("featuredArtist", featuredArtist.get());
+//
+//        List<Song> featuredSong = songService.findByArtist(featuredArtist);
+//        model.addAttribute("featuredSong", featuredSong.get(0));
 
         model.addAttribute("songs", songList);
         model.addAttribute("playlist", playlistList);
@@ -90,4 +92,25 @@ public class AppController {
 
         return "search";
     }
+
+    @GetMapping("/admin/playlists")
+    public ModelAndView addPlaylist(@RequestParam(defaultValue = "0") int page,
+                                    @RequestParam(defaultValue = "8") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<PlayList> playLists = playListService.findAll(pageable);
+        ModelAndView modelAndView = new ModelAndView("/admin/create-playlist");
+        modelAndView.addObject("playLists", playLists);
+        return modelAndView;
+    }
+
+    @GetMapping("/admin")
+    public ModelAndView addPlaylist1(@RequestParam(defaultValue = "0") int page,
+                                    @RequestParam(defaultValue = "8") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<PlayList> playLists = playListService.findAll(pageable);
+        ModelAndView modelAndView = new ModelAndView("/admin/create-playlist");
+        modelAndView.addObject("playLists", playLists);
+        return modelAndView;
+    }
+
 }
