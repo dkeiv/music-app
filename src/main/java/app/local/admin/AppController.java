@@ -39,18 +39,20 @@ public class AppController {
         Pageable pageable = PageRequest.of(page, pageSize);
 
         Page<Song> songList = songService.findAll(pageable);
-        Page<PlayList> playlistList = playListService.findAll(pageable);
+
+        Page<PlayList> playlistList = playListService.findAllPlaylistsByViewsDesc(pageable);
 
 
         Page<Artist> artistList = artistService.findAll(pageable);
 
-        Optional<Artist> featuredArtist = artistService.findById(3L);
+        Optional<Artist> featuredArtist = artistService.findById(1L);
         model.addAttribute("featuredArtist", featuredArtist.get());
 
         List<Song> featuredSong = songService.findByArtist(featuredArtist);
         model.addAttribute("featuredSong", featuredSong.get(0));
 
         model.addAttribute("songs", songList);
+
         model.addAttribute("playlist", playlistList);
         model.addAttribute("artists", artistList);
         return "index";

@@ -65,6 +65,12 @@ public class PlayListService {
         return playlistRepository.findAll(pageable);
     }
 
+    public Page<PlayList> findAllPlaylistsByViewsDesc(Pageable pageable) {
+        return playlistRepository.findAllByOrderByViewsDesc(pageable);
+    }
+
+
+
     public PlayList getPlayList(Long playlistId) {
         return findPlayListById(playlistId); // sử dụng phương thức chung
     }
@@ -142,4 +148,9 @@ public class PlayListService {
         playlistRepository.save(playlist);
     }
 
+    public PlayList findById(Long playlistId) {
+        PlayList playList = playlistRepository.findById(playlistId).orElse(null);
+        playList.setViews(playList.getViews() + 1);
+        return playList;
+    }
 }
