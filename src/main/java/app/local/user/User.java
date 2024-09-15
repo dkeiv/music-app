@@ -53,11 +53,17 @@ public class User implements UserDetails {
     @ManyToMany
     private List<Song> likedSongs;
 
+    public void likeSong(Song song) {
+        if (!likedSongs.contains(song)) {
+            likedSongs.add(song);
+        }
+    }
+
     @ManyToMany
     private List<PlayList> likedPlaylists;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Song> createdSongs;
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Song> createdSongs;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PlayList> createdPlaylists;

@@ -2,6 +2,8 @@ package app.local.song;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 public class SongRequest {
     private Long id;
 
@@ -13,15 +15,26 @@ public class SongRequest {
 
     private MultipartFile avatarUrl;
 
+    private List<Long> artist;
+
     public SongRequest() {
     }
 
-    public SongRequest(Long id, String title, String description, MultipartFile mediaUrl, MultipartFile avatarUrl) {
+    public List<Long> getArtist() {
+        return artist;
+    }
+
+    public void setArtist(List<Long> artist) {
+        this.artist = artist;
+    }
+
+    public SongRequest(Long id, String title, String description, MultipartFile mediaUrl, MultipartFile avatarUrl, List<Long> artist) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.mediaUrl = mediaUrl;
         this.avatarUrl = avatarUrl;
+        this.artist = artist;
     }
 
     public Long getId() {

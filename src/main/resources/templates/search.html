@@ -83,12 +83,14 @@
                 <div class="col-12 col-sm-6 col-md-4 col-lg-2">
                     <div class="single-album-area wow fadeInUp" data-wow-delay="100ms">
                         <div class="album-thumb">
-                            <img th:src="${s.avatarUrl}" alt="">
+                            <img th:src="'/image/'+${s.avatarUrl}" th:alt="${s.title}">
                         </div>
                         <div class="album-info">
-                            <a th:ref="@{/music-app/songs/__${s.id}__}">
-                                <h5 th:text="${s.title}"></h5>
-                            </a>
+                            <h5>
+                                <a th:href="@{/music-app/songs/__${s.id}__}"
+                                   th:text="${s.title}">
+                                </a>
+                            </h5>
                             <span th:each="g : ${s.genres}" th:text="${g.name}+ ' '"></span>
                         </div>
                     </div>
@@ -109,8 +111,7 @@
                 <div class="col-12 col-sm-6 col-md-4 col-lg-2">
                     <div class="single-album-area wow fadeInUp" data-wow-delay="100ms">
                         <div class="album-thumb">
-                            <!--                            <img th:src="${p.views}" th:alt="${p.name}">-->
-                            <img th:src="'#'" th:alt="${p.name}">
+                            <img th:src="'/image/'+${p.image}" th:alt="${p.name}">
                         </div>
                         <div class="album-info">
                             <a th:href="@{/music-app/playlists/__${p.id}__}">

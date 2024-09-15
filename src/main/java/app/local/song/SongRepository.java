@@ -1,5 +1,6 @@
 package app.local.song;
 
+import app.local.genre.Genre;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import app.local.artist.Artist;
@@ -32,4 +33,12 @@ public interface SongRepository extends PagingAndSortingRepository<Song, Long> {
 
     @Query(value = "SELECT s FROM Song s JOIN s.artists a WHERE a.id = :artistId")
     List<Song> findSongsByArtistId(@Param("artistId") Long artistId);
+
+
+    @Query("SELECT a FROM Song s JOIN s.artists a WHERE s.id = :songId")
+    List<Artist> findArtistsBySongId(@Param("songId") Long songId);
+
+    @Query("SELECT g FROM Song s JOIN s.genres g WHERE s.id = :songId")
+    List<Genre> findGenreBySongId(@Param("songId") Long songId);
+
 }

@@ -19,15 +19,11 @@ public class AdminArtistController {
 
     @GetMapping("/artists")
     public String listArtist(Model model, @RequestParam(defaultValue = "0") int page) {
-        Pageable pageable = PageRequest.of(page, 6); // Hiển thị 6 mục mỗi trang
+        Pageable pageable = PageRequest.of(page, 6);
         Page<Artist> artistPage = artistService.findAll(pageable);
         model.addAttribute("artists", artistPage);
         return "artists/list_admin";
     }
-
-
-
-
 
     @GetMapping("/artists/{id}")
     public String viewArtist(@PathVariable Long id, Model model) {

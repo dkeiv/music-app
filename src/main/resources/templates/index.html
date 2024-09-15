@@ -68,7 +68,8 @@
                             <h6 data-animation="fadeInUp" data-delay="100ms">Latest album</h6>
                             <h2 data-animation="fadeInUp" data-delay="300ms">Colorlib Music <span>Colorlib Music</span>
                             </h2>
-                            <a data-animation="fadeInUp" data-delay="500ms" th:href="@{/music-app/search}" class="btn oneMusic-btn mt-50">Discover
+                            <a data-animation="fadeInUp" data-delay="500ms" th:href="@{/music-app/search}"
+                               class="btn oneMusic-btn mt-50">Discover
                                 <i class="fa fa-angle-double-right"></i></a>
                         </div>
                     </div>
@@ -106,16 +107,19 @@
                 <div class="albums-slideshow owl-carousel">
                     <!-- Single Album -->
                     <div th:each="s : ${songs}">
-                        <a href="#">
+                        <a th:href="@{/music-app/songs/__${s.id}__}">
                             <div class="single-album">
-                                <img th:src="'/img/' + ${s.avatarUrl}" alt="">
+                                <img th:src="'/image/' + ${s.avatarUrl}" alt="">
                                 <div class="album-info">
-                                    <h5>The Cure</h5>
-                                    <p>Second Song</p>
+                                    <h5 th:text="${s.title}"></h5>
+                                    <th:block th:each="g : ${s.genres}">
+                                        <p style="display: inline;" th:text="${g.name}"></p>
+                                    </th:block>
                                 </div>
                             </div>
                         </a>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -134,17 +138,15 @@
                 </div>
             </div>
         </div>
-
         <div class="row">
 
             <th:block th:each="p: ${playlist}">
                 <!-- Single Album Area -->
                 <div class="col-12 col-sm-6 col-md-4 col-lg-2">
                     <a href="#">
-
                         <div class="single-album-area wow fadeInUp" data-wow-delay="200ms">
                             <div class="album-thumb">
-                                <img src="/imgs/bg-img/b2.jpg" alt="">
+                                <img th:src="${p.image}" th:alt="${p.name}">
                             </div>
                             <div class="album-info">
                                 <h5 th:text="${p.name}"></h5>
@@ -153,18 +155,8 @@
                         </div>
                     </a>
                 </div>
-
             </th:block>
 
-
-        </div>
-
-        <div class="row">
-            <div class="col-12">
-                <div class="load-more-btn text-center wow fadeInUp" data-wow-delay="300ms">
-                    <a href="#" class="btn oneMusic-btn">Load More <i class="fa fa-angle-double-right"></i></a>
-                </div>
-            </div>
         </div>
     </div>
 </section>
@@ -176,30 +168,24 @@
     <div class="container">
         <div class="row align-items-end">
             <div class="col-12 col-md-5 col-lg-4">
-                <div class="featured-artist-thumb">
-                    <img th:src="'img' + ${featuredArtist.image}" alt="">
-                </div>
+<!--                <div class="featured-artist-thumb">-->
+<!--                    <img th:src="'/image/' + ${featuredArtist.image}" alt="">-->
+<!--                </div>-->
             </div>
             <div class="col-12 col-md-7 col-lg-8">
                 <div class="featured-artist-content">
                     <!-- Section Heading -->
                     <div class="section-heading white text-left mb-30">
                         <p>See what’s new</p>
-                        <h2>Son Tung M-TP</h2>
+                        <h2 th:text="${featuredArtist.name}"></h2>
                     </div>
-                    <p>Sơn Tùng M-TP is a popular Vietnamese singer, songwriter, and music producer known for his unique
-                        musical style that blends pop, EDM, and hip-hop. Born in 1994, he gained widespread recognition
-                        with hit songs like "Lạc Trôi" and "Hãy Trao Cho Anh". His innovative approach to music,
-                        combined with captivating visuals and performances, has made him a significant figure in
-                        Vietnam's entertainment industry. Often referred to as a trendsetter, Sơn Tùng M-TP continues to
-                        push creative boundaries, earning him millions of fans both domestically and
-                        internationally.</p>
+                    <p th:text="${featuredArtist.biography}"></p>
                     <div class="song-play-area">
                         <div class="song-name">
-                            <p>01. Chung ta cua tuong lai</p>
+                            <p th:text="${featuredSong.title}"></p>
                         </div>
                         <audio preload="auto" controls>
-                            <source src="/audio/chung-ta-cua-tuong-lai.mp3">
+                            <source th:src="'/mp3/' + ${featuredSong.mediaUrl}">
                         </audio>
                     </div>
                 </div>
@@ -225,15 +211,18 @@
                         <div class="single-top-item d-flex wow fadeInUp" data-wow-delay="100ms"
                              style="margin: 25px 0 0 0 ;">
                             <div class="thumbnail">
-                                <img src="/imgs/bg-img/wt1.jpg" alt="">
+                                <img th:src="${p.image}" th:alt="${p.name}">
                             </div>
                             <div class="content-">
-                                <h6>Sam Smith</h6>
-                                <p>Underground</p>
+                                <h6>
+                                    <a th:href="@{/music-app/playlist/__${p.id}__}"
+                                       th:text="${p.name}"
+                                    ></a>
+                                </h6>
+                                <!--                                <p>Underground</p>-->
                             </div>
                         </div>
                     </div>
-
 
                 </div>
             </div>
@@ -246,21 +235,25 @@
                         <h2>New Hits</h2>
                     </div>
 
-                    <div th:each="p: ${playlist}">
+                    <div th:each="s: ${songs}">
                         <!-- Single Top Item -->
                         <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp"
                              data-wow-delay="100ms" style="margin: 25px 0 0 0 ;">
                             <div class="first-part d-flex align-items-center">
                                 <div class="thumbnail">
-                                    <img src="/imgs/bg-img/wt7.jpg" alt="">
+                                    <img th:src="'/image/'+${s.avatarUrl}" th:alt="${s.title}">
                                 </div>
                                 <div class="content-">
-                                    <h6>Sam Smith</h6>
-                                    <p>Underground</p>
+                                    <h6>
+                                        <a th:href="@{/music-app/songs/__${s.id}__}"
+                                           th:text="${s.title}"
+                                        ></a>
+                                    </h6>
+                                    <!--                                    <p>Underground</p>-->
                                 </div>
                             </div>
                             <audio preload="auto" controls>
-                                <source src="/audio/dummy-audio.mp3">
+                                <source th:src="'/mp3/' + ${s.mediaUrl}">
                             </audio>
                         </div>
                     </div>
@@ -281,13 +274,14 @@
                         <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="100ms"
                              style="margin: 0 0 25px 0  ;">
                             <div class="thumbnail">
-                                <img th:src="@{'/img/' + ${a.image}}" alt="">
+                                <img th:src="@{'/image/' + ${a.image}}" alt="">
                             </div>
                             <div class="content-">
-                                <p>Sam Smith</p>
+                                <p><a th:text="${a.name}" th:href="@{/music-app/artists/__${a.id}__}"></a></p>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

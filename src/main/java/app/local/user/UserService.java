@@ -5,6 +5,8 @@ import app.local.playlist.PlayList;
 import app.local.playlist.PlayListRepository;
 import app.local.role.UserRole;
 import app.local.role.UserRoleRepository;
+import app.local.song.Song;
+import app.local.song.SongRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +23,7 @@ import java.util.Set;
 public class UserService {
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
+    private final SongRepository songRepository;
 
     public Page<User> findAll(Pageable pageable) {
         return userRepository.findAll(pageable);
@@ -81,6 +84,14 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         UserRole defaultRole = userRoleRepository.findByName("ROLE_USER");
         user.addRole(defaultRole);
+        userRepository.save(user);
+    }
+
+    public void likeSong(Long userId, Long songId) throws NotFoundException {
+        User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("Không tìm thấy người dùng"));
+        Song song = songRepository.findById(songId).orElseThrow(() -> new NotFoundException("Không tìm thấy bài hát"));
+
+        user.likeSong(song);
         userRepository.save(user);
     }
 }

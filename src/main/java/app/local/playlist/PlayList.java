@@ -21,6 +21,7 @@ public class PlayList {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String image;
 
     @Column(nullable = false, columnDefinition = "int default 0")
     private int views;
