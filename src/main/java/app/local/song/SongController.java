@@ -44,9 +44,11 @@ public class SongController {
     @GetMapping
     public String list(Model model,@PageableDefault(size = 10) Pageable pageable, @AuthenticationPrincipal User user) throws NotFoundException {
         Page<Song> allSongs = songService.findAll(pageable);
-        List<PlayList> allPlaylistsByUserId = userService.getPlaylistsByUserId(user.getId());
         model.addAttribute("allSongs", allSongs);
-        model.addAttribute("allPlaylistsByUserId", allPlaylistsByUserId);
+        if(user != null ) {
+            List<PlayList> allPlaylistsByUserId = userService.getPlaylistsByUserId(user.getId());
+            model.addAttribute("allPlaylistsByUserId", allPlaylistsByUserId);
+        }
         return "song/index";
     }
 
