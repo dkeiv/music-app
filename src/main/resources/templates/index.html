@@ -108,7 +108,7 @@
                     <div th:each="s : ${songs}">
                         <a href="#">
                             <div class="single-album">
-                                <img th:src="'/img/' + ${s.avatarUrl}" alt="">
+                                <img th:src="'/image/' + ${s.avatarUrl}" alt="">
                                 <div class="album-info">
                                     <h5>The Cure</h5>
                                     <p>Second Song</p>
@@ -185,21 +185,15 @@
                     <!-- Section Heading -->
                     <div class="section-heading white text-left mb-30">
                         <p>See what’s new</p>
-                        <h2>Son Tung M-TP</h2>
+                        <h2 th:text="${featuredArtist.name}"></h2>
                     </div>
-                    <p>Sơn Tùng M-TP is a popular Vietnamese singer, songwriter, and music producer known for his unique
-                        musical style that blends pop, EDM, and hip-hop. Born in 1994, he gained widespread recognition
-                        with hit songs like "Lạc Trôi" and "Hãy Trao Cho Anh". His innovative approach to music,
-                        combined with captivating visuals and performances, has made him a significant figure in
-                        Vietnam's entertainment industry. Often referred to as a trendsetter, Sơn Tùng M-TP continues to
-                        push creative boundaries, earning him millions of fans both domestically and
-                        internationally.</p>
+                    <p th:text="${featuredArtist.biography}"></p>
                     <div class="song-play-area">
                         <div class="song-name">
-                            <p>01. Chung ta cua tuong lai</p>
+                            <p th:text="${featuredSong.title}"></p>
                         </div>
                         <audio preload="auto" controls>
-                            <source src="/audio/chung-ta-cua-tuong-lai.mp3">
+                            <source th:src="'/mp3/' + ${featuredSong.mediaUrl}">
                         </audio>
                     </div>
                 </div>
