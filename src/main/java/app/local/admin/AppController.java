@@ -2,6 +2,8 @@ package app.local.admin;
 
 import app.local.artist.Artist;
 import app.local.artist.ArtistService;
+import app.local.exception.NotFoundException;
+import app.local.genre.Genre;
 import app.local.playlist.PlayList;
 import app.local.playlist.PlayListService;
 import app.local.song.Song;
@@ -14,6 +16,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -100,8 +103,22 @@ public class AppController {
                                     @RequestParam(defaultValue = "8") int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<PlayList> playLists = playListService.findAll(pageable);
+        Page<Song> songs = songService.findAll(pageable);
         ModelAndView modelAndView = new ModelAndView("/admin/create-playlist");
         modelAndView.addObject("playLists", playLists);
+        modelAndView.addObject("songs", songs);
+        return modelAndView;
+    }
+
+    @GetMapping("/admin/songs")
+    public ModelAndView addSong(@RequestParam(defaultValue = "0") int page,
+                                    @RequestParam(defaultValue = "8") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Song> songs = songService.findAll(pageable);
+        Page<Artist> artists = artistService.findAll(pageable);
+        ModelAndView modelAndView = new ModelAndView("/admin/create-song");
+        modelAndView.addObject("songs", songs);
+        modelAndView.addObject("artists", artists);
         return modelAndView;
     }
 

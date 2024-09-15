@@ -128,4 +128,8 @@ public class SongService {
     public List<Genre> getGenresBySongId(Long songId) {
         return songRepository.findGenreBySongId(songId);
     }
+
+    public void deleteSong(Long songId) {
+        songRepository.deleteSong(songId);
+    }
 }
