@@ -1,14 +1,17 @@
 package app.local.song;
 
 import app.local.genre.Genre;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import app.local.artist.Artist;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.beans.Transient;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,4 +44,8 @@ public interface SongRepository extends PagingAndSortingRepository<Song, Long> {
     @Query("SELECT g FROM Song s JOIN s.genres g WHERE s.id = :songId")
     List<Genre> findGenreBySongId(@Param("songId") Long songId);
 
+    @Transactional
+    @Modifying
+    @Query (value = "CALL sp_delete_song(:songId)", nativeQuery = true )
+    void deleteSong(@Param("songId") Long songId);
 }

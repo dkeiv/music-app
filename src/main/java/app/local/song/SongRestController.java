@@ -18,6 +18,19 @@ import java.util.Optional;
 public class SongRestController {
 
     private final SongService songService;
+    private final SongRepository songRepository;
+
+    @PostMapping("/{id}/play")
+    public ResponseEntity<?> playSong(@PathVariable Long id) {
+        Optional<Song> optionalSong = songRepository.findById(id);
+        if (optionalSong.isPresent()) {
+            Song song = optionalSong.get();
+            song.setPlayCount(song.getPlayCount() + 1);
+            songRepository.save(song);
+            return ResponseEntity.ok().build(); // Hoặc trả về bài hát, nếu cần
+        }
+        return ResponseEntity.notFound().build();
+    }
 
     @GetMapping
     public ResponseEntity<Page<Song>> fillAllSong(@PageableDefault(value = 10) Pageable pageable) {
@@ -62,6 +75,8 @@ public class SongRestController {
         songService.remove(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+
 
 }
 

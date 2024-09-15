@@ -42,11 +42,13 @@ public class SongController {
     private final PlayListService playListService;
 
     @GetMapping
-    public String list(Model model,@PageableDefault(size = 10) Pageable pageable, @AuthenticationPrincipal User user) throws NotFoundException {
+    public String list(Model model, @PageableDefault(size = 8) Pageable pageable, @AuthenticationPrincipal User user) throws NotFoundException {
         Page<Song> allSongs = songService.findAll(pageable);
-        List<PlayList> allPlaylistsByUserId = userService.getPlaylistsByUserId(user.getId());
+        if (user != null) {
+            List<PlayList> allPlaylistsByUserId = userService.getPlaylistsByUserId(user.getId());
+            model.addAttribute("allPlaylistsByUserId", allPlaylistsByUserId);
+        }
         model.addAttribute("allSongs", allSongs);
-        model.addAttribute("allPlaylistsByUserId", allPlaylistsByUserId);
         return "song/index";
     }
 
@@ -86,9 +88,10 @@ public class SongController {
 
     }
 
-    @PostMapping("/delete")
-    public String delete() {
-       return "/";
+    @PostMapping("/{id}/delete")
+    public ModelAndView deletePlayList(@PathVariable("id") Long id) {
+        songService.deleteSong(id);
+        return new ModelAndView("redirect:/music-app/admin/songs");
     }
 
     @PostMapping("/like/{songId}")
