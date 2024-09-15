@@ -110,12 +110,15 @@
                             <div class="single-album">
                                 <img th:src="'/image/' + ${s.avatarUrl}" alt="">
                                 <div class="album-info">
-                                    <h5>The Cure</h5>
-                                    <p>Second Song</p>
+                                    <h5 th:text="${s.title}"></h5>
+                                    <th:block th:each="g : ${s.genres}" >
+                                        <p style="display: inline;" th:text="${g.name}"></p>
+                                    </th:block>
                                 </div>
                             </div>
                         </a>
                     </div>
+
                 </div>
             </div>
         </div>

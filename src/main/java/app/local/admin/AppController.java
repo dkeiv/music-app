@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,12 +34,7 @@ public class AppController {
         Page<Song> songList = songService.findAll(pageable);
         Page<PlayList> playlistList = playListService.findAll(pageable);
         Page<Artist> artistList = artistService.findAll(pageable);
-//
-//        Optional<Artist> featuredArtist = artistService.findById(1L);
-//        model.addAttribute("featuredArtist", featuredArtist.get());
-//
-//        List<Song> featuredSong = songService.findByArtist(featuredArtist);
-//        model.addAttribute("featuredSong", featuredSong.get(0));
+
 
         model.addAttribute("songs", songList);
         model.addAttribute("playlist", playlistList);
@@ -57,17 +53,17 @@ public class AppController {
 //        return "playlist/index";
 //    }
 
-    @GetMapping("/music-app/contact")
+    @GetMapping("/contact")
     public String contactIndex() {
         return "contact/contact";
     }
 
 
-    @GetMapping("/music-app/search")
+    @GetMapping("/search")
     public String searchIndex(
             @RequestParam(required = false) String query,
             Model model,
-            Pageable pageable
+            @PageableDefault(value = 20) Pageable pageable
     ) {
         if(query == null) {
             return "search";
