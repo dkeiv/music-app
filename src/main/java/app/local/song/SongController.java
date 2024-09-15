@@ -3,6 +3,7 @@ package app.local.song;
 import app.local.artist.Artist;
 import app.local.artist.ArtistService;
 import app.local.exception.NotFoundException;
+import app.local.genre.Genre;
 import app.local.user.User;
 import app.local.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -85,9 +86,21 @@ public class SongController {
        return "/";
     }
 
-    @PostMapping("/songs/like/{songId}")
+    @PostMapping("/like/{songId}")
     public String likeSong(@PathVariable Long songId, @AuthenticationPrincipal User user) throws NotFoundException {
         userService.likeSong(user.getId(), songId);
-        return "redirect:/music-app/songs" + songId;
+        return "redirect:/music-app/songs/" + songId;
+    }
+
+    @GetMapping("/{songId}")
+    public ModelAndView songDetail(@PathVariable Long songId) throws NotFoundException {
+        Optional<Song> song = songService.findById(songId);
+        List<Artist> artistList = songService.getArtistBySong(songId);
+        List<Genre> genresList = songService.getGenresBySongId(songId);
+        ModelAndView modelAndView = new ModelAndView("song/detail");
+        modelAndView.addObject("song", song.orElseThrow(() -> new NotFoundException("Song not found")));
+        modelAndView.addObject("artists", artistList);
+        modelAndView.addObject("genres", genresList);
+        return modelAndView;
     }
 }
