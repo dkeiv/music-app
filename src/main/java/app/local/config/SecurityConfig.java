@@ -31,11 +31,11 @@ public class SecurityConfig {
                                         "/css/**",
                                         "/icon/**",
                                         "/image/**",
-                                        "/imgs/**",
+//                                        "/imgs/**",
                                         "/scss/**",
                                         "/**", //?
                                         "/login",
-                                        "/music-app",
+                                        "/music-app/search",
                                         "/music-app/logout",
                                         "/music-app/register",
                                         "/music-app/process-register",
@@ -46,14 +46,14 @@ public class SecurityConfig {
                                         "/music-app/songs",
                                         "/music-app/songs/**",
                                         "/music-app/contact",
-                                        "/music-app/songs/create"
+//                                        "/music-app/songs/create"
+                                        "/music-app"
                                 ).permitAll()
                                 .requestMatchers(
                                         "/music-app/me"
                                 ).hasAnyRole("USER", "ADMIN")
                                 .requestMatchers(
-
-                                        "/admin.music-app/**"
+                                        "/music-app/admin/**"
                                 ).hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 )

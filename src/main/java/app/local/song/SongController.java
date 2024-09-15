@@ -51,7 +51,6 @@ public class SongController {
     }
 
     @GetMapping("/{id}/view")
-
     public String viewSong() {
         return "song/detail";
     }

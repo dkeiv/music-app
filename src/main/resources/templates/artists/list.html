@@ -47,18 +47,50 @@
         <div class="row oneMusic-albums">
             <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item"
                  th:each="artist : ${artists}">
-                <div class="single-album">
-                    <img th:src="@{'/image/' + ${artist.image}}" th:alt="${artist.name}">
+                <div class="single-album-area">
+                    <div class="album-thumb">
+                        <img th:src="@{'/image/' + ${artist.image}}"
+                             th:alt="${artist.name}"
+                             style="width: 100%; height: auto;">
+                    </div>
                     <div class="album-info">
                         <a th:href="@{/music-app/artists/{id}(id=${artist.id})}">
-                            <h5 th:text="${artist.name}">Artist Name</h5>
+                            <h5 th:text="${artist.name}" style="text-align: center">Artist Name</h5>
                         </a>
-                        <!--                        <p th:text="${artist.artistProfile}">Artist Profile</p>-->
-                        <!--                        <p th:text="${artist.biography}">Artist Biography</p>-->
+                        <!-- Nếu bạn muốn thêm thông tin về profile hay biography, bỏ comment 2 dòng bên dưới -->
+                        <!-- <p th:text="${artist.artistProfile}">Artist Profile</p> -->
+                        <!-- <p th:text="${artist.biography}">Artist Biography</p> -->
                     </div>
                 </div>
+
             </div>
         </div>
+
+        <!-- Thymeleaf pagination controls -->
+        <!-- Bootstrap Pagination -->
+        <div class="container">
+            <div class="row justify-content-center">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        <li class="page-item" th:classappend="${page.hasPrevious()} ? '': 'disabled'">
+                            <a class="page-link" th:href="@{/music-app/artists(page=${page.number - 1})}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}" class="page-item" th:classappend="${i == page.number} ? 'active' : ''">
+                            <a class="page-link" th:href="@{/music-app/artists(page=${i})}" th:text="${i + 1}"></a>
+                        </li>
+                        <li class="page-item" th:classappend="${page.hasNext()} ? '': 'disabled'">
+                            <a class="page-link" th:href="@{/music-app/artists(page=${page.number + 1})}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+
     </div>
 </section>
 
