@@ -7,7 +7,6 @@
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title -->
     <title>One Music - Modern Music HTML5 Template</title>
@@ -15,25 +14,16 @@
     <link rel="icon" href="/imgs/core-img/favicon.ico">
     <!-- Stylesheet -->
     <link rel="stylesheet" th:href="@{/css/style.css}">
-
 </head>
 <style>
     .song-thumbnail img {
-        padding: 5px; /* Khoảng cách giữa ảnh và viền */
-        border-radius: 10px; /* Làm bo góc viền */
-        max-width: 150px; /* Đặt kích thước tối đa của ảnh */
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ cho ảnh */
+        width: 150px; /* Set fixed width */
+        height: 120px; /* Set fixed height */
+        object-fit: cover; /* Crop image to fit without distortion */
+        padding: 5px; /* Padding between image and border */
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow */
     }
-
-    .song-thumbnail img {
-        width: 150px; /* Đặt chiều rộng cố định */
-        height: 120px; /* Đặt chiều cao cố định */
-        object-fit: cover; /* Cắt ảnh để vừa với khung mà không bị méo */
-        padding: 5px; /* Khoảng cách giữa ảnh và viền */
-        border-radius: 10px; /* Làm bo góc viền */
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ cho ảnh */
-    }
-
 
     .playlist-item {
         z-index: 1;
@@ -59,6 +49,7 @@
         <h2>Musics</h2>
     </div>
 </section>
+
 <!-- Preloader -->
 <div class="preloader d-flex align-items-center justify-content-center">
     <div class="lds-ellipsis">
@@ -73,37 +64,23 @@
 <div class="oneMusic-buy-now-area mb-100" style="margin: 50px 0;">
     <div class="container">
         <div class="row">
-
             <th:block th:each="s : ${allSongs}">
-
-
                 <!-- Single Album Area -->
                 <div class="col-12 col-sm-6 col-md-3" style="text-align: center">
                     <a th:href="@{/music-app/songs/{id}(id=${s.id})}">
                         <div class="single-album-area">
                             <div class="album-thumb song-thumbnail">
                                 <img style="max-width: 130px;" th:src="'/image/' + ${s.avatarUrl}" th:alt="${s.title}">
-                                <!-- Album Price -->
-                                <div class="album-price">
-                                    <!--                                    <p th:text="${s.title}"></p>-->
-                                </div>
-                                <!-- Play Icon -->
-                                <!--                                <div class="play-icon">-->
-                                <!--                                    <a href="#" class="video&#45;&#45;play&#45;&#45;btn"><span class="icon-play-button"></span></a>-->
-                                <!--                                </div>-->
                             </div>
                             <div class="album-info">
                                 <a href="#">
                                     <h5 th:text="${s.title}"></h5>
                                 </a>
-                                <!--                                <p th:text="${s.artists[0].name}"></p>-->
                             </div>
                         </div>
                     </a>
-
                 </div>
             </th:block>
-
         </div>
     </div>
 </div>
@@ -127,9 +104,7 @@
 <div class="one-music-songs-area mb-70">
     <div class="container">
         <div class="row">
-
             <th:block th:each="s : ${allSongs}">
-
                 <!-- Single Song Area -->
                 <div class="col-12">
                     <div class="single-song-area mb-30 d-flex flex-wrap align-items-end">
@@ -140,6 +115,7 @@
                             <div class="song-name">
                                 <p th:text="${s.title}"></p>
                             </div>
+
                             <div style="display: flex">
                                 <audio preload="auto" controls>
                                     <source th:src="'/mp3/' + ${s.mediaUrl}">
@@ -158,6 +134,7 @@
                                       style="margin-left: 20px">
                                     <button type="submit" id="unLikeBtn" class="btn btn-light"
                                             style=" height: 30px;line-height: 100%; margin-top: 5px;">
+
                                         Un Like
                                     </button>
                                 </form>
@@ -183,14 +160,47 @@
 
                             </div>
 
-
                         </div>
                     </div>
                 </div>
+
             </th:block>
-
-
         </div>
+        <div class="row">
+            <div class="col-12">
+                <nav aria-label="Page navigation" style="display:flex; justify-content: center;">
+                    <ul class="pagination mt-3 mb-0">
+                        <!-- Previous Page -->
+                        <li class="page-item" th:classappend="${allSongs.hasPrevious()} ? '' : 'disabled'">
+                            <a class="page-link"
+                               th:href="@{/music-app/songs(page=${allSongs.number - 1}, size=${size})}"
+                               aria-label="Previous"
+                               th:if="${allSongs.hasPrevious()}">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <!-- Page Numbers -->
+                        <li class="page-item"
+                            th:each="page : ${#numbers.sequence(0, allSongs.totalPages - 1)}"
+                            th:classappend="${page == allSongs.number} ? 'active'">
+                            <a class="page-link"
+                               th:href="@{/music-app/songs(page=${page}, size=${size})}"
+                               th:text="${page + 1}"></a>
+                        </li>
+                        <!-- Next Page -->
+                        <li class="page-item" th:classappend="${allSongs.hasNext()} ? '' : 'disabled'">
+                            <a class="page-link"
+                               th:href="@{/music-app/songs(page=${allSongs.number + 1}, size=${size})}"
+                               aria-label="Next"
+                               th:if="${allSongs.hasNext()}">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        
     </div>
 </div>
 <!-- ##### Song Area End ##### -->
@@ -221,23 +231,16 @@
                             </div>
                             <div class="col-md-6 col-lg-4">
                                 <div class="form-group">
-                                    <input type="email" class="form-control" id="email" placeholder="E-mail">
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="subject" placeholder="Subject">
+                                    <input type="email" class="form-control" id="email" placeholder="Email">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <textarea name="message" class="form-control" id="message" cols="30" rows="10"
-                                              placeholder="Message"></textarea>
+                                    <textarea class="form-control" id="message" rows="6" placeholder="Message"></textarea>
                                 </div>
                             </div>
-                            <div class="col-12 text-center">
-                                <button class="btn oneMusic-btn mt-30" type="submit">Send <i
-                                        class="fa fa-angle-double-right"></i></button>
+                            <div class="col-12">
+                                <button type="submit" class="btn oneMusic-btn">Send Message</button>
                             </div>
                         </div>
                     </form>
@@ -248,40 +251,12 @@
 </section>
 <!-- ##### Contact Area End ##### -->
 
-<!-- ##### Footer Area Start ##### -->
-<footer class="footer-area">
-    <div class="container">
-        <div class="row d-flex flex-wrap align-items-center">
-            <div class="col-12 col-md-6">
-                <a href="#"><img src="img/core-img/logo.png" alt=""></a>
-                <p class="copywrite-text"><a href="#">
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                    All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by
-                    <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                </p>
-            </div>
-
-            <div class="col-12 col-md-6">
-                <div class="footer-nav">
-                    <ul>
-                        <li><a th:href="@{/music-app}">Home</a></li>
-                        <li><a th:href="@{/music-app/artists}">Artist</a></li>
-                        <li><a th:href="@{/music-app/playlists}">Playlist</a></li>
-                        <li><a th:href="@{/music-app/songs}">Songs</a></li>
-                        <li><a th:href="@{/music-app/contact}">Contact</a></li>
-                        <li sec:authorize="isAuthenticated()"><a
-                                th:href="@{/music-app/me}">Me</a></li>
-                        <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Login</a></li>
-                        <li sec:authorize="isAuthenticated()"><a th:href="@{/music-app/logout}">Logout</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
-<!-- ##### Footer Area Start ##### -->
+<!-- Scripts -->
+<script src="/js/jquery/jquery-2.2.4.min.js"></script>
+<script src="/js/bootstrap/popper.min.js"></script>
+<script src="/js/bootstrap/bootstrap.min.js"></script>
+<script src="/js/plugins/plugins.js"></script>
+<script src="/js/active.js"></script>
 <script>
     function toggleLike(songId) {
         // Ẩn nút Like và hiện nút Unlike
@@ -315,12 +290,6 @@
         });
     });
 
-
 </script>
-
-<!-- ##### All Javascript Script ##### -->
-<!-- jQuery-2.2.4 js -->
-<div th:insert="fragment :: import-js-file"></div>
 </body>
-
 </html>

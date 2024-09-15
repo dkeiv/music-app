@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>One Music - Modern Music HTML5 Template</title>
+
+    <link rel="icon" href="/imgs/core-img/favicon.ico">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+<style>
+    .song-thumbnail img {
+        padding: 5px; /* Khoảng cách giữa ảnh và viền */
+        border-radius: 10px; /* Làm bo góc viền */
+        max-width: 150px; /* Đặt kích thước tối đa của ảnh */
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ cho ảnh */
+    }
+
+    .song-thumbnail img {
+        width: 150px; /* Đặt chiều rộng cố định */
+        height: 120px; /* Đặt chiều cao cố định */
+        object-fit: cover; /* Cắt ảnh để vừa với khung mà không bị méo */
+        padding: 5px; /* Khoảng cách giữa ảnh và viền */
+        border-radius: 10px; /* Làm bo góc viền */
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ cho ảnh */
+    }
+
+
+    .playlist-item {
+        z-index: 1;
+        position: absolute;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 10px;
+        background-color: #f9f9f9;
+    }
+    .playlist-container {
+        position: relative;
+        display: none; /* Start hidden */
+        z-index: 1;
+    }
+    /* Global style for song images */
+    img.song-avatar {
+        width: 100%;  /* Make sure the image takes up the full width of its container */
+        height: auto; /* Maintain aspect ratio */
+        max-width: 200px; /* Limit the max width */
+        object-fit: cover; /* Ensure the image covers the whole container */
+        border-radius: 15px; /* Increase the rounded corners */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: add a shadow effect */
+    }
+
+
+    /* To make sure all song thumbnails are the same size */
+    .song-thumbnail-container {
+        margin-top: 14px;
+        width: 200px; /* Fixed width */
+        height: 200px; /* Fixed height */
+        overflow: hidden; /* Hide overflow in case the image is too large */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 15px; /* Optional: add rounded corners */
+    }
+
+    /* Optionally, use aspect ratio for flexibility */
+    .song-thumbnail-container {
+        aspect-ratio: 1 / 1; /* Ensures a square container */
+        width: 200px; /* You can change this based on your design */
+        overflow: hidden;
+    }
+
+    /* Styling the song info container */
+    .song-info-container {
+        border: 1px solid #ccc; /* Add border to create the frame */
+        border-radius: 8px; /* Optional: Rounded corners */
+        padding: 15px 5px; /* Padding inside the border */
+        background-color: #f9f9f9; /* Optional: Light background for better visibility */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add subtle shadow */
+    }
+
+    span {
+        color: #000000;
+        font-weight: 600;
+    }
+
+    .margin {
+        margin: 10px 0;
+    }
+
+</style>
+
+<body>
+<header th:insert="~{fragment :: header}"></header>
+<section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/imgs/bg-img/banner.jpg);">
+    <div class="bradcumbContent">
+        <h2>Playlist</h2>
+    </div>
+</section>
+<!-- Preloader -->
+<div class="preloader d-flex align-items-center justify-content-center">
+    <div class="lds-ellipsis">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+
+<div class="one-music-song-detail-area mb-70" style="margin: 50px 0">
+    <div class="container">
+        <div class="row" style="margin-right: 100px">
+            <div class="col-12">
+                <!-- Song Detail -->
+                <div class="song-detail-area mb-30">
+                    <div class="row" style="margin-right: 100px;">
+                        <div class="col-md-4 song-thumbnail-container"  >
+                            <img th:src="'/image/' + ${playlist.image}" alt="Playlist Image" class="song-avatar" >
+                        </div>
+                        <div class="col-md-8 song-info-container">
+                            <div style="display: flex" class="margin">
+                                <h3 style=" padding-right: 20px;">Name:</h3>
+                                <h3 th:text="${playlist.name}"></h3>
+                            </div>
+                            <div style="display: flex" class="margin">
+                                <span style=" font-size: 15px; padding-right: 20px;">Views:</span>
+                                <span th:text="${playlist.views}"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ##### Song Area Start ##### -->
+<div class="one-music-songs-area mb-70">
+    <div class="container">
+        <div class="row">
+
+            <th:block th:each="s : ${songs}">
+
+                <!-- Single Song Area -->
+                <div class="col-12">
+                    <div class="single-song-area mb-30 d-flex flex-wrap align-items-end">
+                        <div class="song-thumbnail song-thumbnail">
+                            <img th:src="'/image/' + ${s.avatarUrl}" alt="">
+                        </div>
+                        <div class="song-play-area">
+                            <div class="song-name">
+                                <p th:text="${s.title}"></p>
+                            </div>
+                            <div style="display: flex">
+                                <audio preload="auto" controls>
+                                    <source th:src="'/mp3/' + ${s.mediaUrl}">
+                                </audio>
+
+                                <form th:action="@{/music-app/songs/like/{id}(id=${s.id})}" method="post"  style="margin-left: 20px">
+                                    <button type="submit" id="likeBtn" class="btn btn-light" style=" height: 30px;line-height: 100%; margin-top: 5px;">
+                                        Like
+                                    </button>
+                                </form>
+                                <form th:action="@{/music-app/songs/unlike/{id}(id=${s.id})}" method="post"  style="margin-left: 20px">
+                                    <button type="submit" id="unLikeBtn" class="btn btn-light" style=" height: 30px;line-height: 100%; margin-top: 5px;">
+                                        Un Like
+                                    </button>
+                                </form>
+
+<!--                                <div class="playlist-toggle">-->
+<!--                                    <button class="btn btn-secondary" id="toggleBtn">...</button>-->
+<!--                                </div>-->
+<!--                                <div class="playlist-container" id="playlistContainer">-->
+<!--                                    <div class="playlist-item">-->
+<!--                                        <th:block  th:each="p : ${allPlaylistsByUserId}">-->
+<!--                                            <form th:action="@{/music-app/playlists/{playlistId}/song/{songId}(playlistId=${p.id}, songId=${s.id})}" method="post">-->
+<!--                                                <button type="submit" class="btn btn-light" th:text="${p.name}"></button>-->
+<!--                                            </form>-->
+<!--                                        </th:block>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+
+
+        </div>
+    </div>
+</div>
+<!-- ##### Song Area End ##### -->
+
+<!-- ##### Contact Area Start ##### -->
+<section class="contact-area section-padding-100 bg-img bg-overlay bg-fixed has-bg-img"
+         style="background-image: url(/imgs/bg-img/bg-2.jpg);">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading white">
+                    <p>See what’s new</p>
+                    <h2>Get In Touch</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <!-- Contact Form Area -->
+                <div class="contact-form-area">
+                    <form action="#" method="post">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="name" placeholder="Name">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="form-group">
+                                    <input type="email" class="form-control" id="email" placeholder="E-mail">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="subject" placeholder="Subject">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <textarea name="message" class="form-control" id="message" cols="30" rows="10"
+                                              placeholder="Message"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-12 text-center">
+                                <button class="btn oneMusic-btn mt-30" type="submit">Send <i
+                                        class="fa fa-angle-double-right"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ##### Contact Area End ##### -->
+
+<!-- ##### Footer Area Start ##### -->
+<footer class="footer-area">
+    <div class="container">
+        <div class="row d-flex flex-wrap align-items-center">
+            <div class="col-12 col-md-6">
+                <a href="#"><img src="img/core-img/logo.png" alt=""></a>
+<!--                <p class="copywrite-text"><a href="#">-->
+<!--                    &lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;-->
+<!--                    Copyright &copy;<script>document.write(new Date().getFullYear());</script>-->
+<!--                    All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by-->
+<!--                    <a href="https://colorlib.com" target="_blank">Colorlib</a>-->
+<!--                    &lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;-->
+<!--                </p>-->
+            </div>
+
+            <div class="col-12 col-md-6">
+                <div class="footer-nav">
+                    <ul>
+                        <li><a th:href="@{/music-app}">Home</a></li>
+                        <li><a th:href="@{/music-app/artists}">Artist</a></li>
+                        <li><a th:href="@{/music-app/playlists}">Playlist</a></li>
+                        <li><a th:href="@{/music-app/songs}">Songs</a></li>
+                        <li><a th:href="@{/music-app/contact}">Contact</a></li>
+                        <li sec:authorize="isAuthenticated()"><a
+                                th:href="@{/music-app/me}">Me</a></li>
+                        <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Login</a></li>
+                        <li sec:authorize="isAuthenticated()"><a th:href="@{/music-app/logout}">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- ##### Footer Area Start ##### -->
+<script>
+    function toggleLike(songId) {
+        // Ẩn nút Like và hiện nút Unlike
+        document.getElementById('likeBtn').style.display = 'none';
+        document.getElementById('unlikeBtn').style.display = 'inline-block';
+
+        // Gọi submit form cho hành động like
+        document.forms[0].submit(); // Submit form đầu tiên (Like form)
+    }
+
+    function toggleUnlike(songId) {
+        // Ẩn nút Unlike và hiện nút Like
+        document.getElementById('unlikeBtn').style.display = 'none';
+        document.getElementById('likeBtn').style.display = 'inline-block';
+
+        // Gọi submit form cho hành động unlike
+        document.forms[1].submit(); // Submit form thứ hai (Unlike form)
+    }
+
+    document.getElementById('toggleBtn').addEventListener('click', function() {
+        var container = document.getElementById('playlistContainer');
+        if (container.style.display === 'none' || container.style.display === '') {
+            container.style.display = 'block';
+            this.textContent = 'Hide'; // Change button text to 'Hide'
+        } else {
+            container.style.display = 'none';
+            this.textContent = '...'; // Change button text back to '...'
+        }
+    });
+
+</script>
+
+<!-- ##### All Javascript Script ##### -->
+<!-- jQuery-2.2.4 js -->
+<div th:insert="fragment :: import-js-file"></div>
+</body>
+
+</html>
