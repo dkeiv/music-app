@@ -118,5 +118,16 @@ public class SongController {
         return modelAndView;
     }
 
+    @PostMapping("/{songId}/update")
+    public ModelAndView updateSong(@PathVariable Long songId, SongRequest songRequest) throws NotFoundException {
+        try {
+            songService.updateSongRest(songId, songRequest);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return new ModelAndView("redirect:/music-app/admin/songs");
+    }
+
+
 
 }

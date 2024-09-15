@@ -64,10 +64,9 @@ public class ArtistService {
                 }).orElse(false);
     }
 
-
     public boolean delete(Long id) {
         if (artistRepository.existsById(id)) {
-            artistRepository.deleteById(id);
+            artistRepository.deleteArtist(id);
             return true;
         } else {
             return false;
