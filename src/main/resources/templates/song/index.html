@@ -33,6 +33,22 @@
         border-radius: 10px; /* Làm bo góc viền */
         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ cho ảnh */
     }
+
+
+    .playlist-item {
+        z-index: 1;
+        position: absolute;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 10px;
+        background-color: #f9f9f9;
+    }
+    .playlist-container {
+        position: relative;
+        display: none; /* Start hidden */
+        z-index: 1;
+    }
 </style>
 
 <body>
@@ -129,11 +145,32 @@
                                 </audio>
 
                                 <form th:action="@{/music-app/songs/like/{id}(id=${s.id})}" method="post"  style="margin-left: 20px">
-                                    <button type="submit" class="btn btn-light" style=" height: 30px;line-height: 100%; margin-top: 5px;">
+                                    <button type="submit" id="likeBtn" class="btn btn-light" style=" height: 30px;line-height: 100%; margin-top: 5px;">
                                         Like
                                     </button>
                                 </form>
+                                <form th:action="@{/music-app/songs/unlike/{id}(id=${s.id})}" method="post"  style="margin-left: 20px">
+                                    <button type="submit" id="unLikeBtn" class="btn btn-light" style=" height: 30px;line-height: 100%; margin-top: 5px;">
+                                       Un Like
+                                    </button>
+                                </form>
+
+                                <div class="playlist-toggle">
+                                    <button class="btn btn-secondary" id="toggleBtn">...</button>
+                                </div>
+                                <div class="playlist-container" id="playlistContainer">
+                                    <div class="playlist-item">
+                                        <th:block  th:each="p : ${allPlaylistsByUserId}">
+                                            <form th:action="@{/music-app/playlists/{playlistId}/song/{songId}(playlistId=${p.id}, songId=${s.id})}" method="post">
+                                                <button type="submit" class="btn btn-light" th:text="${p.name}"></button>
+                                            </form>
+                                        </th:block>
+                                    </div>
+
+                                </div>
                             </div>
+
+
 
                         </div>
                     </div>
@@ -233,6 +270,37 @@
     </div>
 </footer>
 <!-- ##### Footer Area Start ##### -->
+<script>
+    function toggleLike(songId) {
+        // Ẩn nút Like và hiện nút Unlike
+        document.getElementById('likeBtn').style.display = 'none';
+        document.getElementById('unlikeBtn').style.display = 'inline-block';
+
+        // Gọi submit form cho hành động like
+        document.forms[0].submit(); // Submit form đầu tiên (Like form)
+    }
+
+    function toggleUnlike(songId) {
+        // Ẩn nút Unlike và hiện nút Like
+        document.getElementById('unlikeBtn').style.display = 'none';
+        document.getElementById('likeBtn').style.display = 'inline-block';
+
+        // Gọi submit form cho hành động unlike
+        document.forms[1].submit(); // Submit form thứ hai (Unlike form)
+    }
+
+    document.getElementById('toggleBtn').addEventListener('click', function() {
+        var container = document.getElementById('playlistContainer');
+        if (container.style.display === 'none' || container.style.display === '') {
+            container.style.display = 'block';
+            this.textContent = 'Hide'; // Change button text to 'Hide'
+        } else {
+            container.style.display = 'none';
+            this.textContent = '...'; // Change button text back to '...'
+        }
+    });
+
+</script>
 
 <!-- ##### All Javascript Script ##### -->
 <!-- jQuery-2.2.4 js -->
