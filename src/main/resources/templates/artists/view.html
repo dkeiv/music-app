@@ -42,12 +42,14 @@
 <!-- ##### Breadcumb Area End ##### -->
 
 <!-- ##### Artist Profile Area Start ##### -->
+<!-- ##### Artist Profile Area Start ##### -->
 <section class="artist-profile section-padding-100-0">
     <div class="container">
-        <div class="row">
+        <div class="row mb-5"> <!-- Add margin-bottom for spacing -->
             <div class="col-12 col-md-4">
                 <!-- Artist Image -->
-                <img th:src="@{'/image/' + ${artist.image}}" alt="Artist Image" class="img-fluid">
+                <img th:src="@{'/image/' + ${artist.image}}" alt="Artist Image" class="img-fluid mb-4">
+                <!-- Add margin-bottom for spacing -->
             </div>
             <div class="col-12 col-md-8">
                 <!-- Artist Details -->
@@ -60,8 +62,39 @@
             </div>
         </div>
     </div>
+</section>
+<!-- ##### Artist Profile Area End ##### -->
+
+<!-- ##### Song Area Start ##### -->
+<section class="song-area section-padding-100-0 bg-light">
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-12">
+                <h3>Songs by <span th:text="${artist.name}">Artist Name</span></h3>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Loop through the list of songs -->
+            <div class="col-12" th:each="song : ${songs}">
+                <div class="single-song-area mb-30 d-flex flex-wrap align-items-end">
+                    <div class="song-thumbnail mr-3"> <!-- Add margin-right -->
+                        <img th:src="@{'/images/' + ${song.avatarUrl}}" alt="Song Image">
+                    </div>
+                    <div class="song-play-area">
+                        <div class="song-name">
+                            <p th:text="${song.title}">Song Title</p>
+                        </div>
+                        <audio preload="auto" controls>
+                            <source th:src="@{'/audio/' + ${song.mediaUrl}}" type="audio/mpeg">
+                        </audio>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
+<!-- ##### Song Area End ##### -->
+
 <!-- ##### Artist Profile Area End ##### -->
 
 <!-- ##### Footer Area Start ##### -->
