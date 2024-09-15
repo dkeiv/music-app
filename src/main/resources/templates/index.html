@@ -143,10 +143,10 @@
             <th:block th:each="p: ${playlist}">
                 <!-- Single Album Area -->
                 <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                    <a href="#">
+                    <a th:href="@{/music-app/playlists/{playlistId}/songs(playlistId=${p.id})}">
                         <div class="single-album-area wow fadeInUp" data-wow-delay="200ms">
                             <div class="album-thumb">
-                                <img th:src="${p.image}" th:alt="${p.name}">
+                                <img th:src="@{'/image/' + ${p.image}}" th:alt="${p.name}">
                             </div>
                             <div class="album-info">
                                 <h5 th:text="${p.name}"></h5>
@@ -211,11 +211,11 @@
                         <div class="single-top-item d-flex wow fadeInUp" data-wow-delay="100ms"
                              style="margin: 25px 0 0 0 ;">
                             <div class="thumbnail">
-                                <img th:src="${p.image}" th:alt="${p.name}">
+                                <img th:href="@{/music-app/playlists/{playlistId}/songs(playlistId=${p.id})}" th:src="@{'/image/' + ${p.image}}" th:alt="${p.name}">
                             </div>
                             <div class="content-">
                                 <h6>
-                                    <a th:href="@{/music-app/playlist/__${p.id}__}"
+                                    <a th:href="@{/music-app/playlists/{playlistId}/songs(playlistId=${p.id})}"
                                        th:text="${p.name}"
                                     ></a>
                                 </h6>
