@@ -67,14 +67,9 @@
             </div>
         </div>
 
-        <div class="d-flex justify-content-center my-4">
-            <ul class="pagination">
-                <!-- Page Numbers -->
-                <li th:each="page : ${#numbers.sequence(0, artists.totalPages - 1)}" class="page-item">
-                    <a th:href="@{/music-app/admin/artists?page=__${page}__}" class="page-link" th:text="${page + 1}"></a>
-                </li>
-            </ul>
+
         </div>
+
     </div>
 </section>
 
