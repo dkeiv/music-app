@@ -66,15 +66,6 @@
                 </th:block>
 
             </div>
-
-            <div class="row">
-                <div class="col-12">
-                    <div class="load-more-btn text-center">
-                        <a href="#" class="btn oneMusic-btn">Load More <i class="fa fa-angle-double-right"></i></a>
-<!--                        TODO: phan trang-->
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
     <!-- ##### Buy Now Area End ##### -->
@@ -112,6 +103,12 @@
                                 <audio preload="auto" controls>
                                     <source th:src="'/mp3/' + ${s.mediaUrl}">
                                 </audio>
+
+<!--                                <form th:action="@{/music-app/songs/like/{id}(id=${song.id})}" method="post">-->
+<!--                                    <button type="submit" class="btn btn-primary">-->
+<!--                                        <i class="fa fa-heart"></i> Like-->
+<!--                                    </button>-->
+<!--                                </form>-->
                             </div>
                         </div>
                     </div>
@@ -181,7 +178,8 @@
                     <a href="#"><img src="img/core-img/logo.png" alt=""></a>
                     <p class="copywrite-text"><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </p>
                 </div>
 
                 <div class="col-12 col-md-6">
