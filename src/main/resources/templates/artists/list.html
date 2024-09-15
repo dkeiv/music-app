@@ -47,19 +47,22 @@
         <div class="row oneMusic-albums">
             <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item"
                  th:each="artist : ${artists}">
-                <div class="single-album">
-                    <img th:src="@{'/image/' + ${artist.image}}"
-                         th:alt="${artist.name}"
-                         style="width: 130px; height: 170px;"
-                    >
+                <div class="single-album-area">
+                    <div class="album-thumb">
+                        <img th:src="@{'/image/' + ${artist.image}}"
+                             th:alt="${artist.name}"
+                             style="width: 100%; height: auto;">
+                    </div>
                     <div class="album-info">
                         <a th:href="@{/music-app/artists/{id}(id=${artist.id})}">
-                            <h5 th:text="${artist.name}">Artist Name</h5>
+                            <h5 th:text="${artist.name}" style="text-align: center">Artist Name</h5>
                         </a>
-                        <!--                        <p th:text="${artist.artistProfile}">Artist Profile</p>-->
-                        <!--                        <p th:text="${artist.biography}">Artist Biography</p>-->
+                        <!-- Nếu bạn muốn thêm thông tin về profile hay biography, bỏ comment 2 dòng bên dưới -->
+                        <!-- <p th:text="${artist.artistProfile}">Artist Profile</p> -->
+                        <!-- <p th:text="${artist.biography}">Artist Biography</p> -->
                     </div>
                 </div>
+
             </div>
         </div>
 
