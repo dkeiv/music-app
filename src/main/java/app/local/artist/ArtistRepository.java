@@ -1,5 +1,7 @@
 package app.local.artist;
 
+import jakarta.transaction.Transactional;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
@@ -19,4 +21,9 @@ public interface ArtistRepository extends PagingAndSortingRepository<Artist, Lon
     boolean existsById(Long id);
 
     void deleteById(Long id);
+
+    @Transactional
+    @Modifying
+    @Query (value = "CALL sp_delete_artist(:artistId)", nativeQuery = true )
+    void deleteArtist(@Param("artistId") Long artistId);
 }

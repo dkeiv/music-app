@@ -26,7 +26,7 @@
                                 class="fa fa-music mr-1"></i><span>Playlist</span></a></li>
                         <li class="nav-item"><a class="nav-link px-2 active" href="/music-app/admin/songs"><i
                                 class="fa fa-music mr-1"></i><span>Song</span></a></li>
-                        <li class="nav-item"><a class="nav-link px-2 active" href="#"><i
+                        <li class="nav-item"><a class="nav-link px-2 active" href="/music-app/admin/artists"><i
                                 class="fa fa-music mr-1"></i><span>Atrits</span></a></li>
                     </ul>
                 </div>
@@ -235,7 +235,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="py-1">
-                            <form class="form" th:action="@{/music-app/songs/create}" method="post"
+                            <form class="form" th:action="@{/music-app/songs/{songId}/update(songId=${s.id})}" method="post"
                                   enctype="multipart/form-data">
                                 <input type="hidden" name="_method" value="put"/>
                                 <div class="row">

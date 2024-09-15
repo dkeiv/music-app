@@ -45,7 +45,7 @@ public class AppController {
 
         Page<Artist> artistList = artistService.findAll(pageable);
 
-        Optional<Artist> featuredArtist = artistService.findById(1L);
+        Optional<Artist> featuredArtist = artistService.findById(3L);
         model.addAttribute("featuredArtist", featuredArtist.get());
 
         List<Song> featuredSong = songService.findByArtist(featuredArtist);

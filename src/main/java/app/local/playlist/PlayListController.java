@@ -71,7 +71,7 @@ public class PlayListController {
     @PostMapping("/{playlistId}/song/{songId}")
     public String addPlaylist(@PathVariable Long playlistId, @PathVariable Long songId) throws NotFoundException {
         playListService.addSongPlaylist(songId, playlistId);
-        return "/music-app/playlists/" + playlistId+"/songs";
+        return "redirect:/music-app/playlists/"+playlistId+"/songs";
     }
 
     @GetMapping("/{playlistId}/songs")
