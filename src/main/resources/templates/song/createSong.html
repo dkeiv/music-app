@@ -11,6 +11,9 @@
     <link rel="icon" href="/imgs/core-img/favicon.ico">
     <!-- Stylesheet -->
     <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 </head>
 
 <body>
@@ -58,7 +61,7 @@
 
                     <div class="form-group">
                         <label for="artists">Artists:</label>
-                        <select id="artists" name="artist" multiple style="width: 100px">
+                        <select id="artists" name="artist" class="form-control select2" multiple="multiple">
                             <option th:each="artist : ${artists}"
                                     th:value="${artist.id}"
                                     th:text="${artist.name}">Artist Name</option>
@@ -105,6 +108,16 @@
     </div>
 </footer>
 <!-- ##### Footer Area End ##### -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#artists').select2({
+            placeholder: "Select artists",
+            allowClear: true,
+            closeOnSelect: false
+        });
+    });
+</script>
 
 <!-- ##### All Javascript Script ##### -->
 <div th:insert="fragment :: import-js-file"></div>
