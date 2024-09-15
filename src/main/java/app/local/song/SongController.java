@@ -4,6 +4,9 @@ import app.local.artist.Artist;
 import app.local.artist.ArtistService;
 import app.local.exception.NotFoundException;
 import app.local.genre.Genre;
+import app.local.playlist.PlayList;
+import app.local.playlist.PlayListRepository;
+import app.local.playlist.PlayListService;
 import app.local.user.User;
 import app.local.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -36,11 +39,14 @@ public class SongController {
     private final SongService songService;
     private final UserService userService;
     private final ArtistService artistService;
+    private final PlayListService playListService;
 
     @GetMapping
-    public String list(Model model,@PageableDefault(size = 10) Pageable pageable) {
+    public String list(Model model,@PageableDefault(size = 10) Pageable pageable, @AuthenticationPrincipal User user) throws NotFoundException {
         Page<Song> allSongs = songService.findAll(pageable);
+        List<PlayList> allPlaylistsByUserId = userService.getPlaylistsByUserId(user.getId());
         model.addAttribute("allSongs", allSongs);
+        model.addAttribute("allPlaylistsByUserId", allPlaylistsByUserId);
         return "song/index";
     }
 
@@ -91,6 +97,12 @@ public class SongController {
         return "redirect:/music-app/songs/" + songId;
     }
 
+    @PostMapping("/unlike/{songId}")
+    public String unlikeSong(@PathVariable Long songId, @AuthenticationPrincipal User user) throws NotFoundException {
+        userService.unlikeSong(user.getId(), songId);
+        return "redirect:/music-app/songs/" + songId;
+    }
+
     @GetMapping("/{songId}")
     public ModelAndView songDetail(@PathVariable Long songId) throws NotFoundException {
         Optional<Song> song = songService.findById(songId);
@@ -102,4 +114,6 @@ public class SongController {
         modelAndView.addObject("genres", genresList);
         return modelAndView;
     }
+
+
 }

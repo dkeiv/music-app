@@ -37,4 +37,10 @@ public class PlayList {
             inverseJoinColumns = @JoinColumn(name = "song_id")
     )
     private List<Song> songs;
+
+    public void addSong(Song song) {
+        if (!songs.contains(song)) {
+            songs.add(song);
+        }
+    }
 }
